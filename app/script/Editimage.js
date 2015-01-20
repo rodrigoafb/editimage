@@ -1,11 +1,22 @@
 'use strict';
 
-var editimage = editimage || {};
+var editimage = editimage || function(){
 
-editimage.inicializar = function(idCanvas){
+	var canvas = {};
 
-	editimage.canvas = editimage.canvas || {};
+	return {
 
-	editimage.canvas[idCanvas] = document.getElementById(idCanvas);
+		inicializar: function(idCanvas){
 
-};
+			canvas[idCanvas] = document.getElementById(idCanvas);
+
+		},
+		retornarCanvas: function(id){
+
+			return canvas[id];
+
+		}
+
+	}
+
+}();
