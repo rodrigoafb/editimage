@@ -1,5 +1,5 @@
 // Karma configuration
-// Generated on Mon Sep 29 2014 15:19:27 GMT-0300 (Hora oficial do Brasil)
+// Generated on Tue Jan 20 2015 10:32:48 GMT-0200 (Horário brasileiro de verão)
 
 module.exports = function(config) {
   config.set({
@@ -15,7 +15,9 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-    'node_modules/jquery/dist/jquery.min.js'
+      'jquery.js',
+      'app/script/*.js',
+      'test/*.js'
     ],
 
 
@@ -60,8 +62,6 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false,
-	
-	plugins: ['karma-jasmine', 'karma-phantomjs-launcher']
+    singleRun: false
   });
 };
