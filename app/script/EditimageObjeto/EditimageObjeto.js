@@ -1,14 +1,19 @@
 'use strict';
 
-var EditimageObjeto = function(observer){
+var EditimageObjeto = function(observer, shape){
 
 	if(!observer || typeof observer.notificar !== 'function') throw new Error("Informe o observer.");
 
-	var self = this;
-	var _observer = observer;
-	var shape = new createjs.Shape();
+	if(!shape) throw new Error("Informe o Shape.");
 
-	var _selecionado;
+	var self = this,
+	    _observer = observer,
+	    _shape = shape,
+	    _selecionado;
+
+	var _strokeCommand = shape.graphics.beginStroke("red").command
+	   ,_strokeStyleCommand = shape.graphics.setStrokeStyle(0).command;
+
 
 	Object.defineProperties(self, {
 
@@ -20,9 +25,32 @@ var EditimageObjeto = function(observer){
 
 				_selecionado = value;
 
-				_observer.notificar();
+				if(_selecionado) colocarBorda();
+
+				_observer.notificar(self);
 
 			}
+		},
+
+		'bordaCor': {
+			get: function(){ return _strokeCommand.style; },
+			set: function(value){
+
+				if(_strokeCommand.style === value) return;
+
+				_strokeCommand.style = value;
+			},
+			enumerable: true
+		},
+		'bordaLargura': {
+			get: function(){ return _strokeStyleCommand.width; },
+			set: function(value){
+
+				if(_strokeStyleCommand.width === value) return;
+
+				_strokeStyleCommand.width = value;
+			},
+			enumerable: true
 		}
 
 	});
@@ -33,6 +61,14 @@ var EditimageObjeto = function(observer){
 
 	});
 
+
+	var colocarBorda = function(){
+
+		_strokeCommand.style = '#729fe2';
+		_strokeStyleCommand.width = 4;
+
+	};
+
 	self.desenhar = function(){
 
 
@@ -42,6 +78,21 @@ var EditimageObjeto = function(observer){
 	self.retornarShape = function(){
 
 		return shape;
+
+	};
+
+	self.retornarEstadoAtual = function(){
+
+		return JSON.stringify(self);
+
+	};
+
+	self.restaurarEstado = function(estado){
+
+		var estado = JSON.parse(estado);
+
+		self.bordaCor = estado.bordaCor;
+		self.bordaLargura = estado.bordaLargura;
 
 	};
 
