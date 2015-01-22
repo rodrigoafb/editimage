@@ -228,9 +228,4 @@ describe('Inicialização - ', function(){
 
 	});
 
-<<<<<<< HEAD
 });
-
-=======
-});
->>>>>>> c4aa9c1db2a454944a7a5a019a0480136d2c264d
