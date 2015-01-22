@@ -9,7 +9,8 @@ var EditimageObjeto = function(observer, shape){
 	var self = this,
 	    _observer = observer,
 	    _shape = shape,
-	    _selecionado;
+	    _selecionado,
+	    _memento;
 
 	var _strokeCommand = shape.graphics.beginStroke("red").command
 	   ,_strokeStyleCommand = shape.graphics.setStrokeStyle(0).command;
@@ -25,7 +26,12 @@ var EditimageObjeto = function(observer, shape){
 
 				_selecionado = value;
 
-				if(_selecionado) colocarBorda();
+				if(_selecionado) {
+					criarMemento();
+					colocarBordaSelecao();
+				}else{
+					restaurarMemento(_memento);
+				}
 
 				_observer.notificar(self);
 
@@ -62,10 +68,25 @@ var EditimageObjeto = function(observer, shape){
 	});
 
 
-	var colocarBorda = function(){
+	var colocarBordaSelecao = function(){
 
 		_strokeCommand.style = '#729fe2';
 		_strokeStyleCommand.width = 4;
+
+	};
+
+	var criarMemento = function(){
+
+		_memento = JSON.stringify(self);
+
+	};
+
+	var restaurarMemento = function(estado){
+
+		var estado = JSON.parse(estado);
+
+		self.bordaCor = estado.bordaCor;
+		self.bordaLargura = estado.bordaLargura;
 
 	};
 
@@ -83,16 +104,13 @@ var EditimageObjeto = function(observer, shape){
 
 	self.retornarEstadoAtual = function(){
 
-		return JSON.stringify(self);
+		return _memento;
 
 	};
 
 	self.restaurarEstado = function(estado){
 
-		var estado = JSON.parse(estado);
-
-		self.bordaCor = estado.bordaCor;
-		self.bordaLargura = estado.bordaLargura;
+		restaurarEstado(estado);
 
 	};
 

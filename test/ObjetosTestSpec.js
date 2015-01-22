@@ -37,7 +37,7 @@ describe('Objetos - ', function () {
 
 	});
 
-	it('Quando clicar em um elemento no canvas de ficar selecionado', function(){
+	it('Quando um objeto for clicado ficar selecionado', function(){
 
 		var shape = new createjs.Shape();
 		var evento = {};
@@ -61,6 +61,8 @@ describe('Objetos - ', function () {
 		shape.dispararEvento('click');
 
 		expect(true).toEqual(objeto.selecionado);
+
+		shape.dispararEvento('click');
 
 	});
 
@@ -154,14 +156,6 @@ describe('Objetos - ', function () {
 		};
 
 		var objeto = new EditimageObjeto(observer2, shape);
-
-		var estado = objeto.retornarEstadoAtual();
-
-		observer2.notificar = function(objeto, evento){
-
-				objeto.restaurarEstado(estado);
-
-		};
 
 		objeto.selecionado = true;
 		objeto.selecionado = false;
