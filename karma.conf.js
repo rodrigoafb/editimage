@@ -18,6 +18,7 @@ module.exports = function(config) {
       'jquery.js',
       'app/createjs/easeljs-0.8.0.min.js',
       'app/script/*.js',
+      'app/script/**/*.js',
       'test/*.js'
     ],
 
