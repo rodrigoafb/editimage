@@ -16,6 +16,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'jquery.js',
+      'app/createjs/easeljs-0.8.0.min.js',
       'app/script/*.js',
       'app/script/**/*.js',
       'test/*.js'

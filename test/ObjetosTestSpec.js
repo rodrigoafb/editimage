@@ -111,8 +111,6 @@ describe('Objetos - ', function () {
 
 		objeto.selecionado = true;
 
-
-
 	});
 
 });
