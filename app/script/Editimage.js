@@ -24,7 +24,14 @@ var editimage = editimage = editimage || function(){
 
 	var criarElementoHtmlCanvas = function(){
 
-		return document.createElement('canvas');
+		var divCanvas = document.createElement('div');
+		divCanvas.setAttribute('class', 'container')
+
+		var canvas = document.createElement('canvas');
+
+		divCanvas.appendChild(canvas);
+
+		return divCanvas;
 
 	};
 
@@ -62,6 +69,13 @@ var editimage = editimage = editimage || function(){
 
 		if(!evento || typeof evento !== 'function') throw new Error("Informe o evento do botão selecionar imagem.");
 
+		var labelSelecionarImagem = document.createElement('label');
+		labelSelecionarImagem.setAttribute('class','botao');
+
+		var icone = criarIconeBotao('selecionar-imagem');
+
+		labelSelecionarImagem.appendChild(icone);
+
 		var botaoSelecionarImagem = document.createElement('input');
 
 		botaoSelecionarImagem.setAttribute('type', 'file');
@@ -72,8 +86,12 @@ var editimage = editimage = editimage || function(){
 			evento(this.files[0]);
 
 		};
+	
 
-		return botaoSelecionarImagem;
+		labelSelecionarImagem.appendChild(botaoSelecionarImagem);
+		
+
+		return labelSelecionarImagem;
 
 	};
 
@@ -86,13 +104,17 @@ var editimage = editimage = editimage || function(){
 		var botaoRetangulo = document.createElement('button');
 
 		botaoRetangulo.setAttribute('type', 'button');
-		botaoRetangulo.setAttribute('class', 'botao-retangulo');
+		botaoRetangulo.setAttribute('class', 'botao botao-retangulo');
 
 		botaoRetangulo.onclick = function(){
 
 			evento();
 
 		};
+
+		var icone = criarIconeBotao('retangulo');
+
+		botaoRetangulo.appendChild(icone);
 
 		return botaoRetangulo;
 
@@ -107,13 +129,17 @@ var editimage = editimage = editimage || function(){
 		var botaoElipse = document.createElement('button');
 
 		botaoElipse.setAttribute('type', 'button');
-		botaoElipse.setAttribute('class', 'botao-elipse');
+		botaoElipse.setAttribute('class', 'botao botao-elipse');
 
 		botaoElipse.onclick = function(){
 
 			evento();
 
 		};
+
+		var icone = criarIconeBotao('elipse');
+
+		botaoElipse.appendChild(icone);
 
 		return botaoElipse;
 
@@ -128,17 +154,29 @@ var editimage = editimage = editimage || function(){
 		var botaoLinha = document.createElement('button');
 
 		botaoLinha.setAttribute('type', 'button');
-		botaoLinha.setAttribute('class', 'botao-linha');
-
+		botaoLinha.setAttribute('class', 'botao botao-linha');
+		
 		botaoLinha.onclick = function(){
 
 			evento();
 
 		};
 
+		var icone = criarIconeBotao('linha');
+		botaoLinha.appendChild(icone);
+
 		return botaoLinha;
 
 	};
+
+	var criarIconeBotao = function(nomeIcone){
+
+		var spanIcone = document.createElement('span');
+		spanIcone.setAttribute('class', 'icon icon-'+ nomeIcone);
+
+		return spanIcone;
+
+	}
 
 	var criarInstancia = function(canvas){
 

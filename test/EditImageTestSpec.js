@@ -83,12 +83,12 @@ describe('Inicialização - ', function(){
 		var expectativa = [];
 		expectativa.push('<div id="div1" class="editimage">');
 		expectativa.push('<div class="painel-controle">');
-		expectativa.push('<input type="file" class="botao-selecionar-imagem">');
-		expectativa.push('<button type="button" class="botao-retangulo"></button>');
-		expectativa.push('<button type="button" class="botao-elipse"></button>');
-		expectativa.push('<button type="button" class="botao-linha"></button>');
+		expectativa.push('<label class="botao"><span class="icon icon-selecionar-imagem"></span><input type="file" class="botao-selecionar-imagem"></label>');
+		expectativa.push('<button type="button" class="botao botao-retangulo"><span class="icon icon-retangulo"></span></button>');
+		expectativa.push('<button type="button" class="botao botao-elipse"><span class="icon icon-elipse"></span></button>');
+		expectativa.push('<button type="button" class="botao botao-linha"><span class="icon icon-linha"></span></button>');
 		expectativa.push('</div>');
-		expectativa.push('<canvas></canvas>');
+		expectativa.push('<div class="container"><canvas></canvas></div>');
 		expectativa.push('</div>');
 
 		expect(expectativa.join('')).toEqual($(body).find('.container').html());
