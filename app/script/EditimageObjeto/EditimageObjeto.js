@@ -16,7 +16,7 @@ var EditimageObjeto = function(observer, shape){
 
 
     self.shape = shape;
-
+    
 	Object.defineProperties(self, {
 
 		'selecionado': {
