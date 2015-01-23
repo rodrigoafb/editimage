@@ -1,9 +1,12 @@
 'use strict';
 
-editimage.fabricaPainelControle = {
-	criar: function () {
+editimage.fabricaPainelControleBase = {
+	criar: function (contexto) {
 
-			return new PainelControleObjeto();
+			return new PainelControle(contexto);
 
 		}
 };
+
+editimage.fabricaPainelControle = Object.create(editimage.fabricaPainelControleBase);
+

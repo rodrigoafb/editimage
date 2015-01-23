@@ -16,6 +16,8 @@ describe('Objetos - ', function () {
 			}
 		};
 
+		editimage.fabricaPainelControle = Object.create(editimage.fabricaPainelControleBase);
+
 	});
 
 	it('Deve criar um EditimageObjeto', function(){
