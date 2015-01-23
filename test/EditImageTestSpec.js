@@ -227,5 +227,4 @@ describe('Inicialização - ', function(){
 		expect(eventoCriarLinha).toBeDefined();
 
 	});
-
 });
