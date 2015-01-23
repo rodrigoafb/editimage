@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata>Copyright (C) 2015 by original authors @ fontello.com</metadata>
+<defs>
+<font id="fontello" horiz-adv-x="1000" >
+<font-face font-family="fontello" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
+<missing-glyph horiz-adv-x="1000" />
+<glyph glyph-name="selecionar-imagem" unicode="&#xe800;" d="m357 529q0-45-31-76t-76-32-76 32-31 76 31 75 76 32 76-32 31-75z m572-215v-250h-786v107l178 179 90-89 285 285z m53 393h-893q-7 0-12-5t-6-13v-678q0-8 6-13t12-5h893q7 0 13 5t5 13v678q0 7-5 13t-13 5z m89-18v-678q0-37-26-63t-63-27h-893q-36 0-63 27t-26 63v678q0 37 26 63t63 27h893q37 0 63-27t26-63z" horiz-adv-x="1071.4" />
+<glyph glyph-name="retangulo" unicode="&#xe801;" d="m311 504l489 0c36 0 65-30 65-65l0-404c0-35-29-65-65-65l-489 0c-35 0-65 30-65 65l0 404c0 35 30 65 65 65z m454-94l-419 0 0-346 419 0 0 346z m-146 181l-101 0 0 44-417 0 0-336 58 0 0-95-93 0c-36 0-66 30-66 65l0 395c0 36 30 66 66 66l488 0c36 0 65-30 65-66l0-73z" horiz-adv-x="865" />
+<glyph glyph-name="elipse" unicode="&#xe802;" d="m429 654q-83 0-153-41t-110-111-41-152 41-152 110-111 153-41 152 41 110 111 41 152-41 152-110 111-152 41z m428-304q0-117-57-215t-156-156-215-58-216 58-155 156-58 215 58 215 155 156 216 58 215-58 156-156 57-215z" horiz-adv-x="857.1" />
+<glyph glyph-name="linha" unicode="&#xe804;" d="m168 162q72-34 72-112 0-50-35-85t-85-35-85 35-35 85q0 78 72 112l0 378q-72 34-72 110 0 50 35 85t85 35 85-35 35-85q0-76-72-110l0-378z m-116 488q0-28 20-48t48-20 49 20 21 48q0 30-21 50t-49 20-48-20-20-50z m68-668q28 0 49 20t21 48q0 30-21 50t-49 20-48-20-20-50q0-28 20-48t48-20z" horiz-adv-x="240" />
+</font>
+</defs>
+</svg>
