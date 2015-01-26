@@ -7,7 +7,7 @@ editimage.Elipse = function(observer, shape){
 
 	self.desenhar = function(){
 
-		self.shape.graphics.drawEllipse(50,50,150,100);
+		self.shape.graphics.drawEllipse(50, 50, 150, 100);
 
 	};
 };

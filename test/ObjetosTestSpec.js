@@ -18,7 +18,7 @@ describe('Objetos - ', function () {
 
 	});
 
-	it('Deve criar um EditimageObjeto', function(){
+	it('Deve criar um editimage.EditimageObjeto', function(){
 
 		var objeto = new editimage.EditimageObjeto(observer, new createjs.Shape());
 
