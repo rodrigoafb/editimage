@@ -22,7 +22,7 @@ describe('Elipse - ', function(){
 		var elipse = editimage.fabricaElipse.criar(observer, new createjs.Shape());
 
 		expect(elipse.retornarShape).toBeDefined();
-		expect(true).toEqual(Elipse.prototype instanceof EditimageObjeto);
+		expect(true).toEqual(editimage.Elipse.prototype instanceof editimage.EditimageObjeto);
 
 	});
 

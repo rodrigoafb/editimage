@@ -1,9 +1,12 @@
 'use strict';
 
-editimage.fabricaRetangulo = {
+editimage.fabricaRetanguloBase = {
 	criar: function(observer, shape){
 
-		return new Retangulo(observer, shape);
+		return new editimage.Retangulo(observer, shape);
 
 	}
 };
+
+
+editimage.fabricaRetangulo = editimage.fabricaRetanguloBase;

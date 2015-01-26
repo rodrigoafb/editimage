@@ -8,6 +8,7 @@ describe('Inicialização - ', function(){
 	 eventoCriarRetangulo,
 	 eventoCriarElipse,
 	 eventoCriarLinha;
+    
 
 	editimage.fabricaContexto = { 
 		
