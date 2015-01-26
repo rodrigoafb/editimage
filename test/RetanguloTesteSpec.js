@@ -22,7 +22,7 @@ describe('Retangulo - ', function(){
 		var retangulo = editimage.fabricaRetangulo.criar(observer, new createjs.Shape());
 
 		expect(retangulo.retornarShape).toBeDefined();
-		expect(true).toEqual(Retangulo.prototype instanceof EditimageObjeto);
+		expect(true).toEqual(editimage.Retangulo.prototype instanceof editimage.EditimageObjeto);
 
 	});
 

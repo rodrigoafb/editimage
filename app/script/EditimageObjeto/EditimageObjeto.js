@@ -1,6 +1,6 @@
 'use strict';
 
-var EditimageObjeto = function(observer, shape){
+editimage.EditimageObjeto = function(observer, shape){
 
 	if(!observer || typeof observer.notificar !== 'function') throw new Error("Informe o observer.");
 
@@ -16,7 +16,7 @@ var EditimageObjeto = function(observer, shape){
 
 
 	self.shape = shape;
-	
+
 	Object.defineProperties(self, {
 
 		'selecionado': {

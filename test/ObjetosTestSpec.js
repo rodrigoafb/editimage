@@ -18,9 +18,9 @@ describe('Objetos - ', function () {
 
 	});
 
-	it('Deve criar um EditimageObjeto', function(){
+	it('Deve criar um editimage.EditimageObjeto', function(){
 
-		var objeto = new EditimageObjeto(observer, new createjs.Shape());
+		var objeto = new editimage.EditimageObjeto(observer, new createjs.Shape());
 
 		expect(objeto.desenhar).toBeDefined();
 		expect('function').toEqual(typeof objeto.desenhar);
@@ -29,7 +29,7 @@ describe('Objetos - ', function () {
 
 	it('Deve retornar o Shape', function(){
 
-		var objeto = new EditimageObjeto(observer, new createjs.Shape());
+		var objeto = new editimage.EditimageObjeto(observer, new createjs.Shape());
 
 		var shape = objeto.retornarShape();
 
@@ -54,7 +54,7 @@ describe('Objetos - ', function () {
 
 				};
 
-		var objeto = new EditimageObjeto(observer, shape);
+		var objeto = new editimage.EditimageObjeto(observer, shape);
 
 		var shape = objeto.retornarShape();
 
@@ -70,7 +70,7 @@ describe('Objetos - ', function () {
 
 		observer.notificado = false;
 
-		var objeto = new EditimageObjeto(observer, new createjs.Shape());
+		var objeto = new editimage.EditimageObjeto(observer, new createjs.Shape());
 
 		objeto.selecionado = true;
 
@@ -81,14 +81,14 @@ describe('Objetos - ', function () {
 	it('Deve estourar um exceção ao criar um objeto sem observer', function(){
 
 
-		expect(function(){new EditimageObjeto()}).toThrow(new Error('Informe o observer.'));
+		expect(function(){new editimage.EditimageObjeto()}).toThrow(new Error('Informe o observer.'));
 
 	});
 
 	it('Deve estourar um exceção ao criar um objeto sem o shape', function(){
 
 
-		expect(function(){new EditimageObjeto(observer)}).toThrow(new Error('Informe o Shape.'));
+		expect(function(){new editimage.EditimageObjeto(observer)}).toThrow(new Error('Informe o Shape.'));
 
 	});
 
@@ -114,7 +114,7 @@ describe('Objetos - ', function () {
 			};
 		};
 
-		var objeto = new EditimageObjeto(observer, shape);
+		var objeto = new editimage.EditimageObjeto(observer, shape);
 
 		objeto.selecionado = true;
 
@@ -155,7 +155,7 @@ describe('Objetos - ', function () {
 			notificar: function(){}
 		};
 
-		var objeto = new EditimageObjeto(observer2, shape);
+		var objeto = new editimage.EditimageObjeto(observer2, shape);
 
 		objeto.selecionado = true;
 		objeto.selecionado = false;
