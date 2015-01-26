@@ -1,7 +1,7 @@
 
 var PainelControle = function (contexto) {
 		
-	if(!contexto) throw new Error("Informe o contexto.");
+	if (!contexto) throw new Error("Informe o contexto.");
 
 	var imagemCriada;
 
@@ -26,21 +26,24 @@ var PainelControle = function (contexto) {
 		}
 
 		if (arquivoImagem) {
-			reader.readAsDataURL(arquivoImagem);
+			reader.readAsDataURL(arquivoImagem);asdsada
 		} 
 
 	};
 
 	self.criarRetangulo = function(){
 
-		_contexto.Retangulo = editimage.fabricaRetangulo.criar();
+		_contexto.adicionarObjeto(editimage.fabricaRetangulo.criar(_contexto.retornarObserver(), new createjs.Shape()));
 	};
 
 	self.criarElipse = function(){
 
+		_contexto.adicionarObjeto(editimage.fabricaElipse.criar(_contexto.retornarObserver(), new createjs.Shape()))
 	};
 
 	self.criarLinha = function(){
+
+		_contexto.adicionarObjeto(editimage.fabricaLinha.criar(_contexto.retornarObserver(), new createjs.Shape()))
 
 	};
 
