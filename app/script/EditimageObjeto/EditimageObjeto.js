@@ -15,8 +15,8 @@ editimage.EditimageObjeto = function(observer, shape){
 	   ,_strokeStyleCommand = shape.graphics.setStrokeStyle(0).command;
 
 
-	self.shape = shape;
-
+    self.shape = shape;
+    
 	Object.defineProperties(self, {
 
 		'selecionado': {
