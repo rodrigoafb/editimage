@@ -1,9 +1,9 @@
 'use strict';
 
-var Retangulo = function(observer, shape){
+editimage.Retangulo = function(observer, shape){
 
 	var self = this;
-	EditimageObjeto.call(self, observer, shape);
+	editimage.EditimageObjeto.call(self, observer, shape);
 
 	self.desenhar = function(){
 
@@ -13,4 +13,4 @@ var Retangulo = function(observer, shape){
 
 };
 
-Retangulo.prototype = Object.create(EditimageObjeto.prototype);
+editimage.Retangulo.prototype = Object.create(editimage.EditimageObjeto.prototype);
