@@ -1,4 +1,4 @@
-
+'use strict';
 var PainelControle = function (contexto) {
 		
 	if (!contexto) throw new Error("Informe o contexto.");
@@ -26,28 +26,48 @@ var PainelControle = function (contexto) {
 		}
 
 		if (arquivoImagem) {
-			reader.readAsDataURL(arquivoImagem);asdsada
+			reader.readAsDataURL(arquivoImagem);
 		} 
 
 	};
 
 	self.criarRetangulo = function(){
         
-        var shape = new createjs.Shape();
         var observer = _contexto.retornarObserver();
-        var retangulo = editimage.fabricaRetangulo.criar(observer, shape);
+        var shape = new createjs.Shape();        
+        
+        var quantidadeRedimensionadores = editimage.fabricaRetangulo.retornarQuantidadeRedimensionadores();
+        var redimensionadores =  editimage.fabricaRedimensionador.criar(quantidadeRedimensionadores);       
+        
+        var retangulo = editimage.fabricaRetangulo.criar(observer, shape, redimensionadores);
         
 		_contexto.adicionarObjeto(retangulo);
 	};
 
 	self.criarElipse = function(){
-
-		_contexto.adicionarObjeto(editimage.fabricaElipse.criar(_contexto.retornarObserver(), new createjs.Shape()))
+        
+        var observer = _contexto.retornarObserver();
+        var shape = new createjs.Shape();       
+        
+        var quantidadeRedimensionadores = editimage.fabricaElipse.retornarQuantidadeRedimensionadores();
+        var redimensionadores =  editimage.fabricaRedimensionador.criar(quantidadeRedimensionadores);
+        
+        var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores);
+        
+		_contexto.adicionarObjeto(elipse);
 	};
 
 	self.criarLinha = function(){
 
-		_contexto.adicionarObjeto(editimage.fabricaLinha.criar(_contexto.retornarObserver(), new createjs.Shape()))
+        var observer = _contexto.retornarObserver();
+        var shape = new createjs.Shape();
+        
+        var quantidadeRedimensionadores = editimage.fabricaLinha.retornarQuantidadeRedimensionadores();
+        var redimensionadores =  editimage.fabricaRedimensionador.criar(quantidadeRedimensionadores);
+        
+        var linha = editimage.fabricaLinha.criar(observer, shape, redimensionadores);
+        
+		_contexto.adicionarObjeto(linha);
 
 	};
 

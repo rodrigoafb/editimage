@@ -13,8 +13,8 @@ editimage.EditimageObjeto = function(observer, shape){
 
 	var _strokeCommand = shape.graphics.beginStroke("red").command
 	   ,_strokeStyleCommand = shape.graphics.setStrokeStyle(0).command;
-
-
+    
+    
     self.shape = shape;
     
 	Object.defineProperties(self, {

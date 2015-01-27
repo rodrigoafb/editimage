@@ -27,6 +27,22 @@ describe('Painel - ', function(){
             
 
 		}
+        
+        editimage.fabricaRedimensionador = {
+            criar: function(quantidadeRedimensionadores){
+                
+                var redimensionadores = [];
+                
+                for(var i = 0; i < quantidadeRedimensionadores; i++){
+                    
+                    redimensionadores.push({});
+                    
+                }
+                
+                return redimensionadores;
+                
+            }            
+        }
 
 	});
 

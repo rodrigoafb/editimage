@@ -2,6 +2,12 @@
 
 describe('Redimensionador - ', function(){
     
+    beforeEach(function(){
+        
+        editimage.fabricaRedimensionador = editimage.fabricaRedimensionadorBase;
+        
+    });
+    
     it('Deve criar um objeto Redimensionador', function(){
         
         var redimensionador = editimage.fabricaRedimensionador.criar(new createjs.Shape());
