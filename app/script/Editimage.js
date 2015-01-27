@@ -1,6 +1,6 @@
 'use strict';
 
-var editimage = editimage = editimage || function(){
+var editimage = editimage || function(){
 
 	var instancias = {};
 
@@ -198,41 +198,3 @@ var editimage = editimage = editimage || function(){
 	}
 
 }();
-
-	editimage.fabricaContexto = { 
-		
-		criar: function(){
-
-			return {};
-		}
-
-	};
-
-	editimage.fabricaPainelControle = { 
-		
-		criar: function(){
-
-			return {
-
-				selecionarImagem: function(arquivoImagem){
-
-
-				},
-				criarRetangulo: function(){
-
-
-				},
-				criarElipse: function(){
-
-
-				},
-				criarLinha: function(){
-
-
-				}
-
-			}
-
-		}
-
-	};

@@ -10,59 +10,64 @@ describe('Inicialização - ', function(){
 	 eventoCriarLinha;
     
 
-	editimage.fabricaContexto = { 
+	beforeEach(function(){
+
+		editimage.fabricaContexto = { 
 		
-		criar: function(){
-			stage = {};
+			criar: function(){
+				stage = {};
 
-			return {};
-		}
+				return {};
+			}
 
-	};
+		};
 
-	editimage.fabricaPainelControle = { 
-		
-		criar: function(){
 
-			return {
+		editimage.fabricaPainelControle = { 
+			
+			criar: function(){
 
-				selecionarImagem: function(arquivoImagem){
+				return {
 
-					eventoSelecionarImagem = {};
-					editimage.fabricaImagem.criar(arquivoImagem);
+					selecionarImagem: function(arquivoImagem){
 
-				},
-				criarRetangulo: function(){
+						eventoSelecionarImagem = {};
+						editimage.fabricaImagem.criar(arquivoImagem);
 
-					eventoCriarRetangulo = {};
+					},
+					criarRetangulo: function(){
 
-				},
-				criarElipse: function(){
+						eventoCriarRetangulo = {};
 
-					eventoCriarElipse = {};
+					},
+					criarElipse: function(){
 
-				},
-				criarLinha: function(){
+						eventoCriarElipse = {};
 
-					eventoCriarLinha = {};
+					},
+					criarLinha: function(){
+
+						eventoCriarLinha = {};
+
+					}
 
 				}
 
 			}
 
-		}
+		};
 
-	};
+		editimage.fabricaImagem = {
 
-	editimage.fabricaImagem = {
+			criar: function(arquivoImagem){
 
-		criar: function(arquivoImagem){
+				criarFabricaImagem = {};
 
-			criarFabricaImagem = {};
+			}
 
-		}
+		};
 
-	};
+	});
 
 	it('Deve inicializar o editimage', function(){
 
