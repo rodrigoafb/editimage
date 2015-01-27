@@ -166,5 +166,47 @@ describe('Objetos - ', function () {
 		expect(0).toEqual(strokeStyleCommand.width);
 
 	});
+    
+    it('Deve mover o objeto', function(){
+        
+       var shape = new createjs.Shape();
+        var evento = {}
+           ,coordenadaX = 0
+           ,coordenadaY = 0;
+        
+        shape.on = function(e, callback){            
+            evento[e] = callback;            
+        };
+        
+        shape.dispararEventoMouseDown = function(){
+            evento['mousedown']({stageX: 60, stageY: 60 });
+        };
+        
+        shape.dispararEventoPressMove = function(){
+            evento['pressmove']({stageX: 70, stageY: 70 });
+        };
+        
+        var objeto = new editimage.EditimageObjeto(observer, shape);
+        
+        objeto.movimentacaoCallback = function(evt){            
+            coordenadaX = evt.coordenadaX;
+            coordenadaY = evt.coordenadaY;
+        };
+        
+        objeto.coordenadaX = 50;
+        objeto.coordenadaY = 50;
+        
+        var shapeObjeto = objeto.retornarShape();
+        
+        shapeObjeto.dispararEventoMouseDown();
+        shapeObjeto.dispararEventoPressMove();
+        
+        expect(60).toEqual(objeto.coordenadaX);
+        expect(60).toEqual(objeto.coordenadaY);
+        
+        expect(60).toEqual(coordenadaX);
+        expect(60).toEqual(coordenadaY);  
+    
+    });
 
 });

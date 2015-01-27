@@ -11,11 +11,15 @@ editimage.EditimageObjeto = function(observer, shape){
 	    _selecionado,
 	    _memento;
 
+    var coordenadasAuxiliares = {};
+    
 	var _strokeCommand = shape.graphics.beginStroke("red").command
 	   ,_strokeStyleCommand = shape.graphics.setStrokeStyle(0).command;
     
-    
     self.shape = shape;
+    
+    self.coordenadaX = 0;
+    self.coordenadaY = 0;
     
 	Object.defineProperties(self, {
 
@@ -58,7 +62,29 @@ editimage.EditimageObjeto = function(observer, shape){
 				_strokeStyleCommand.width = value;
 			},
 			enumerable: true
-		}
+		},
+        'coordenadaX': {
+            get: function(){
+                return self.shape.x;
+            },
+            set: function(value){
+                self.shape.x = value;
+                
+                observer.notificar(self);
+            },
+            enumerable: true
+        },
+        'coordenadaY': {
+            get: function(){
+                return self.shape.y;
+            },
+            set: function(value){
+                self.shape.y = value;
+                
+                observer.notificar(self);
+            },
+            enumerable: true
+        }
 
 	});
 
@@ -68,7 +94,24 @@ editimage.EditimageObjeto = function(observer, shape){
 
 	});
 
+    shape.on('mousedown', function(evt){
+        
+        coordenadasAuxiliares.x = self.coordenadaX - evt.stageX;
+        coordenadasAuxiliares.y = self.coordenadaY - evt.stageY;
+        
+    });
+    
+    shape.on('pressmove', function(evt){
+        
+        self.coordenadaX = evt.stageX + coordenadasAuxiliares.x;
+        self.coordenadaY = evt.stageY + coordenadasAuxiliares.y;
+        
+        self.movimentacaoCallback({coordenadaX: self.coordenadaX, coordenadaY: self.coordenadaY})
+        
+    });
 
+    self.movimentacaoCallback = function(){};
+    
 	var colocarBordaSelecao = function(){
 
 		_strokeCommand.style = '#729fe2';
