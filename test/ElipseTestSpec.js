@@ -2,7 +2,7 @@
 
 describe('Elipse - ', function(){
 
-	var observer;
+	var observer, redimensionadores;
 
 	beforeEach(function(){
 
@@ -13,13 +13,35 @@ describe('Elipse - ', function(){
 
 			}
 		};
+        
+        redimensionadores = [{},{},{},{}];
 
 	});
-
+    
+    it('A fábrica de elipses deve retornar a quantidade de redimensionadores necessários para criar uma elipse', function(){
+        
+        expect(editimage.fabricaElipse.retornarQuantidadeRedimensionadores).toBeDefined();
+        expect(editimage.fabricaElipse.retornarQuantidadeRedimensionadores()).toEqual(4);
+        
+        
+    });
+    
+    it('Deve lançar uma exceção ao criar uma elipse sem os redimensionadores', function(){
+       
+        expect(function(){editimage.fabricaElipse.criar(observer, new createjs.Shape())}).toThrow(new Error('Informe os redimensionadores'));
+        
+    });
+    
+    it('Deve lançar uma exceção ao criar uma elipse caso não tenham 4 redimensionadores', function(){
+        
+        expect(function(){editimage.fabricaElipse.criar(observer, new createjs.Shape(), [{}])}).toThrow(new Error('Informe 4 redimensionadores'));
+        
+    });
+    
 	it('Deve criar um objeto Elipse', function(){
 
 
-		var elipse = editimage.fabricaElipse.criar(observer, new createjs.Shape());
+		var elipse = editimage.fabricaElipse.criar(observer, new createjs.Shape(), redimensionadores);
 
 		expect(elipse.retornarShape).toBeDefined();
 		expect(true).toEqual(editimage.Elipse.prototype instanceof editimage.EditimageObjeto);
@@ -39,7 +61,7 @@ describe('Elipse - ', function(){
 
 		};
 
-		var elipse  = editimage.fabricaElipse.criar(observer, shape);
+		var elipse  = editimage.fabricaElipse.criar(observer, shape, redimensionadores);
 
 
 		elipse.desenhar();

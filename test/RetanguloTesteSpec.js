@@ -1,8 +1,8 @@
 'use strict';
 
-describe('Retangulo - ', function(){
+describe('Retangulo - ', function() {
 
-	var observer;
+	var observer, redimensionadores;
 
 	beforeEach(function(){
 
@@ -13,13 +13,35 @@ describe('Retangulo - ', function(){
 
 			}
 		};
+        
+        redimensionadores = [{},{},{},{},{},{},{},{}];
 
 	});
 
+    it('A fábrica de retangulos deve retornar a quantidade de redimensionadores necessários para criar um retangulo', function(){
+        
+        expect(editimage.fabricaRetangulo.retornarQuantidadeRedimensionadores).toBeDefined();
+        expect(editimage.fabricaRetangulo.retornarQuantidadeRedimensionadores()).toEqual(8);
+        
+        
+    });
+    
+    it('Deve lançar uma exceção ao criar um retangulo sem os redimensionadores', function(){
+       
+        expect(function(){editimage.fabricaRetangulo.criar(observer, new createjs.Shape())}).toThrow(new Error('Informe os redimensionadores'));
+        
+    });
+    
+    it('Deve lançar uma exceção ao criar um retangulo caso não tenham 8 redimensionadores', function(){
+        
+        expect(function(){editimage.fabricaRetangulo.criar(observer, new createjs.Shape(), [{}])}).toThrow(new Error('Informe 8 redimensionadores'));
+        
+    });
+    
 	it('Deve criar um objeto Retangulo', function(){
+            
 
-
-		var retangulo = editimage.fabricaRetangulo.criar(observer, new createjs.Shape());
+		var retangulo = editimage.fabricaRetangulo.criar(observer, new createjs.Shape(), redimensionadores);
 
 		expect(retangulo.retornarShape).toBeDefined();
 		expect(true).toEqual(editimage.Retangulo.prototype instanceof editimage.EditimageObjeto);
@@ -38,7 +60,7 @@ describe('Retangulo - ', function(){
 			rect.h = h;
 		};
 
-		var retangulo = editimage.fabricaRetangulo.criar(observer, shape);
+		var retangulo = editimage.fabricaRetangulo.criar(observer, shape, redimensionadores);
 
 		retangulo.desenhar();
 

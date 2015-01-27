@@ -1,6 +1,10 @@
 'use strict';
 
-editimage.Elipse = function(observer, shape){
+editimage.Elipse = function(observer, shape, redimensionadores){
+
+    if(!redimensionadores) throw new Error('Informe os redimensionadores');
+    
+    if(redimensionadores.length !== 4) throw new Error('Informe 4 redimensionadores');
 
 	var self = this;
 	editimage.EditimageObjeto.call(self, observer, shape);

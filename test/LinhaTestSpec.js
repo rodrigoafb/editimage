@@ -2,7 +2,7 @@
 
 describe('Linha - ', function(){
 
-	var observer;
+	var observer, redimensionadores;
 
 	beforeEach(function(){
 
@@ -14,12 +14,33 @@ describe('Linha - ', function(){
 			}
 		};
 
+        redimensionadores = [{},{}];
 	});
 
+    it('A fábrica de linhas deve retornar a quantidade de redimensionadores necessários para criar uma linha', function(){
+        
+        expect(editimage.fabricaLinha.retornarQuantidadeRedimensionadores).toBeDefined();
+        expect(editimage.fabricaLinha.retornarQuantidadeRedimensionadores()).toEqual(2);
+        
+        
+    });
+    
+    it('Deve lançar uma exceção ao criar uma linha sem os redimensionadores', function(){
+       
+        expect(function(){editimage.fabricaLinha.criar(observer, new createjs.Shape())}).toThrow(new Error('Informe os redimensionadores'));
+        
+    });
+    
+    it('Deve lançar uma exceção ao criar uma linha caso não tenham 2 redimensionadores', function(){
+        
+        expect(function(){editimage.fabricaLinha.criar(observer, new createjs.Shape(), [{}])}).toThrow(new Error('Informe 2 redimensionadores'));
+        
+    });
+    
 	it('Deve criar um objeto Linha', function(){
 
 
-		var linha = editimage.fabricaLinha.criar(observer, new createjs.Shape());
+		var linha = editimage.fabricaLinha.criar(observer, new createjs.Shape(), redimensionadores);
 
 		expect(linha.retornarShape).toBeDefined();
 		expect(true).toEqual(editimage.Linha.prototype instanceof editimage.EditimageObjeto);
@@ -49,7 +70,7 @@ describe('Linha - ', function(){
 			line.y = y;
 		};
 
-		var linha  = editimage.fabricaLinha.criar(observer, shape);
+		var linha  = editimage.fabricaLinha.criar(observer, shape, redimensionadores);
 
 
 		linha.desenhar();

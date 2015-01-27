@@ -1,6 +1,10 @@
 'use strict';
 
-editimage.Linha = function(observer, shape){
+editimage.Linha = function(observer, shape, redimensionadores){
+
+    if(!redimensionadores) throw new Error('Informe os redimensionadores');
+    
+    if(redimensionadores.length !== 2) throw new Error('Informe 2 redimensionadores');
 
 	var self = this;
 	editimage.EditimageObjeto.call(self, observer, shape);
