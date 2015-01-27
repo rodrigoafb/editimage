@@ -32,18 +32,42 @@ var PainelControle = function (contexto) {
 	};
 
 	self.criarRetangulo = function(){
-
-		_contexto.adicionarObjeto(editimage.fabricaRetangulo.criar(_contexto.retornarObserver(), new createjs.Shape()));
+        
+        var observer = _contexto.retornarObserver();
+        var shape = new createjs.Shape();        
+        
+        var quantidadeRedimensionadores = editimage.fabricaRetangulo.retornarQuantidadeRedimensionadores();
+        var redimensionadores =  editimage.fabricaRedimensionador.criar(quantidadeRedimensionadores);       
+        
+        var retangulo = editimage.fabricaRetangulo.criar(observer, shape, redimensionadores);
+        
+		_contexto.adicionarObjeto();
 	};
 
 	self.criarElipse = function(){
-
-		_contexto.adicionarObjeto(editimage.fabricaElipse.criar(_contexto.retornarObserver(), new createjs.Shape()))
+        
+        var observer = _contexto.retornarObserver();
+        var shape = new createjs.Shape();       
+        
+        var quantidadeRedimensionadores = editimage.fabricaElipse.retornarQuantidadeRedimensionadores();
+        var redimensionadores =  editimage.fabricaRedimensionador.criar(quantidadeRedimensionadores);
+        
+        var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores);
+        
+		_contexto.adicionarObjeto(elipse);
 	};
 
 	self.criarLinha = function(){
 
-		_contexto.adicionarObjeto(editimage.fabricaLinha.criar(_contexto.retornarObserver(), new createjs.Shape()))
+        var observer = _contexto.retornarObserver();
+        var shape = new createjs.Shape();
+        
+        var quantidadeRedimensionadores = editimage.fabricaLinha.retornarQuantidadeRedimensionadores();
+        var redimensionadores =  editimage.fabricaRedimensionador.criar(quantidadeRedimensionadores);
+        
+        var linha = editimage.fabricaLinha.criar(observer, shape, redimensionadores);
+        
+		_contexto.adicionarObjeto(linha);
 
 	};
 
