@@ -19,10 +19,29 @@ describe('Painel - ', function () {
 
 		};
 
-		contexto.adicionarObjeto = function () {
-			contexto.objetos.push({});
+		contexto.adicionarObjeto = function(objeto){
+            contexto.objetos = contexto.objetos || [];
+			
+            if(objeto) contexto.objetos.push(objeto);
+            
 
-		};
+		}
+        
+        editimage.fabricaRedimensionador = {
+            criar: function(quantidadeRedimensionadores){
+                
+                var redimensionadores = [];
+                
+                for(var i = 0; i < quantidadeRedimensionadores; i++){
+                    
+                    redimensionadores.push({});
+                    
+                }
+                
+                return redimensionadores;
+                
+            }            
+        }
 
 	});
 

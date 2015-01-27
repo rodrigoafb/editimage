@@ -1,8 +1,13 @@
 'use strict';
 
-editimage.Retangulo = function(observer, shape){
+editimage.Retangulo = function(observer, shape, redimensionadores){
 
+    if(!redimensionadores) throw new Error('Informe os redimensionadores');
+    
+    if(redimensionadores.length !== 8) throw new Error('Informe 8 redimensionadores');
+        
 	var self = this;
+    
 	editimage.EditimageObjeto.call(self, observer, shape);
 
 	self.desenhar = function(){
