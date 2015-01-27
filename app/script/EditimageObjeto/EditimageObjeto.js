@@ -34,8 +34,10 @@ editimage.EditimageObjeto = function(observer, shape){
 				if(_selecionado) {
 					criarMemento();
 					colocarBordaSelecao();
+                    self.aplicarSelecao();
 				}else{
 					restaurarMemento(_memento);
+                    self.removerSelecao();
 				}
 
 				_observer.notificar(self);
@@ -140,6 +142,11 @@ editimage.EditimageObjeto = function(observer, shape){
 
 	};
 
+    
+    self.aplicarSelecao = function(){};
+    
+    self.removerSelecao = function(){};
+    
 	self.retornarShape = function(){
 
 		return shape;
