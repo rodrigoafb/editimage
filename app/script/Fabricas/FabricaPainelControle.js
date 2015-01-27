@@ -3,7 +3,7 @@
 editimage.fabricaPainelControleBase = {
 	criar: function (contexto) {
 
-			return new PainelControle(contexto);
+			return new editimage.PainelControle(contexto);
 
 		}
 };

@@ -7,15 +7,15 @@ var editimage = editimage || function(){
 
 	var inicializar = function(idDivContainer){
 
-			var painelControle = editimage.fabricaPainelControle.criar();
+            instancias[idDivContainer] = criarInstancia(canvas);
+        
+			var painelControle = editimage.fabricaPainelControle.criar(instancias[idDivContainer]);
 
 			var div = document.getElementById(idDivContainer);
 
 			var canvas = criarElementoHtmlCanvas();
 
 			var divPainelControle = criarElementoHtmlPainelControle(painelControle);
-
-			instancias[idDivContainer] = criarInstancia(canvas);
 
 			div.appendChild(divPainelControle);
 			div.appendChild(canvas);
@@ -180,8 +180,10 @@ var editimage = editimage || function(){
 
 	var criarInstancia = function(canvas){
 
+        var stage = new createjs.Stage(canvas);
+        
 		return {
-			contexto: editimage.fabricaContexto.criar()
+			contexto: editimage.fabricaContexto.criar(stage)
 		};
 
 	};

@@ -1,30 +1,28 @@
 'use strict';
 
-describe('Painel - ', function(){
+describe('Painel - ', function () {
 
-	var contexto = {}, observer;
-	var painel;
+	var contexto = {}, observer, painel;
 
 
-	beforeEach(function(){
-
-		contexto.retornarObserver = function() {
+	beforeEach(function () {
+        
+		contexto.retornarObserver = function () {
 			return {
-				notificar: function() {}
+				notificar: function () { }
 			};
 		};
 
-		contexto.retornarObjetos = function(){
+		contexto.retornarObjetos = function () {
 
 			return contexto.objetos;
 
-		}
+		};
 
-		contexto.adicionarObjeto = function(){
-            contexto.objetos = contexto.objetos || [];
+		contexto.adicionarObjeto = function () {
 			contexto.objetos.push({});
 
-		}
+		};
 
 	});
 
@@ -61,7 +59,7 @@ describe('Painel - ', function(){
 
 	it('Deve criar um retangulo e adicionar na lista de objetos', function(){
 
-		contexto.objetos = 0;
+		contexto.objetos = [];
 
 		var painel = editimage.fabricaPainelControle.criar(contexto);
 
@@ -77,7 +75,7 @@ describe('Painel - ', function(){
 
 	it('Deve criar uma elipse e adicionar na lista de objetos', function(){
 
-        contexto.objetos = 0;
+        contexto.objetos = [];
 
         var painel = editimage.fabricaPainelControle.criar(contexto);
         painel.criarElipse();
@@ -92,7 +90,7 @@ describe('Painel - ', function(){
 
 	it('Deve retornar uma linha e adicionar na lista de objetos', function(){
         
-        contexto.objetos = 0;
+        contexto.objetos = [];
         
 		var painel = editimage.fabricaPainelControle.criar(contexto);
 		painel.criarLinha();

@@ -26,7 +26,7 @@ describe('Linha - ', function(){
 
 	});
 
-	it('Deve desenhar um linha', function(){
+	it('Deve desenhar uma linha', function(){
 
 		var shape = new createjs.Shape();
 		var line = {}, move = {};

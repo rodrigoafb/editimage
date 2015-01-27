@@ -1,5 +1,6 @@
+'use strict';
 
-var PainelControle = function (contexto) {
+editimage.PainelControle = function (contexto) {
 		
 	if (!contexto) throw new Error("Informe o contexto.");
 
