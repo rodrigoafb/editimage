@@ -32,8 +32,12 @@ var PainelControle = function (contexto) {
 	};
 
 	self.criarRetangulo = function(){
-
-		_contexto.adicionarObjeto(editimage.fabricaRetangulo.criar(_contexto.retornarObserver(), new createjs.Shape()));
+        
+        var shape = new createjs.Shape();
+        var observer = _contexto.retornarObserver();
+        var retangulo = editimage.fabricaRetangulo.criar(observer, shape);
+        
+		_contexto.adicionarObjeto(retangulo);
 	};
 
 	self.criarElipse = function(){

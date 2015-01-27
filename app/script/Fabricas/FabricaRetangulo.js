@@ -2,7 +2,6 @@
 
 editimage.fabricaRetanguloBase = {
 	criar: function(observer, shape){
-
 		return new editimage.Retangulo(observer, shape);
 
 	}

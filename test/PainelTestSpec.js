@@ -20,9 +20,11 @@ describe('Painel - ', function(){
 
 		}
 
-		contexto.adicionarObjeto = function(){
+		contexto.adicionarObjeto = function(objeto){
             contexto.objetos = contexto.objetos || [];
-			contexto.objetos.push({});
+			
+            if(objeto) contexto.objetos.push(objeto);
+            
 
 		}
 
