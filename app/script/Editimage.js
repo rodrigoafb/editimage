@@ -8,9 +8,13 @@ var editimage = editimage || function(){
 	var inicializar = function(idDivContainer){
 
 			var div = document.getElementById(idDivContainer);
-
+            
+            var divCanvas = criarElementoHtmlDivCanvas();
+        
 			var canvas = criarElementoHtmlCanvas();
 
+            divCanvas.appendChild(canvas);
+        
             instancias[idDivContainer] = criarInstancia(canvas);
         
 			var painelControle = editimage.fabricaPainelControle.criar(instancias[idDivContainer].contexto);    
@@ -18,20 +22,24 @@ var editimage = editimage || function(){
 			var divPainelControle = criarElementoHtmlPainelControle(painelControle);
 
 			div.appendChild(divPainelControle);
-			div.appendChild(canvas);
+			div.appendChild(divCanvas);
 
 		};
 
-	var criarElementoHtmlCanvas = function(){
-
-		var divCanvas = document.createElement('div');
-		divCanvas.setAttribute('class', 'container')
+    var criarElementoHtmlDivCanvas = function(){
+        
+        var divCanvas = document.createElement('div');
+		divCanvas.setAttribute('class', 'container');
+        
+        return divCanvas;       
+        
+    };
+    
+	var criarElementoHtmlCanvas = function(){		
 
 		var canvas = document.createElement('canvas');
 
-		divCanvas.appendChild(canvas);
-
-		return divCanvas;
+		return canvas;		
 
 	};
 

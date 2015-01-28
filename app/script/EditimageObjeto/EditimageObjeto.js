@@ -14,7 +14,7 @@ editimage.EditimageObjeto = function(observer, shape){
     var coordenadasAuxiliares = {};
     
 	var _strokeCommand = shape.graphics.beginStroke("red").command
-	   ,_strokeStyleCommand = shape.graphics.setStrokeStyle(0).command;
+	   ,_strokeStyleCommand = shape.graphics.setStrokeStyle(1).command;
     
     self.shape = shape;
     
