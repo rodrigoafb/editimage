@@ -189,6 +189,15 @@ describe('Linha - ', function(){
 //        expect(60).toEqual(objeto.coordenadaX);
 //        expect(60).toEqual(objeto.coordenadaY);
 //        
+//        var redimensionador1 = redimensionadores[0];
+//        var redimensionador2 = redimensionadores[1];
+//        
+//        expect(47).toEqual(redimensionador1.coordenadaX);
+//        expect(47).toEqual(redimensionador1.coordenadaY);
+//        
+//        expect(147).toEqual(redimensionador2.coordenadaX);
+//        expect(147).toEqual(redimensionador2.coordenadaY);
+//        
 //    });
     
     it('Deve posicionar os redimensionadores', function(){

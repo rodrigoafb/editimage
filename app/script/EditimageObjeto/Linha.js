@@ -29,6 +29,12 @@ editimage.Linha = function(observer, shape, redimensionadores){
         
     };
     
+    self.movimentacaoTemplateMethod =function(){
+        
+        posicionarRedimensionadores();
+        
+    };
+    
     self.desenhar = function(){
                 
         self.shape.graphics.setStrokeStyle(2, 'round', 'round');
