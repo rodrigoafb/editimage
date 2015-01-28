@@ -10,6 +10,7 @@ editimage.Redimensionador = function(shape){
     var coordenadasAuxiliares = {};
     
     _shape.graphics.drawRect(0,0,6,6);
+    _shape.visible = false;
     
     self.coordenadaX = 0;
     self.coordenadaY = 0;
