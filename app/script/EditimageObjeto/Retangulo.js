@@ -20,36 +20,36 @@ editimage.Retangulo = function(observer, shape, redimensionadores){
     var posicionarRedimensionadores = function(){
         
         //Topo esquerda
-        redimensionadores[0].coordenadaX = self.shape.graphics.command.x - (redimensionadores[0].largura / 2);
-        redimensionadores[0].coordenadaY = self.shape.graphics.command.y - (redimensionadores[0].largura / 2);
+        redimensionadores[0].coordenadaX = self.coordenadaX - (redimensionadores[0].largura / 2);
+        redimensionadores[0].coordenadaY = self.coordenadaY - (redimensionadores[0].largura / 2);
         
         //Topo meio
-        redimensionadores[1].coordenadaX = (self.shape.graphics.command.w / 2) + self.shape.graphics.command.x - (redimensionadores[0].largura / 2);
-        redimensionadores[1].coordenadaY = self.shape.graphics.command.y - (redimensionadores[0].largura / 2);
+        redimensionadores[1].coordenadaX = (self.shape.graphics.command.w / 2) + self.coordenadaX - (redimensionadores[0].largura / 2);
+        redimensionadores[1].coordenadaY = self.coordenadaY - (redimensionadores[0].largura / 2);
                 
         //Topo direita
-        redimensionadores[2].coordenadaX = self.shape.graphics.command.w + self.shape.graphics.command.x - (redimensionadores[0].largura / 2);
-        redimensionadores[2].coordenadaY = self.shape.graphics.command.y - (redimensionadores[0].largura / 2);
+        redimensionadores[2].coordenadaX = self.shape.graphics.command.w + self.coordenadaX - (redimensionadores[0].largura / 2);
+        redimensionadores[2].coordenadaY = self.coordenadaY - (redimensionadores[0].largura / 2);
         
         //Meio esquerda
-        redimensionadores[3].coordenadaX = self.shape.graphics.command.x - (redimensionadores[0].largura / 2);
-        redimensionadores[3].coordenadaY = (self.shape.graphics.command.h / 2) + self.shape.graphics.command.y - (redimensionadores[0].largura / 2);
+        redimensionadores[3].coordenadaX = self.coordenadaX - (redimensionadores[0].largura / 2);
+        redimensionadores[3].coordenadaY = (self.shape.graphics.command.h / 2) + self.coordenadaY - (redimensionadores[0].largura / 2);
         
         //Meio direita
-        redimensionadores[4].coordenadaX = self.shape.graphics.command.w + self.shape.graphics.command.x - (redimensionadores[0].largura / 2);
-        redimensionadores[4].coordenadaY = (self.shape.graphics.command.h / 2) + self.shape.graphics.command.y - (redimensionadores[0].largura / 2);
+        redimensionadores[4].coordenadaX = self.shape.graphics.command.w + self.coordenadaX - (redimensionadores[0].largura / 2);
+        redimensionadores[4].coordenadaY = (self.shape.graphics.command.h / 2) + self.coordenadaY - (redimensionadores[0].largura / 2);
         
         //Baixo esquerda
-        redimensionadores[5].coordenadaX = self.shape.graphics.command.x - (redimensionadores[0].largura / 2);
-        redimensionadores[5].coordenadaY = self.shape.graphics.command.h + self.shape.graphics.command.y - (redimensionadores[0].largura / 2);
+        redimensionadores[5].coordenadaX = self.coordenadaX - (redimensionadores[0].largura / 2);
+        redimensionadores[5].coordenadaY = self.shape.graphics.command.h + self.coordenadaY - (redimensionadores[0].largura / 2);
         
         //Baixo meio
-        redimensionadores[6].coordenadaX = (self.shape.graphics.command.w / 2) + self.shape.graphics.command.x - (redimensionadores[0].largura / 2);
-        redimensionadores[6].coordenadaY = self.shape.graphics.command.h + self.shape.graphics.command.y - (redimensionadores[0].largura / 2);
+        redimensionadores[6].coordenadaX = (self.shape.graphics.command.w / 2) + self.coordenadaX - (redimensionadores[0].largura / 2);
+        redimensionadores[6].coordenadaY = self.shape.graphics.command.h + self.coordenadaY - (redimensionadores[0].largura / 2);
         
         //Baixo direita
-        redimensionadores[7].coordenadaX = self.shape.graphics.command.w + self.shape.graphics.command.x - (redimensionadores[0].largura / 2);
-        redimensionadores[7].coordenadaY = self.shape.graphics.command.h + self.shape.graphics.command.y - (redimensionadores[0].largura / 2);
+        redimensionadores[7].coordenadaX = self.shape.graphics.command.w + self.coordenadaX - (redimensionadores[0].largura / 2);
+        redimensionadores[7].coordenadaY = self.shape.graphics.command.h + self.coordenadaY - (redimensionadores[0].largura / 2);
     };    
     
 	self.desenhar = function(){
@@ -57,6 +57,12 @@ editimage.Retangulo = function(observer, shape, redimensionadores){
 		self.shape.graphics.drawRect(50, 50, 100, 100);
 
 	};
+    
+    self.movimentacaoTemplateMethod = function(){
+        
+        posicionarRedimensionadores();
+        
+    };
     
     self.aplicarSelecao = function(){
         
