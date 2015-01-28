@@ -38,6 +38,12 @@ editimage.Elipse = function(observer, shape, redimensionadores){
 
 	};
     
+    self.movimentacaoTemplateMethod = function(){
+        
+        posicionarRedimensionadores();
+        
+    };
+    
     self.aplicarSelecao = function(){
         
         var countRedimensionadores = redimensionadores.length;

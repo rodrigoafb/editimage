@@ -146,6 +146,70 @@ describe('Elipse - ', function(){
         expect(47).toEqual(redimensionador4.coordenadaX);
         expect(97).toEqual(redimensionador4.coordenadaY);
         
-    })
+    });
+    
+    it('Quando a elipse for movida, deve reposicionar os redimensionadores', function(){
+        
+        var shape = new createjs.Shape();
+        var evento = {};
+        
+        shape.graphics.drawEllipse = function(x,y,w,h){
+            shape.x = x;
+            shape.y = y;
+			shape.graphics.command.x = x;
+            shape.graphics.command.y = y;
+            shape.graphics.command.w = w;
+            shape.graphics.command.h = h;
+		};
+        
+        shape.on = function(e, callback){            
+            evento[e] = callback;            
+        };
+        
+        shape.dispararEventoMouseDown = function(){
+            evento['mousedown']({stageX: 60, stageY: 60 });
+        };
+        
+        shape.dispararEventoPressMove = function(){
+            evento['pressmove']({stageX: 70, stageY: 70 });
+        };
+        
+        var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores);
+        
+        var redimensionador1 = redimensionadores[0];
+        var redimensionador2 = redimensionadores[1];
+        var redimensionador3 = redimensionadores[2];
+        var redimensionador4 = redimensionadores[3];
+        
+        expect(122).toEqual(redimensionador1.coordenadaX);
+        expect(47).toEqual(redimensionador1.coordenadaY);
+        
+        expect(197).toEqual(redimensionador2.coordenadaX);
+        expect(97).toEqual(redimensionador2.coordenadaY);
+        
+        expect(122).toEqual(redimensionador3.coordenadaX);
+        expect(147).toEqual(redimensionador3.coordenadaY);
+        
+        expect(47).toEqual(redimensionador4.coordenadaX);
+        expect(97).toEqual(redimensionador4.coordenadaY);       
+        
+        var shapeElipse = elipse.retornarShape();
+        
+        shapeElipse.dispararEventoMouseDown();
+        shapeElipse.dispararEventoPressMove();        
+        
+        expect(132).toEqual(redimensionador1.coordenadaX);
+        expect(57).toEqual(redimensionador1.coordenadaY);
+        
+        expect(207).toEqual(redimensionador2.coordenadaX);
+        expect(107).toEqual(redimensionador2.coordenadaY);
+        
+        expect(132).toEqual(redimensionador3.coordenadaX);
+        expect(157).toEqual(redimensionador3.coordenadaY);
+        
+        expect(57).toEqual(redimensionador4.coordenadaX);
+        expect(107).toEqual(redimensionador4.coordenadaY); 
+        
+    });
 
 });
