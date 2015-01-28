@@ -8,7 +8,9 @@ editimage.Contexto = function(observer, stage){
     
     self.adicionarObjeto = function(objeto){
         _stage.addChild(objeto.retornarShape());
+        _stage.update();
         objetos.push(objeto);
+        
     };
     
     self.retornarObjetos = function(){

@@ -120,4 +120,15 @@ describe('Redimensionador - ', function(){
         
     });
     
+    it('Deve retornar o shape', function(){
+        
+        var shape = new createjs.Shape();
+        var redimensionador = editimage.fabricaRedimensionador.criar(shape);
+        
+        var shapeRetornado = redimensionador.retornarShape();
+        
+        expect(true).toEqual(shape === shapeRetornado);
+        
+    });
+    
 });

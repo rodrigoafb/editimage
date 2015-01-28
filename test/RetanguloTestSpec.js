@@ -15,7 +15,10 @@ describe('Retangulo - ', function() {
 		};
         
         redimensionadores = [{},{},{},{},{},{},{},{}];
+        
+        editimage.fabricaRetangulo = editimage.fabricaRetanguloBase;
 
+        
 	});
 
     it('A fábrica de retangulos deve retornar a quantidade de redimensionadores necessários para criar um retangulo', function(){
@@ -27,8 +30,12 @@ describe('Retangulo - ', function() {
     });
     
     it('Deve lançar uma exceção ao criar um retangulo sem os redimensionadores', function(){
-       
-        expect(function(){editimage.fabricaRetangulo.criar(observer, new createjs.Shape())}).toThrow(new Error('Informe os redimensionadores'));
+        
+        expect(function(){
+            
+            editimage.fabricaRetangulo.criar(observer, new createjs.Shape());
+            
+        }).toThrow(new Error('Informe os redimensionadores'));
         
     });
     

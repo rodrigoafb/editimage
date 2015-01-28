@@ -20,10 +20,13 @@ describe('Contexto - ', function () {
     
     it('Deve adicionar e retornar um novo objeto do contexto', function(){
         
-        var contexto = editimage.fabricaContexto.criar(stage), retorno;
+        var contexto = editimage.fabricaContexto.criar(stage), retorno, update = false;
         
         stage.addChild = function (a) {
             retorno = a;
+        };
+        stage.update = function(){
+            update = true;
         };
         
         contexto.adicionarObjeto({retornarShape: function(){
@@ -34,6 +37,7 @@ describe('Contexto - ', function () {
         
         expect(objetosRetorno.length).toEqual(1);
         expect("shape").toEqual(retorno);
+        expect(true).toEqual(update);
     });
     
     it('Deve retornar o observer', function(){

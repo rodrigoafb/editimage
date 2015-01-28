@@ -26,22 +26,6 @@ describe('Painel - ', function () {
             
 
 		}
-        
-        editimage.fabricaRedimensionador = {
-            criar: function(quantidadeRedimensionadores){
-                
-                var redimensionadores = [];
-                
-                for(var i = 0; i < quantidadeRedimensionadores; i++){
-                    
-                    redimensionadores.push({});
-                    
-                }
-                
-                return redimensionadores;
-                
-            }            
-        }
 
 	});
 
@@ -77,33 +61,107 @@ describe('Painel - ', function () {
 
 
 	it('Deve criar um retangulo e adicionar na lista de objetos', function(){
-
 		contexto.objetos = [];
-
+        
+        var notificado = false;
+        
+        var observerTeste =  {
+				notificar: function () { 
+                
+                    notificado = true;
+                    
+                }
+			};
+        
+        var observerParam, shapeParam;
+        
+        contexto.retornarObserver = function () {
+            return observerTeste;
+        }
+        
+        createjs.Shape.prototype.propriedadeTeste = 24;
+        
 		var painel = editimage.fabricaPainelControle.criar(contexto);
-
-		painel.criarRetangulo();
-
+		
+        painel.criarRetangulo();
+        
 		var retornoContext = painel.retornarContexto();
 
 		var objetos = retornoContext.retornarObjetos();
-
-		expect(objetos.length).toEqual(1);
+        
+        var retornarObserver = retornoContext.retornarObserver();
+        
+        var retangulo = objetos.filter(function(objeto){
+            
+            return objeto.retornarEstadoAtual;
+            
+        })[0];
+        
+        
+        var redimensionadores = objetos.filter(function(objeto){
+            
+            return !!objeto.retornarEstadoAtual === false;
+            
+        });
+        
+        
+        retangulo.selecionado = true;
+        
+		expect(9).toEqual(objetos.length);
+        expect(true).toEqual(notificado);
+        expect(24).toEqual(retangulo.retornarShape().propriedadeTeste);
+        
+        expect(false).toEqual(redimensionadores[0].retornarShape() === redimensionadores[1].retornarShape());
 
 	});
 
 	it('Deve criar uma elipse e adicionar na lista de objetos', function(){
 
         contexto.objetos = [];
+        
+        var notificado = false;
+        
+        var observerTeste =  {
+				notificar: function () { 
+                
+                    notificado = true;
+                    
+                }
+			};
+        
+        var observerParam, shapeParam;
+        
+        contexto.retornarObserver = function () {
+            return observerTeste;
+        }
 
         var painel = editimage.fabricaPainelControle.criar(contexto);
         painel.criarElipse();
-
+        
         var retornoContext = painel.retornarContexto();
 
-        var objetos = retornoContext.retornarObjetos();
+		var objetos = retornoContext.retornarObjetos();
+        
+        var retornarObserver = retornoContext.retornarObserver();
+        
+        var elipse = objetos.filter(function(objeto){
+            
+            return objeto.retornarEstadoAtual;
+            
+        })[0];
+        
+        var redimensionadores = objetos.filter(function(objeto){
+            
+            return !!objeto.retornarEstadoAtual === false;
+            
+        });
+        
+        elipse.selecionado = true;
 
-        expect(objetos.length).toEqual(1);
+        expect(5).toEqual(objetos.length);
+        expect(true).toEqual(notificado);
+        expect(24).toEqual(elipse.retornarShape().propriedadeTeste);
+        expect(false).toEqual(redimensionadores[0].retornarShape() === redimensionadores[1].retornarShape());
 
 	});
 
@@ -111,14 +169,50 @@ describe('Painel - ', function () {
         
         contexto.objetos = [];
         
+        var notificado = false;
+        
+        var observerTeste =  {
+				notificar: function () { 
+                
+                    notificado = true;
+                    
+                }
+			};
+        
+        var observerParam, shapeParam;
+        
+        contexto.retornarObserver = function () {
+            return observerTeste;
+        }
+        
 		var painel = editimage.fabricaPainelControle.criar(contexto);
 		painel.criarLinha();
+        
+        var retornoContext = painel.retornarContexto();
 
-		var retornoContext = painel.retornarContexto();
+		var objetos = retornoContext.retornarObjetos();
         
-        var objetos = retornoContext.retornarObjetos();
+        var retornarObserver = retornoContext.retornarObserver();
         
-		expect(objetos.length).toEqual(1);
+        var linha = objetos.filter(function(objeto){
+            
+            return objeto.retornarEstadoAtual;
+            
+        })[0];
+        
+        var redimensionadores = objetos.filter(function(objeto){
+            
+            return !!objeto.retornarEstadoAtual === false;
+            
+        });
+        
+        
+        linha.selecionado = true;
+
+        expect(3).toEqual(objetos.length);
+        expect(true).toEqual(notificado);
+        expect(24).toEqual(linha.retornarShape().propriedadeTeste);
+        expect(false).toEqual(redimensionadores[0].retornarShape() === redimensionadores[1].retornarShape());
 
 	});
 
