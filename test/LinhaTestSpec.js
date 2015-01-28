@@ -124,6 +124,36 @@ describe('Linha - ', function(){
         expect(50).toEqual(move.x);
 		expect(50).toEqual(move.y);
 	});
+    
+    it('Deve aplicar e remover a seleção ao retangulo', function(){
+        
+        var shape = new createjs.Shape();
+		var evento = {};
+
+		shape.addEventListener = function(pEvento, callback){
+            evento[pEvento] = callback;
+        };
+
+		shape.dispararEvento = function(pEvento){
+            evento[pEvento]();
+        };
+
+		var linha = editimage.fabricaLinha.criar(observer, shape, redimensionadores);
+
+		var shapeLinha = linha.retornarShape();
+
+		shapeLinha.dispararEvento('click');
+        
+        expect(true).toEqual(redimensionadores[0].visible);
+        expect(true).toEqual(redimensionadores[1].visible);
+        
+        linha.selecionado = false;
+        
+        expect(false).toEqual(redimensionadores[0].visible);
+        expect(false).toEqual(redimensionadores[1].visible);
+        
+        
+    });
 
     
 //    it('Deve executar o método movimentacaoTemplateMethod quando o objeto for movido', function(){

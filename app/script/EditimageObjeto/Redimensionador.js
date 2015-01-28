@@ -75,4 +75,11 @@ editimage.Redimensionador = function(shape){
     });
     
     self.movimentacaoCallback = function(){};
+    
+    self.retornarShape = function(){
+        
+        return _shape;
+        
+    };
+    
 };

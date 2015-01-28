@@ -7,14 +7,14 @@ var editimage = editimage || function(){
 
 	var inicializar = function(idDivContainer){
 
-            instancias[idDivContainer] = criarInstancia(canvas);
-        
-			var painelControle = editimage.fabricaPainelControle.criar(instancias[idDivContainer]);
-
 			var div = document.getElementById(idDivContainer);
 
 			var canvas = criarElementoHtmlCanvas();
 
+            instancias[idDivContainer] = criarInstancia(canvas);
+        
+			var painelControle = editimage.fabricaPainelControle.criar(instancias[idDivContainer].contexto);    
+        
 			var divPainelControle = criarElementoHtmlPainelControle(painelControle);
 
 			div.appendChild(divPainelControle);
@@ -86,10 +86,8 @@ var editimage = editimage || function(){
 			evento(this.files[0]);
 
 		};
-	
 
 		labelSelecionarImagem.appendChild(botaoSelecionarImagem);
-		
 
 		return labelSelecionarImagem;
 
@@ -109,7 +107,6 @@ var editimage = editimage || function(){
 		botaoRetangulo.onclick = function(){
 
 			evento();
-
 		};
 
 		var icone = criarIconeBotao('retangulo');

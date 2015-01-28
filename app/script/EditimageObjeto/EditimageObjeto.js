@@ -146,6 +146,11 @@ editimage.EditimageObjeto = function(observer, shape){
     
     self.removerSelecao = function(){};
 
+    
+    self.aplicarSelecao = function(){};
+    
+    self.removerSelecao = function(){};
+    
 	self.retornarShape = function(){
 
 		return shape;

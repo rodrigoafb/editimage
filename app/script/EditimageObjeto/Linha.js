@@ -38,7 +38,32 @@ editimage.Linha = function(observer, shape, redimensionadores){
 
 	};
     
+    self.aplicarSelecao = function(){
+        
+        var countRedimensionadores = redimensionadores.length;
+        
+        for(var i = 0; i< countRedimensionadores; i++){
+            
+            redimensionadores[i].visible = true;
+            
+        }
+        
+    };
+    
+    self.removerSelecao = function(){
+        
+        var countRedimensionadores = redimensionadores.length;
+        
+        for(var i = 0; i< countRedimensionadores; i++){
+            
+            redimensionadores[i].visible = false;
+            
+        }
+        
+    };
+    
     init();
+    
 };
 
 editimage.Linha.prototype = Object.create(editimage.EditimageObjeto.prototype);

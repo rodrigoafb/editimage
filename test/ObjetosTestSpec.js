@@ -64,8 +64,6 @@ describe('Objetos - ', function () {
 
 		expect(true).toEqual(objeto.selecionado);
 
-		shape.dispararEvento('click');
-
 	});
 
 	it('Quando o valor da propriedade selecionado for alterado deve disparar o observer', function(){

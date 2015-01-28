@@ -15,6 +15,30 @@ editimage.Retangulo = function(observer, shape, redimensionadores){
 		self.shape.graphics.drawRect(50,50,100,100);
 
 	};
+    
+    self.aplicarSelecao = function(){
+        
+        var countRedimensionadores = redimensionadores.length;
+        
+        for(var i = 0; i< countRedimensionadores; i++){
+            
+            redimensionadores[i].visible = true;
+            
+        }
+        
+    };
+    
+    self.removerSelecao = function(){
+        
+        var countRedimensionadores = redimensionadores.length;
+        
+        for(var i = 0; i< countRedimensionadores; i++){
+            
+            redimensionadores[i].visible = false;
+            
+        }
+        
+    };
 
 };
 
