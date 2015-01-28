@@ -105,5 +105,22 @@ describe('Elipse - ', function(){
         
         
     });
+    
+    it('Deve posicionar os redimensionadores', function(){
+        
+        
+        var shape = new createjs.Shape();
+        
+        var objeto = new editimage.fabricaElipse.criar(observer, shape, redimensionadores);
+        
+        var redimensionador1 = redimensionadores[0];
+        var redimensionador2 = redimensionadores[1];
+        var redimensionador3 = redimensionadores[2];
+        var redimensionador4 = redimensionadores[3];
+        
+        expect(97).toEqual(redimensionador1.coordenadaX);
+        expect(47).toEqual(redimensionador1.coordenadaY);
+        
+    })
 
 });
