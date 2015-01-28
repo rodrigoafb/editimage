@@ -108,11 +108,11 @@ editimage.EditimageObjeto = function(observer, shape){
         self.coordenadaX = evt.stageX + coordenadasAuxiliares.x;
         self.coordenadaY = evt.stageY + coordenadasAuxiliares.y;
         
-        self.movimentacaoCallback({coordenadaX: self.coordenadaX, coordenadaY: self.coordenadaY})
+        self.movimentacaoTemplateMethod();
         
     });
 
-    self.movimentacaoCallback = function(){};
+    self.movimentacaoTemplateMethod = function(){};
     
 	var colocarBordaSelecao = function(){
 
@@ -141,6 +141,10 @@ editimage.EditimageObjeto = function(observer, shape){
 
 
 	};
+    
+    self.aplicarSelecao = function(){};
+    
+    self.removerSelecao = function(){};
 
     
     self.aplicarSelecao = function(){};

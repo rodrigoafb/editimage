@@ -186,11 +186,6 @@ describe('Objetos - ', function () {
         
         var objeto = new editimage.EditimageObjeto(observer, shape);
         
-        objeto.movimentacaoCallback = function(evt){            
-            coordenadaX = evt.coordenadaX;
-            coordenadaY = evt.coordenadaY;
-        };
-        
         objeto.coordenadaX = 50;
         objeto.coordenadaY = 50;
         
@@ -201,9 +196,6 @@ describe('Objetos - ', function () {
         
         expect(60).toEqual(objeto.coordenadaX);
         expect(60).toEqual(objeto.coordenadaY);
-        
-        expect(60).toEqual(coordenadaX);
-        expect(60).toEqual(coordenadaY);  
     
     });
 
