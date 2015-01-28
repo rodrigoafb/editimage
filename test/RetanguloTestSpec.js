@@ -77,5 +77,47 @@ describe('Retangulo - ', function() {
 		expect(100).toEqual(rect.h);
 
 	});
+    
+    it('Deve aplicar e remover a seleção ao retangulo', function(){
+        
+        var shape = new createjs.Shape();
+		var evento = {};
+
+		shape.addEventListener = function(pEvento, callback){
+            evento[pEvento] = callback;
+        };
+
+		shape.dispararEvento = function(pEvento){
+            evento[pEvento]();
+        };
+
+		var retangulo = editimage.fabricaRetangulo.criar(observer, shape, redimensionadores);
+
+		var shapeRetangulo = retangulo.retornarShape();
+
+		shapeRetangulo.dispararEvento('click');
+        
+        expect(true).toEqual(redimensionadores[0].visible);
+        expect(true).toEqual(redimensionadores[1].visible);
+        expect(true).toEqual(redimensionadores[2].visible);
+        expect(true).toEqual(redimensionadores[3].visible);
+        expect(true).toEqual(redimensionadores[4].visible);
+        expect(true).toEqual(redimensionadores[5].visible);
+        expect(true).toEqual(redimensionadores[6].visible);
+        expect(true).toEqual(redimensionadores[7].visible);
+        
+        retangulo.selecionado = false;
+        
+        expect(false).toEqual(redimensionadores[0].visible);
+        expect(false).toEqual(redimensionadores[1].visible);
+        expect(false).toEqual(redimensionadores[2].visible);
+        expect(false).toEqual(redimensionadores[3].visible);
+        expect(false).toEqual(redimensionadores[4].visible);
+        expect(false).toEqual(redimensionadores[5].visible);
+        expect(false).toEqual(redimensionadores[6].visible);
+        expect(false).toEqual(redimensionadores[7].visible);
+        
+        
+    });
 
 });

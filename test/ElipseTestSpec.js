@@ -71,5 +71,39 @@ describe('Elipse - ', function(){
 		expect(150).toEqual(elip.w);
 		expect(100).toEqual(elip.h);
 	});
+    
+    it('Deve aplicar e remover a seleção ao retangulo', function(){
+        
+        var shape = new createjs.Shape();
+		var evento = {};
+
+		shape.addEventListener = function(pEvento, callback){
+            evento[pEvento] = callback;
+        };
+
+		shape.dispararEvento = function(pEvento){
+            evento[pEvento]();
+        };
+
+		var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores);
+
+		var shapeElipse = elipse.retornarShape();
+
+		shapeElipse.dispararEvento('click');
+        
+        expect(true).toEqual(redimensionadores[0].visible);
+        expect(true).toEqual(redimensionadores[1].visible);
+        expect(true).toEqual(redimensionadores[2].visible);
+        expect(true).toEqual(redimensionadores[3].visible);
+        
+        elipse.selecionado = false;
+        
+        expect(false).toEqual(redimensionadores[0].visible);
+        expect(false).toEqual(redimensionadores[1].visible);
+        expect(false).toEqual(redimensionadores[2].visible);
+        expect(false).toEqual(redimensionadores[3].visible);
+        
+        
+    });
 
 });

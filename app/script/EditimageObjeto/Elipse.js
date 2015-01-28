@@ -14,6 +14,30 @@ editimage.Elipse = function(observer, shape, redimensionadores){
 		self.shape.graphics.drawEllipse(50, 50, 150, 100);
 
 	};
+    
+    self.aplicarSelecao = function(){
+        
+        var countRedimensionadores = redimensionadores.length;
+        
+        for(var i = 0; i< countRedimensionadores; i++){
+            
+            redimensionadores[i].visible = true;
+            
+        }
+        
+    };
+    
+    self.removerSelecao = function(){
+        
+        var countRedimensionadores = redimensionadores.length;
+        
+        for(var i = 0; i< countRedimensionadores; i++){
+            
+            redimensionadores[i].visible = false;
+            
+        }
+        
+    };
 };
 
 editimage.Elipse.prototype = Object.create(editimage.EditimageObjeto.prototype);
