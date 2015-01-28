@@ -14,7 +14,7 @@ describe('Linha - ', function(){
 			}
 		};
 
-        redimensionadores = [{},{}];
+        redimensionadores = [{largura: 6},{largura: 6}];
 	});
 
     it('A fábrica de linhas deve retornar a quantidade de redimensionadores necessários para criar uma linha', function(){
@@ -39,11 +39,41 @@ describe('Linha - ', function(){
     
 	it('Deve criar um objeto Linha', function(){
 
-
-		var linha = editimage.fabricaLinha.criar(observer, new createjs.Shape(), redimensionadores);
+        var shape = new createjs.Shape();
+        
+		shape.graphics.setStrokeStyle = function(){
+            return { command: {} };
+		};
+        
+        shape.graphics.beginStroke = function(){
+            return { command: {} };
+		};
+        
+        shape.graphics.moveTo = function(x,y){
+            
+            return {
+                command: {
+                    x: x,
+                    y: y
+                }
+            };
+		};
+        
+        shape.graphics.lineTo = function(x,y){
+            
+            return {
+                command: {
+                    x: x,
+                    y: y
+                }
+            };
+		};
+        
+		var linha = editimage.fabricaLinha.criar(observer, shape, redimensionadores);
 
 		expect(linha.retornarShape).toBeDefined();
 		expect(true).toEqual(editimage.Linha.prototype instanceof editimage.EditimageObjeto);
+        
 
 	});
 
@@ -63,11 +93,25 @@ describe('Linha - ', function(){
         shape.graphics.moveTo = function(x,y){
 			move.x = x;
 			move.y = y;
+            
+            return {
+                command: {
+                    x: x,
+                    y: y
+                }
+            };
 		};
         
         shape.graphics.lineTo = function(x,y){
 			line.x = x;
 			line.y = y;
+            
+            return {
+                command: {
+                    x: x,
+                    y: y
+                }
+            };
 		};
 
 		var linha  = editimage.fabricaLinha.criar(observer, shape, redimensionadores);
@@ -81,4 +125,75 @@ describe('Linha - ', function(){
 		expect(50).toEqual(move.y);
 	});
 
+    
+//    it('Deve executar o método movimentacaoTemplateMethod quando o objeto for movido', function(){
+//        
+//        var shape = new createjs.Shape();
+//        var evento = {};
+//        var movimentou = false;
+//        
+//        shape.on = function(e, callback){            
+//            evento[e] = callback;            
+//        };
+//        
+//        shape.dispararEventoMouseDown = function(){
+//            evento['mousedown']({stageX: 60, stageY: 60 });
+//        };
+//        
+//        shape.dispararEventoPressMove = function(){
+//            evento['pressmove']({stageX: 70, stageY: 70 });
+//        };
+//        
+//        var objeto = new editimage.fabricaLinha.criar(observer, shape, redimensionadores);
+//        
+//        objeto.movimen
+//        
+//        objeto.coordenadaX = 50;
+//        objeto.coordenadaY = 50;
+//        
+//        var shapeObjeto = objeto.retornarShape();
+//        
+//        shapeObjeto.dispararEventoMouseDown();
+//        shapeObjeto.dispararEventoPressMove();
+//        
+//        expect(60).toEqual(objeto.coordenadaX);
+//        expect(60).toEqual(objeto.coordenadaY);
+//        
+//    });
+    
+    it('Deve posicionar os redimensionadores', function(){
+        
+        var shape = new createjs.Shape();
+        
+        shape.graphics.moveTo = function(x,y){
+            return {
+                command: {
+                    x: x,
+                    y: y
+                }
+            };
+		};
+        
+        shape.graphics.lineTo = function(x,y){
+            return {
+                command: {
+                    x: x,
+                    y: y
+                }
+            };
+		};
+        
+        var objeto = new editimage.fabricaLinha.criar(observer, shape, redimensionadores);
+        
+        var redimensionador1 = redimensionadores[0];
+        var redimensionador2 = redimensionadores[1];
+        
+        expect(47).toEqual(redimensionador1.coordenadaX);
+        expect(47).toEqual(redimensionador1.coordenadaY);
+        
+        expect(147).toEqual(redimensionador2.coordenadaX);
+        expect(147).toEqual(redimensionador2.coordenadaY);
+        
+    });
+    
 });

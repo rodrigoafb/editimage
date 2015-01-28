@@ -17,6 +17,7 @@ describe('Redimensionador - ', function(){
         expect(redimensionador.movimentacaoCallback).toBeDefined();
         expect(redimensionador.cursor).toBeDefined();
         expect(redimensionador.visivel).toBeDefined();
+        expect(redimensionador.largura).toBeDefined();
         
     });
     

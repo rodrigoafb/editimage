@@ -50,6 +50,11 @@ editimage.Redimensionador = function(shape){
                 _shape.visible = value;
             },
             enumerable: true
+        },
+        'largura': {
+            get: function(){
+                return _shape.graphics.command.w;
+            }
         }
     });
     
