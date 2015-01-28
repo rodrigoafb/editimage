@@ -72,7 +72,7 @@ describe('Elipse - ', function(){
 		expect(100).toEqual(elip.h);
 	});
     
-    it('Deve aplicar e remover a seleção ao retangulo', function(){
+    it('Deve aplicar e remover a seleção ao elipse', function(){
         
         var shape = new createjs.Shape();
 		var evento = {};

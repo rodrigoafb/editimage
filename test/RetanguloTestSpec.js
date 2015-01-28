@@ -14,7 +14,7 @@ describe('Retangulo - ', function() {
 			}
 		};
         
-        redimensionadores = [{},{},{},{},{},{},{},{}];
+        redimensionadores = [{largura: 6},{largura: 6},{largura: 6},{largura: 6},{largura: 6},{largura: 6},{largura: 6},{largura: 6}];
         
         editimage.fabricaRetangulo = editimage.fabricaRetanguloBase;
 
@@ -117,6 +117,46 @@ describe('Retangulo - ', function() {
         expect(false).toEqual(redimensionadores[6].visible);
         expect(false).toEqual(redimensionadores[7].visible);
         
+        
+    });
+    
+    it('Deve posicionar os redimensionadores', function(){
+        
+        var shape = new createjs.Shape();
+        
+        shape.graphics.drawRect = function(x,y,w,h){
+			shape.graphics.command.x = x;
+            shape.graphics.command.y = y;
+            shape.graphics.command.w = w;
+            shape.graphics.command.h = h;
+		};
+        
+        var retangulo = editimage.fabricaRetangulo.criar(observer, shape, redimensionadores);
+        
+        
+        expect(47).toEqual(redimensionadores[0].coordenadaX);
+        expect(47).toEqual(redimensionadores[0].coordenadaY);
+        
+        expect(97).toEqual(redimensionadores[1].coordenadaX);
+        expect(47).toEqual(redimensionadores[1].coordenadaY);
+        
+        expect(147).toEqual(redimensionadores[2].coordenadaX);
+        expect(47).toEqual(redimensionadores[2].coordenadaY);
+        
+        expect(47).toEqual(redimensionadores[3].coordenadaX);
+        expect(97).toEqual(redimensionadores[3].coordenadaY);
+        
+        expect(147).toEqual(redimensionadores[4].coordenadaX);
+        expect(97).toEqual(redimensionadores[4].coordenadaY);
+        
+        expect(47).toEqual(redimensionadores[5].coordenadaX);
+        expect(147).toEqual(redimensionadores[5].coordenadaY);
+        
+        expect(97).toEqual(redimensionadores[6].coordenadaX);
+        expect(147).toEqual(redimensionadores[6].coordenadaY);
+        
+        expect(147).toEqual(redimensionadores[7].coordenadaX);
+        expect(147).toEqual(redimensionadores[7].coordenadaY);
         
     });
 
