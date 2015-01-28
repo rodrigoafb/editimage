@@ -16,6 +16,7 @@ editimage.Linha = function(observer, shape, redimensionadores){
         
         self.desenhar();
         posicionarRedimensionadores();
+        atribuirCallbacksNosRedimensionadores();
         
     };
     
@@ -26,6 +27,30 @@ editimage.Linha = function(observer, shape, redimensionadores){
         
         redimensionadores[1].coordenadaX = lineTo.x - (redimensionadores[1].largura / 2);
         redimensionadores[1].coordenadaY = lineTo.y - (redimensionadores[1].largura / 2);
+        
+    };
+    
+    var atribuirCallbacksNosRedimensionadores = function(){
+        
+        redimensionadores[0].movimentacaoCallback = movimentacaoMoveTo;
+        
+        redimensionadores[1].movimentacaoCallback = movimentacaoLineTo;
+        
+    };
+    
+    var movimentacaoMoveTo = function(coordenadas){
+        
+        moveTo.x = coordenadas.coordenadaX;
+        moveTo.y = coordenadas.coordenadaY;
+        
+        self.observer.notificar(self);
+        
+    };
+    
+    var movimentacaoLineTo = function(coordenadas){
+        
+        lineTo.x = coordenadas.coordenadaX;
+        lineTo.y = coordenadas.coordenadaY;
         
     };
     

@@ -7,7 +7,6 @@ editimage.EditimageObjeto = function(observer, shape){
 	if(!shape) throw new Error("Informe o Shape.");
 
 	var self = this,
-	    _observer = observer,
 	    _selecionado,
 	    _memento;
 
@@ -17,9 +16,7 @@ editimage.EditimageObjeto = function(observer, shape){
 	   ,_strokeStyleCommand = shape.graphics.setStrokeStyle(0).command;
     
     self.shape = shape;
-    
-    self.coordenadaX = 0;
-    self.coordenadaY = 0;
+    self.observer = observer;
     
 	Object.defineProperties(self, {
 
@@ -40,7 +37,7 @@ editimage.EditimageObjeto = function(observer, shape){
                     self.removerSelecao();
 				}
 
-				_observer.notificar(self);
+				self.observer.notificar(self);
 
 			}
 		},
@@ -72,7 +69,7 @@ editimage.EditimageObjeto = function(observer, shape){
             set: function(value){
                 self.shape.x = value;
                 
-                observer.notificar(self);
+                self.observer.notificar(self);
             },
             enumerable: true
         },
@@ -83,7 +80,7 @@ editimage.EditimageObjeto = function(observer, shape){
             set: function(value){
                 self.shape.y = value;
                 
-                observer.notificar(self);
+                self.observer.notificar(self);
             },
             enumerable: true
         }
@@ -145,7 +142,6 @@ editimage.EditimageObjeto = function(observer, shape){
     self.aplicarSelecao = function(){};
     
     self.removerSelecao = function(){};
-
     
     self.aplicarSelecao = function(){};
     

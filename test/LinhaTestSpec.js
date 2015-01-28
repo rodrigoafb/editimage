@@ -156,49 +156,49 @@ describe('Linha - ', function(){
     });
 
     
-//    it('Deve executar o método movimentacaoTemplateMethod quando o objeto for movido', function(){
-//        
-//        var shape = new createjs.Shape();
-//        var evento = {};
-//        var movimentou = false;
-//        
-//        shape.on = function(e, callback){            
-//            evento[e] = callback;            
-//        };
-//        
-//        shape.dispararEventoMouseDown = function(){
-//            evento['mousedown']({stageX: 60, stageY: 60 });
-//        };
-//        
-//        shape.dispararEventoPressMove = function(){
-//            evento['pressmove']({stageX: 70, stageY: 70 });
-//        };
-//        
-//        var objeto = new editimage.fabricaLinha.criar(observer, shape, redimensionadores);
-//        
-//        objeto.movimen
-//        
-//        objeto.coordenadaX = 50;
-//        objeto.coordenadaY = 50;
-//        
-//        var shapeObjeto = objeto.retornarShape();
-//        
-//        shapeObjeto.dispararEventoMouseDown();
-//        shapeObjeto.dispararEventoPressMove();
-//        
-//        expect(60).toEqual(objeto.coordenadaX);
-//        expect(60).toEqual(objeto.coordenadaY);
-//        
-//        var redimensionador1 = redimensionadores[0];
-//        var redimensionador2 = redimensionadores[1];
-//        
-//        expect(47).toEqual(redimensionador1.coordenadaX);
-//        expect(47).toEqual(redimensionador1.coordenadaY);
-//        
-//        expect(147).toEqual(redimensionador2.coordenadaX);
-//        expect(147).toEqual(redimensionador2.coordenadaY);
-//        
-//    });
+    it('Deve executar o método movimentacaoTemplateMethod quando o objeto for movido', function(){
+        
+        var shape = new createjs.Shape();
+        var evento = {};
+        var movimentou = false;
+        
+        shape.on = function(e, callback){            
+            evento[e] = callback;            
+        };
+        
+        shape.dispararEventoMouseDown = function(){
+            evento['mousedown']({stageX: 60, stageY: 60 });
+        };
+        
+        shape.dispararEventoPressMove = function(){
+            evento['pressmove']({stageX: 70, stageY: 70 });
+        };
+        
+        var objeto = new editimage.fabricaLinha.criar(observer, shape, redimensionadores);
+        
+        objeto.movimen
+        
+        objeto.coordenadaX = 50;
+        objeto.coordenadaY = 50;
+        
+        var shapeObjeto = objeto.retornarShape();
+        
+        shapeObjeto.dispararEventoMouseDown();
+        shapeObjeto.dispararEventoPressMove();
+        
+        expect(60).toEqual(objeto.coordenadaX);
+        expect(60).toEqual(objeto.coordenadaY);
+        
+        var redimensionador1 = redimensionadores[0];
+        var redimensionador2 = redimensionadores[1];
+        
+        expect(47).toEqual(redimensionador1.coordenadaX);
+        expect(47).toEqual(redimensionador1.coordenadaY);
+        
+        expect(147).toEqual(redimensionador2.coordenadaX);
+        expect(147).toEqual(redimensionador2.coordenadaY);
+        
+    });
     
     it('Deve posicionar os redimensionadores', function(){
         
@@ -234,5 +234,59 @@ describe('Linha - ', function(){
         expect(147).toEqual(redimensionador2.coordenadaY);
         
     });
+    
+    it('Quando os redimensionadores forem movidos, deve alterar o tamanho da linha', function(){
+        
+        var shape = new createjs.Shape();
+        
+        var moveTo = {
+                    x: 0,
+                    y: 0
+                };
+        
+        var lineTo = {
+                    x: 0,
+                    y: 0
+                };
+        
+        shape.graphics.moveTo = function(x,y){
+            
+            moveTo.x = x;
+            moveTo.y = y;
+            
+            return {
+                command: moveTo
+            };
+		};
+        
+        shape.graphics.lineTo = function(x,y){
+            
+            lineTo.x = x;
+            lineTo.y = y;
+            
+            return {
+                command: lineTo
+            };
+		};
+        
+        var objeto = new editimage.fabricaLinha.criar(observer, shape, redimensionadores);
+        
+        var redimensionador1 = redimensionadores[0];
+        var redimensionador2 = redimensionadores[1];
+        
+        observer.notificado = false;
+        
+        redimensionador1.movimentacaoCallback({coordenadaX: 50, coordenadaY: 50});
+        redimensionador2.movimentacaoCallback({coordenadaX: 100, coordenadaY: 100});
+        
+        expect(50).toEqual(moveTo.x);
+        expect(50).toEqual(moveTo.y);
+        
+        expect(100).toEqual(lineTo.x);
+        expect(100).toEqual(lineTo.y);
+        
+        expect(true).toEqual(observer.notificado);
+        
+    })
     
 });
