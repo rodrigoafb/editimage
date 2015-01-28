@@ -18,8 +18,17 @@ editimage.Elipse = function(observer, shape, redimensionadores){
     
     var posicionarRedimensionadores = function(){
         
-        redimensionadores[0].coordenadaX = self.coordenadaX + (self.graphics.width / 2) - (redimensionadores.largura / 2);
-        redimensionadores[0].coordenadaY = self.coordenadaY - (redimensionadores.largura / 2);
+        redimensionadores[0].coordenadaX = self.coordenadaX + (self.shape.graphics.command.w / 2) - (redimensionadores[0].largura / 2);
+        redimensionadores[0].coordenadaY = self.coordenadaY - (redimensionadores[0].largura / 2);
+        
+        redimensionadores[1].coordenadaX = self.coordenadaX + self.shape.graphics.command.w - (redimensionadores[0].largura / 2);
+        redimensionadores[1].coordenadaY = self.coordenadaY + (self.shape.graphics.command.h / 2) - (redimensionadores[0].largura / 2);
+        
+        redimensionadores[2].coordenadaX = self.coordenadaX + (self.shape.graphics.command.w / 2) - (redimensionadores[0].largura / 2);
+        redimensionadores[2].coordenadaY = self.coordenadaY + self.shape.graphics.command.h - (redimensionadores[0].largura / 2);
+        
+        redimensionadores[3].coordenadaX = self.coordenadaX - (redimensionadores[0].largura / 2);
+        redimensionadores[3].coordenadaY = self.coordenadaY + (self.shape.graphics.command.h / 2) - (redimensionadores[0].largura / 2);
         
     };
     

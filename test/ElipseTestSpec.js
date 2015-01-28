@@ -14,7 +14,7 @@ describe('Elipse - ', function(){
 			}
 		};
         
-        redimensionadores = [{},{},{},{}];
+        redimensionadores = [{largura:6},{largura:6},{largura:6},{largura:6}];
 
 	});
     
@@ -39,7 +39,15 @@ describe('Elipse - ', function(){
     });
     
 	it('Deve criar um objeto Elipse', function(){
-
+        
+        var shape = new createjs.Shape();
+        
+        shape.graphics.drawRect = function(x,y,w,h){
+			shape.graphics.command.x = x;
+            shape.graphics.command.y = y;
+            shape.graphics.command.w = w;
+            shape.graphics.command.h = h;
+		};
 
 		var elipse = editimage.fabricaElipse.criar(observer, new createjs.Shape(), redimensionadores);
 
@@ -108,8 +116,16 @@ describe('Elipse - ', function(){
     
     it('Deve posicionar os redimensionadores', function(){
         
-        
         var shape = new createjs.Shape();
+        
+        shape.graphics.drawEllipse = function(x,y,w,h){
+            shape.x = x;
+            shape.y = y;
+			shape.graphics.command.x = x;
+            shape.graphics.command.y = y;
+            shape.graphics.command.w = w;
+            shape.graphics.command.h = h;
+		};
         
         var objeto = new editimage.fabricaElipse.criar(observer, shape, redimensionadores);
         
@@ -118,8 +134,17 @@ describe('Elipse - ', function(){
         var redimensionador3 = redimensionadores[2];
         var redimensionador4 = redimensionadores[3];
         
-        expect(97).toEqual(redimensionador1.coordenadaX);
+        expect(122).toEqual(redimensionador1.coordenadaX);
         expect(47).toEqual(redimensionador1.coordenadaY);
+        
+        expect(197).toEqual(redimensionador2.coordenadaX);
+        expect(97).toEqual(redimensionador2.coordenadaY);
+        
+        expect(122).toEqual(redimensionador3.coordenadaX);
+        expect(147).toEqual(redimensionador3.coordenadaY);
+        
+        expect(47).toEqual(redimensionador4.coordenadaX);
+        expect(97).toEqual(redimensionador4.coordenadaY);
         
     })
 
