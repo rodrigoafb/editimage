@@ -125,6 +125,8 @@ describe('Retangulo - ', function() {
         var shape = new createjs.Shape();
         
         shape.graphics.drawRect = function(x,y,w,h){
+            shape.x = x;
+            shape.y = y;
 			shape.graphics.command.x = x;
             shape.graphics.command.y = y;
             shape.graphics.command.w = w;
@@ -157,6 +159,89 @@ describe('Retangulo - ', function() {
         
         expect(147).toEqual(redimensionadores[7].coordenadaX);
         expect(147).toEqual(redimensionadores[7].coordenadaY);
+        
+    });
+    
+    it('Deve reposicionar os redimensionadores caso o retangulo seja movido', function(){
+        
+        var shape = new createjs.Shape();
+        var evento = {};
+        
+        shape.graphics.drawRect = function(x,y,w,h){
+            shape.x = x;
+            shape.y = y;
+			shape.graphics.command.x = x;
+            shape.graphics.command.y = y;
+            shape.graphics.command.w = w;
+            shape.graphics.command.h = h;
+		};
+        
+        shape.on = function(e, callback){            
+            evento[e] = callback;            
+        };
+        
+        shape.dispararEventoMouseDown = function(){
+            evento['mousedown']({stageX: 60, stageY: 60 });
+        };
+        
+        shape.dispararEventoPressMove = function(){
+            evento['pressmove']({stageX: 70, stageY: 70 });
+        };
+        
+        var retangulo = editimage.fabricaRetangulo.criar(observer, shape, redimensionadores);
+        
+        expect(47).toEqual(redimensionadores[0].coordenadaX);
+        expect(47).toEqual(redimensionadores[0].coordenadaY);
+        
+        expect(97).toEqual(redimensionadores[1].coordenadaX);
+        expect(47).toEqual(redimensionadores[1].coordenadaY);
+        
+        expect(147).toEqual(redimensionadores[2].coordenadaX);
+        expect(47).toEqual(redimensionadores[2].coordenadaY);
+        
+        expect(47).toEqual(redimensionadores[3].coordenadaX);
+        expect(97).toEqual(redimensionadores[3].coordenadaY);
+        
+        expect(147).toEqual(redimensionadores[4].coordenadaX);
+        expect(97).toEqual(redimensionadores[4].coordenadaY);
+        
+        expect(47).toEqual(redimensionadores[5].coordenadaX);
+        expect(147).toEqual(redimensionadores[5].coordenadaY);
+        
+        expect(97).toEqual(redimensionadores[6].coordenadaX);
+        expect(147).toEqual(redimensionadores[6].coordenadaY);
+        
+        expect(147).toEqual(redimensionadores[7].coordenadaX);
+        expect(147).toEqual(redimensionadores[7].coordenadaY);        
+        
+        var shapeRetangulo = retangulo.retornarShape();
+        
+        shapeRetangulo.dispararEventoMouseDown();
+        shapeRetangulo.dispararEventoPressMove();        
+        
+        expect(57).toEqual(redimensionadores[0].coordenadaX);
+        expect(57).toEqual(redimensionadores[0].coordenadaY);
+        
+        expect(107).toEqual(redimensionadores[1].coordenadaX);
+        expect(57).toEqual(redimensionadores[1].coordenadaY);
+        
+        expect(157).toEqual(redimensionadores[2].coordenadaX);
+        expect(57).toEqual(redimensionadores[2].coordenadaY);
+        
+        expect(57).toEqual(redimensionadores[3].coordenadaX);
+        expect(107).toEqual(redimensionadores[3].coordenadaY);
+        
+        expect(157).toEqual(redimensionadores[4].coordenadaX);
+        expect(107).toEqual(redimensionadores[4].coordenadaY);
+        
+        expect(57).toEqual(redimensionadores[5].coordenadaX);
+        expect(157).toEqual(redimensionadores[5].coordenadaY);
+        
+        expect(107).toEqual(redimensionadores[6].coordenadaX);
+        expect(157).toEqual(redimensionadores[6].coordenadaY);
+        
+        expect(157).toEqual(redimensionadores[7].coordenadaX);
+        expect(157).toEqual(redimensionadores[7].coordenadaY);   
         
     });
 
