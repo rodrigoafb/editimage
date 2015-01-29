@@ -38,7 +38,9 @@ var editimage = editimage || function(){
 	var criarElementoHtmlCanvas = function(){		
 
 		var canvas = document.createElement('canvas');
-
+        canvas.setAttribute('width', '500');
+        canvas.setAttribute('height', '500');
+        
 		return canvas;		
 
 	};
