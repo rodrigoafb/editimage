@@ -58,6 +58,20 @@ describe('Elipse - ', function(){
 		expect(true).toEqual(editimage.Elipse.prototype instanceof editimage.EditimageObjeto);
 
 	});
+    
+    it('Quando os valores das propriedade largura e altura alterar, deve disparar o observer', function(){
+        
+        var elipse = editimage.fabricaElipse.criar(observer, new createjs.Shape(), redimensionadores);
+        
+        observer.notificado = false;
+        elipse.largura = 78;
+        expect(true).toEqual(observer.notificado);
+
+        observer.notificado = false;
+        elipse.altura = 78;
+        expect(true).toEqual(observer.notificado);
+        
+    });
 
 	it('Deve desenhar um elipse', function(){
 
