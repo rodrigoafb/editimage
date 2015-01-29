@@ -21,6 +21,8 @@ editimage.Elipse = function(observer, shape, redimensionadores){
                 
                 self.shape.graphics.command.w = value;
                 
+                self.observer.notificar(self);
+                
             },
             enumerable: true
         },
@@ -33,6 +35,8 @@ editimage.Elipse = function(observer, shape, redimensionadores){
                 if(value === self.shape.graphics.command.h) return;
                 
                 self.shape.graphics.command.h = value;
+                
+                self.observer.notificar(self);
                 
             },
             enumerable: true
