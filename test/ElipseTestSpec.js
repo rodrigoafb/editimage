@@ -14,7 +14,7 @@ describe('Elipse - ', function(){
 			}
 		};
         
-        redimensionadores = [{},{},{},{}];
+        redimensionadores = [{largura:6},{largura:6},{largura:6},{largura:6}];
 
 	});
     
@@ -39,10 +39,21 @@ describe('Elipse - ', function(){
     });
     
 	it('Deve criar um objeto Elipse', function(){
-
+        
+        var shape = new createjs.Shape();
+        
+        shape.graphics.drawRect = function(x,y,w,h){
+			shape.graphics.command.x = x;
+            shape.graphics.command.y = y;
+            shape.graphics.command.w = w;
+            shape.graphics.command.h = h;
+		};
 
 		var elipse = editimage.fabricaElipse.criar(observer, new createjs.Shape(), redimensionadores);
 
+		expect(elipse.retornarShape).toBeDefined();
+		expect(elipse.largura).toBeDefined();
+		expect(elipse.altura).toBeDefined();
 		expect(elipse.retornarShape).toBeDefined();
 		expect(true).toEqual(editimage.Elipse.prototype instanceof editimage.EditimageObjeto);
 
@@ -72,7 +83,7 @@ describe('Elipse - ', function(){
 		expect(100).toEqual(elip.h);
 	});
     
-    it('Deve aplicar e remover a seleção ao retangulo', function(){
+    it('Deve aplicar e remover a seleção ao elipse', function(){
         
         var shape = new createjs.Shape();
 		var evento = {};
@@ -103,6 +114,162 @@ describe('Elipse - ', function(){
         expect(false).toEqual(redimensionadores[2].visible);
         expect(false).toEqual(redimensionadores[3].visible);
         
+        
+    });
+    
+    it('Deve posicionar os redimensionadores', function(){
+        
+        var shape = new createjs.Shape();
+        
+        shape.graphics.drawEllipse = function(x,y,w,h){
+            shape.x = x;
+            shape.y = y;
+			shape.graphics.command.x = x;
+            shape.graphics.command.y = y;
+            shape.graphics.command.w = w;
+            shape.graphics.command.h = h;
+		};
+        
+        var objeto = new editimage.fabricaElipse.criar(observer, shape, redimensionadores);
+        
+        var redimensionador1 = redimensionadores[0];
+        var redimensionador2 = redimensionadores[1];
+        var redimensionador3 = redimensionadores[2];
+        var redimensionador4 = redimensionadores[3];
+        
+        expect(122).toEqual(redimensionador1.coordenadaX);
+        expect(47).toEqual(redimensionador1.coordenadaY);
+        
+        expect(197).toEqual(redimensionador2.coordenadaX);
+        expect(97).toEqual(redimensionador2.coordenadaY);
+        
+        expect(122).toEqual(redimensionador3.coordenadaX);
+        expect(147).toEqual(redimensionador3.coordenadaY);
+        
+        expect(47).toEqual(redimensionador4.coordenadaX);
+        expect(97).toEqual(redimensionador4.coordenadaY);
+        
+    });
+    
+    it('Quando a elipse for movida, deve reposicionar os redimensionadores', function(){
+        
+        var shape = new createjs.Shape();
+        var evento = {};
+        
+        shape.graphics.drawEllipse = function(x,y,w,h){
+            shape.x = x;
+            shape.y = y;
+			shape.graphics.command.x = x;
+            shape.graphics.command.y = y;
+            shape.graphics.command.w = w;
+            shape.graphics.command.h = h;
+		};
+        
+        shape.on = function(e, callback){            
+            evento[e] = callback;            
+        };
+        
+        shape.dispararEventoMouseDown = function(){
+            evento['mousedown']({stageX: 60, stageY: 60 });
+        };
+        
+        shape.dispararEventoPressMove = function(){
+            evento['pressmove']({stageX: 70, stageY: 70 });
+        };
+        
+        var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores);
+        
+        var redimensionador1 = redimensionadores[0];
+        var redimensionador2 = redimensionadores[1];
+        var redimensionador3 = redimensionadores[2];
+        var redimensionador4 = redimensionadores[3];
+        
+        expect(122).toEqual(redimensionador1.coordenadaX);
+        expect(47).toEqual(redimensionador1.coordenadaY);
+        
+        expect(197).toEqual(redimensionador2.coordenadaX);
+        expect(97).toEqual(redimensionador2.coordenadaY);
+        
+        expect(122).toEqual(redimensionador3.coordenadaX);
+        expect(147).toEqual(redimensionador3.coordenadaY);
+        
+        expect(47).toEqual(redimensionador4.coordenadaX);
+        expect(97).toEqual(redimensionador4.coordenadaY);       
+        
+        var shapeElipse = elipse.retornarShape();
+        
+        shapeElipse.dispararEventoMouseDown();
+        shapeElipse.dispararEventoPressMove();        
+        
+        expect(132).toEqual(redimensionador1.coordenadaX);
+        expect(57).toEqual(redimensionador1.coordenadaY);
+        
+        expect(207).toEqual(redimensionador2.coordenadaX);
+        expect(107).toEqual(redimensionador2.coordenadaY);
+        
+        expect(132).toEqual(redimensionador3.coordenadaX);
+        expect(157).toEqual(redimensionador3.coordenadaY);
+        
+        expect(57).toEqual(redimensionador4.coordenadaX);
+        expect(107).toEqual(redimensionador4.coordenadaY); 
+        
+    });
+    
+    it('Quando os redimensionadores forem movidos, deve modificar as dimensões da elipse', function(){
+        
+        var shape = new createjs.Shape();
+        
+        shape.graphics.drawEllipse = function(x,y,w,h){
+            shape.x = x;
+            shape.y = y;
+			shape.graphics.command.x = x;
+            shape.graphics.command.y = y;
+            shape.graphics.command.w = w;
+            shape.graphics.command.h = h;
+		};
+        
+        var elipse = new editimage.fabricaElipse.criar(observer, shape, redimensionadores);
+        
+        var redimensionador1 = redimensionadores[0];
+        var redimensionador2 = redimensionadores[1];
+        var redimensionador3 = redimensionadores[2];
+        var redimensionador4 = redimensionadores[3];
+        
+        //Meio cima
+        redimensionador1.movimentacaoCallback({coordenadaX: 122 , coordenadaY: 37});
+        expect(50).toEqual(elipse.coordenadaX);
+        expect(150).toEqual(shape.graphics.command.w);
+        expect(113).toEqual(shape.graphics.command.h);
+        expect(37).toEqual(elipse.coordenadaY);
+        expect(122).toEqual(redimensionador1.coordenadaX);
+        expect(34).toEqual(redimensionador1.coordenadaY);
+        
+        //Meio direita
+        redimensionador2.movimentacaoCallback({coordenadaX: 207 , coordenadaY: 97});
+        expect(50).toEqual(elipse.coordenadaX);
+        expect(157).toEqual(shape.graphics.command.w);
+        expect(113).toEqual(shape.graphics.command.h);
+        expect(37).toEqual(elipse.coordenadaY);
+        expect(204).toEqual(redimensionador2.coordenadaX);
+        expect(90.5).toEqual(redimensionador2.coordenadaY);
+        
+        //Meio baixo
+        redimensionador3.movimentacaoCallback({coordenadaX: 122 , coordenadaY: 157});
+        expect(50).toEqual(elipse.coordenadaX);
+        expect(157).toEqual(shape.graphics.command.w);
+        expect(120).toEqual(shape.graphics.command.h);
+        expect(37).toEqual(elipse.coordenadaY);
+        expect(125.5).toEqual(redimensionador3.coordenadaX);
+        expect(154).toEqual(redimensionador3.coordenadaY);
+        
+        //Meio baixo
+        redimensionador4.movimentacaoCallback({coordenadaX: 37 , coordenadaY: 97});
+        expect(37).toEqual(elipse.coordenadaX);
+        expect(170).toEqual(shape.graphics.command.w);
+        expect(120).toEqual(shape.graphics.command.h);
+        expect(37).toEqual(elipse.coordenadaY);
+        expect(34).toEqual(redimensionador4.coordenadaX);
+        expect(94).toEqual(redimensionador4.coordenadaY);
         
     });
 

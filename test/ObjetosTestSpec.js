@@ -64,6 +64,8 @@ describe('Objetos - ', function () {
 
 		expect(true).toEqual(objeto.selecionado);
 
+		shape.dispararEvento('click');
+
 	});
 
 	it('Quando o valor da propriedade selecionado for alterado deve disparar o observer', function(){
@@ -167,9 +169,7 @@ describe('Objetos - ', function () {
     it('Deve mover o objeto', function(){
         
        var shape = new createjs.Shape();
-        var evento = {}
-           ,coordenadaX = 0
-           ,coordenadaY = 0;
+        var evento = {};
         
         shape.on = function(e, callback){            
             evento[e] = callback;            
