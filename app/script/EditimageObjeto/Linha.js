@@ -38,10 +38,10 @@ editimage.Linha = function(observer, shape, redimensionadores){
         
     };
     
-    var movimentacaoMoveTo = function(coordenadas){
+    var movimentacaoMoveTo = function(coordenada){
         
-        moveTo.x = coordenadas.coordenadaX;
-        moveTo.y = coordenadas.coordenadaY;
+        moveTo.x = coordenada.coordenadaX;
+        moveTo.y = coordenada.coordenadaY;
         
         self.observer.notificar(self);
         
