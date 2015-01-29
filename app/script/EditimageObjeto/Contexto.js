@@ -7,11 +7,11 @@ editimage.Contexto = function(observer, stage){
     _stage.enableMouseOver();
     
     self.adicionarObjeto = function(objeto){
+        
         _stage.addChild(objeto.retornarShape());
         _stage.update();
         
         objetos.push(objeto);
-        
     };
     
     self.retornarObjetos = function(){
@@ -22,10 +22,26 @@ editimage.Contexto = function(observer, stage){
         return observer; 
     };
     
-    observer.adicionarCallback(function(){
+    observer.adicionarCallback(function(objeto){
+        removerSelecaoObjetos(objeto)
+        
         _stage.update();
     });   
-
+    
+    var removerSelecaoObjetos = function(objeto){
+        
+        var objetosNaoSelecionados = objetos.filter(function (objetoFilter) {
+            return objetoFilter !== objeto;
+        });
+        
+        objetosNaoSelecionados.forEach(function(item){
+            
+            item.selecionado = false;
+            
+        });
+        
+    };
+    
 };
 
 

@@ -14,12 +14,9 @@ editimage.EditimageObjeto = function(observer, shape){
     var coordenadasAuxiliares = {};
     
 	var _strokeCommand = shape.graphics.beginStroke("red").command
-	   ,_strokeStyleCommand = shape.graphics.setStrokeStyle(1).command;
+	   ,_strokeStyleCommand = shape.graphics.setStrokeStyle(4).command;
     
     self.shape = shape;
-    
-    self.coordenadaX = 0;
-    self.coordenadaY = 0;
     
 	Object.defineProperties(self, {
 
@@ -42,7 +39,8 @@ editimage.EditimageObjeto = function(observer, shape){
 
 				_observer.notificar(self);
 
-			}
+			},
+            enumerable: true
 		},
 
 		'bordaCor': {
@@ -117,13 +115,12 @@ editimage.EditimageObjeto = function(observer, shape){
 	var colocarBordaSelecao = function(){
 
 		_strokeCommand.style = '#729fe2';
-		_strokeStyleCommand.width = 4;
 
 	};
 
 	var criarMemento = function(){
 
-		_memento = JSON.stringify(self);
+        _memento = JSON.stringify(self);
 
 	};
 
@@ -156,7 +153,7 @@ editimage.EditimageObjeto = function(observer, shape){
 		return shape;
 
 	};
-
+    
 	self.retornarEstadoAtual = function(){
 
 		return _memento;

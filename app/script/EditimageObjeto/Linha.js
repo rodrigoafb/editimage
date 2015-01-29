@@ -1,5 +1,6 @@
 'use strict';
 
+
 editimage.Linha = function(observer, shape, redimensionadores){
 
     if(!redimensionadores) throw new Error('Informe os redimensionadores');

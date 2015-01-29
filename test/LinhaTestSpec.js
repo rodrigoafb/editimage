@@ -125,7 +125,7 @@ describe('Linha - ', function(){
 		expect(50).toEqual(move.y);
 	});
     
-    it('Deve aplicar e remover a seleção ao retangulo', function(){
+    it('Deve aplicar e remover a seleção a linha', function(){
         
         var shape = new createjs.Shape();
 		var evento = {};
@@ -234,5 +234,26 @@ describe('Linha - ', function(){
         expect(147).toEqual(redimensionador2.coordenadaY);
         
     });
+    
+    it('Deve remover a selecao de todos objetos da tela exceto o clicado', function(){
+        
+        var shape = new createjs.Shape();
+		var evento = {};
+
+		shape.addEventListener = function(pEvento, callback){
+            evento[pEvento] = callback;
+        };
+
+		shape.dispararEvento = function(pEvento){
+            evento[pEvento]();
+        };
+		var linha = editimage.fabricaLinha.criar(observer, shape, redimensionadores);
+		var shapeLinha = linha.retornarShape();
+		shapeLinha.dispararEvento('click');
+        linha.selecionado = false;
+        
+    })
+    
+    
     
 });
