@@ -356,5 +356,22 @@ describe('Retangulo - ', function() {
         expect(168).toEqual(redimensionadores[7].coordenadaY);
         
     });
+    
+    it('O retangulo deve setar cursor os redimensionadores', function(){
+        
+        var shape = new createjs.Shape();
+        
+        var retangulo = new editimage.fabricaRetangulo.criar(observer, shape, redimensionadores);
+        
+        expect('nw-resize').toEqual(redimensionadores[0].cursor);
+        expect('n-resize').toEqual(redimensionadores[1].cursor);
+        expect('ne-resize').toEqual(redimensionadores[2].cursor);
+        expect('w-resize').toEqual(redimensionadores[3].cursor);
+        expect('e-resize').toEqual(redimensionadores[4].cursor);
+        expect('sw-resize').toEqual(redimensionadores[5].cursor);
+        expect('s-resize').toEqual(redimensionadores[6].cursor);
+        expect('se-resize').toEqual(redimensionadores[7].cursor);
+        
+    });
 
 });

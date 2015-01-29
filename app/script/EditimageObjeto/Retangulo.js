@@ -48,6 +48,7 @@ editimage.Retangulo = function(observer, shape, redimensionadores){
         self.desenhar();
         posicionarRedimensionadores();
         atribuirCallbacksNosRedimensionadores();
+        definirCursosRedimensionadores();
         
     };
     
@@ -176,6 +177,18 @@ editimage.Retangulo = function(observer, shape, redimensionadores){
         self.altura = coordenada.coordenadaY - self.coordenadaY;
                 
         posicionarRedimensionadores();
+    };
+    
+    var definirCursosRedimensionadores = function(){
+        
+        redimensionadores[0].cursor = 'nw-resize';
+        redimensionadores[1].cursor = 'n-resize';
+        redimensionadores[2].cursor = 'ne-resize';
+        redimensionadores[3].cursor = 'w-resize';
+        redimensionadores[4].cursor = 'e-resize';
+        redimensionadores[5].cursor = 'sw-resize';
+        redimensionadores[6].cursor = 's-resize';
+        redimensionadores[7].cursor = 'se-resize';
     };
     
 	self.desenhar = function(){
