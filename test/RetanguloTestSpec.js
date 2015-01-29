@@ -276,7 +276,7 @@ describe('Retangulo - ', function() {
             shape.graphics.command.h = h;
 		};
         
-        var retangulo = new editimage.fabricaRetangulo.criar(observer, shape, redimensionadores);
+        var retangulo = editimage.fabricaRetangulo.criar(observer, shape, redimensionadores);
                       
         expect(100).toEqual(retangulo.largura);
         expect(100).toEqual(retangulo.altura);
@@ -361,7 +361,7 @@ describe('Retangulo - ', function() {
         
         var shape = new createjs.Shape();
         
-        var retangulo = new editimage.fabricaRetangulo.criar(observer, shape, redimensionadores);
+        var retangulo = editimage.fabricaRetangulo.criar(observer, shape, redimensionadores);
         
         expect('nw-resize').toEqual(redimensionadores[0].cursor);
         expect('n-resize').toEqual(redimensionadores[1].cursor);
