@@ -50,10 +50,28 @@ describe('Retangulo - ', function() {
 
 		var retangulo = editimage.fabricaRetangulo.criar(observer, new createjs.Shape(), redimensionadores);
 
+        expect(retangulo.largura).toBeDefined();
+        expect(retangulo.altura).toBeDefined();
 		expect(retangulo.retornarShape).toBeDefined();
 		expect(true).toEqual(editimage.Retangulo.prototype instanceof editimage.EditimageObjeto);
 
 	});
+    
+    it('Deve disparar o observer caso as propriedades altura e largura forem alteradas', function(){
+        
+        var retangulo = editimage.fabricaRetangulo.criar(observer, new createjs.Shape(), redimensionadores);
+        
+        retangulo.altura = 10;
+        
+        expect(true).toEqual(observer.notificado);
+        
+        observer.notificado = false;
+        
+        retangulo.largura = 20;
+        
+        expect(true).toEqual(observer.notificado);
+        
+    });
 
 	it('Deve desenhar um retangulo', function(){
 
@@ -242,6 +260,117 @@ describe('Retangulo - ', function() {
         
         expect(157).toEqual(redimensionadores[7].coordenadaX);
         expect(157).toEqual(redimensionadores[7].coordenadaY);   
+        
+    });
+    
+    it('Quando os redimensionadores forem movidos, deve alterar o tamanho do retangulo', function(){
+        
+        var shape = new createjs.Shape();
+        
+        shape.graphics.drawRect = function(x,y,w,h){
+            shape.x = x;
+            shape.y = y;
+			shape.graphics.command.x = x;
+            shape.graphics.command.y = y;
+            shape.graphics.command.w = w;
+            shape.graphics.command.h = h;
+		};
+        
+        var retangulo = editimage.fabricaRetangulo.criar(observer, shape, redimensionadores);
+                      
+        expect(100).toEqual(retangulo.largura);
+        expect(100).toEqual(retangulo.altura);
+        expect(50).toEqual(retangulo.coordenadaX);
+        expect(50).toEqual(retangulo.coordenadaY);
+        
+        //Topo Esquerda
+        redimensionadores[0].movimentacaoCallback({coordenadaX: 40, coordenadaY: 40});        
+        expect(40).toEqual(retangulo.coordenadaX);
+        expect(40).toEqual(retangulo.coordenadaY);
+        expect(110).toEqual(retangulo.largura);
+        expect(110).toEqual(retangulo.altura);        
+        expect(37).toEqual(redimensionadores[0].coordenadaX);
+        expect(37).toEqual(redimensionadores[0].coordenadaY);
+                
+        //Topo Meio
+        redimensionadores[1].movimentacaoCallback({coordenadaX: 92 , coordenadaY: 27});
+        expect(40).toEqual(retangulo.coordenadaX);
+        expect(27).toEqual(retangulo.coordenadaY);
+        expect(110).toEqual(retangulo.largura);
+        expect(123).toEqual(retangulo.altura);
+        expect(92).toEqual(redimensionadores[1].coordenadaX);
+        expect(24).toEqual(redimensionadores[1].coordenadaY);
+        
+        //Topo Direita
+        redimensionadores[2].movimentacaoCallback({coordenadaX: 157, coordenadaY: 17});        
+        expect(40).toEqual(retangulo.coordenadaX);
+        expect(17).toEqual(retangulo.coordenadaY);
+        expect(117).toEqual(retangulo.largura);
+        expect(133).toEqual(retangulo.altura);        
+        expect(154).toEqual(redimensionadores[2].coordenadaX);
+        expect(14).toEqual(redimensionadores[2].coordenadaY);
+        
+        //Meio Esquerda
+        redimensionadores[3].movimentacaoCallback({coordenadaX: 30 , coordenadaY: 97});
+        expect(30).toEqual(retangulo.coordenadaX);
+        expect(17).toEqual(retangulo.coordenadaY);
+        expect(127).toEqual(retangulo.largura);
+        expect(133).toEqual(retangulo.altura); 
+        expect(27).toEqual(redimensionadores[3].coordenadaX);
+        expect(80.5).toEqual(redimensionadores[3].coordenadaY);
+        
+        //Meio Direira
+        redimensionadores[4].movimentacaoCallback({coordenadaX: 164 , coordenadaY: 97});
+        expect(30).toEqual(retangulo.coordenadaX);
+        expect(17).toEqual(retangulo.coordenadaY);
+        expect(134).toEqual(retangulo.largura);
+        expect(133).toEqual(retangulo.altura); 
+        expect(161).toEqual(redimensionadores[4].coordenadaX);
+        expect(80.5).toEqual(redimensionadores[4].coordenadaY);
+        
+        //Baixo Esquerda
+        redimensionadores[5].movimentacaoCallback({coordenadaX: 20 , coordenadaY: 157});
+        expect(20).toEqual(retangulo.coordenadaX);
+        expect(17).toEqual(retangulo.coordenadaY);
+        expect(144).toEqual(retangulo.largura);
+        expect(140).toEqual(retangulo.altura); 
+        expect(17).toEqual(redimensionadores[5].coordenadaX);
+        expect(154).toEqual(redimensionadores[5].coordenadaY);
+        
+        //Baixo Meio
+        redimensionadores[6].movimentacaoCallback({coordenadaX: 97 , coordenadaY: 164});
+        expect(20).toEqual(retangulo.coordenadaX);
+        expect(17).toEqual(retangulo.coordenadaY);
+        expect(144).toEqual(retangulo.largura);
+        expect(147).toEqual(retangulo.altura);
+        expect(89).toEqual(redimensionadores[6].coordenadaX);
+        expect(161).toEqual(redimensionadores[6].coordenadaY);
+                
+        //Baixo Direita
+        redimensionadores[7].movimentacaoCallback({coordenadaX: 171, coordenadaY: 171});        
+        expect(20).toEqual(retangulo.coordenadaX);
+        expect(17).toEqual(retangulo.coordenadaY);
+        expect(151).toEqual(retangulo.largura);
+        expect(154).toEqual(retangulo.altura);        
+        expect(168).toEqual(redimensionadores[7].coordenadaX);
+        expect(168).toEqual(redimensionadores[7].coordenadaY);
+        
+    });
+    
+    it('O retangulo deve setar cursor os redimensionadores', function(){
+        
+        var shape = new createjs.Shape();
+        
+        var retangulo = editimage.fabricaRetangulo.criar(observer, shape, redimensionadores);
+        
+        expect('nw-resize').toEqual(redimensionadores[0].cursor);
+        expect('n-resize').toEqual(redimensionadores[1].cursor);
+        expect('ne-resize').toEqual(redimensionadores[2].cursor);
+        expect('w-resize').toEqual(redimensionadores[3].cursor);
+        expect('e-resize').toEqual(redimensionadores[4].cursor);
+        expect('sw-resize').toEqual(redimensionadores[5].cursor);
+        expect('s-resize').toEqual(redimensionadores[6].cursor);
+        expect('se-resize').toEqual(redimensionadores[7].cursor);
         
     });
 

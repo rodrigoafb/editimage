@@ -49,6 +49,7 @@ editimage.Elipse = function(observer, shape, redimensionadores){
         self.desenhar();
         posicionarRedimensionadores();
         atribuirCallbacksNosRedimensionadores();
+        definirCursorRedimensionadores();
         
     };
     
@@ -77,6 +78,18 @@ editimage.Elipse = function(observer, shape, redimensionadores){
         redimensionadores[2].movimentacaoCallback = movimentacaoBaixoMeio;
         
         redimensionadores[3].movimentacaoCallback = movimentacaoEsquerdaMeio;
+        
+    };
+    
+    var definirCursorRedimensionadores = function(){
+        
+        redimensionadores[0].cursor = 'n-resize';
+        
+        redimensionadores[1].cursor = 'e-resize';
+        
+        redimensionadores[2].cursor = 's-resize';
+        
+        redimensionadores[3].cursor = 'w-resize';
         
     };
     

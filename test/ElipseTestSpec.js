@@ -286,5 +286,18 @@ describe('Elipse - ', function(){
         expect(94).toEqual(redimensionador4.coordenadaY);
         
     });
+    
+    it('Deve definir um cursor para cada redimensionador da elipse', function(){
+        
+        var shape = new createjs.Shape();
+        
+        var elipse = new editimage.fabricaElipse.criar(observer, shape, redimensionadores);
+        
+        expect('n-resize').toEqual(redimensionadores[0].cursor);
+        expect('e-resize').toEqual(redimensionadores[1].cursor);
+        expect('s-resize').toEqual(redimensionadores[2].cursor);
+        expect('w-resize').toEqual(redimensionadores[3].cursor);
+        
+    });
 
 });
