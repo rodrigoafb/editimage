@@ -144,7 +144,7 @@ describe('Elipse - ', function(){
             shape.graphics.command.h = h;
 		};
         
-        var objeto = new editimage.fabricaElipse.criar(observer, shape, redimensionadores);
+        var objeto = editimage.fabricaElipse.criar(observer, shape, redimensionadores);
         
         var redimensionador1 = redimensionadores[0];
         var redimensionador2 = redimensionadores[1];
@@ -242,7 +242,7 @@ describe('Elipse - ', function(){
             shape.graphics.command.h = h;
 		};
         
-        var elipse = new editimage.fabricaElipse.criar(observer, shape, redimensionadores);
+        var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores);
         
         var redimensionador1 = redimensionadores[0];
         var redimensionador2 = redimensionadores[1];
@@ -291,7 +291,7 @@ describe('Elipse - ', function(){
         
         var shape = new createjs.Shape();
         
-        var elipse = new editimage.fabricaElipse.criar(observer, shape, redimensionadores);
+        var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores);
         
         expect('n-resize').toEqual(redimensionadores[0].cursor);
         expect('e-resize').toEqual(redimensionadores[1].cursor);

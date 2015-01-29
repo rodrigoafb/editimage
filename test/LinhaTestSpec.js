@@ -173,7 +173,7 @@ describe('Linha - ', function(){
             evento['pressmove']({stageX: 70, stageY: 70 });
         };
         
-        var objeto = new editimage.fabricaLinha.criar(observer, shape, redimensionadores);
+        var objeto = editimage.fabricaLinha.criar(observer, shape, redimensionadores);
         
         objeto.movimen
         
@@ -221,7 +221,7 @@ describe('Linha - ', function(){
             };
 		};
         
-        var objeto = new editimage.fabricaLinha.criar(observer, shape, redimensionadores);
+        var objeto = editimage.fabricaLinha.criar(observer, shape, redimensionadores);
         
         var redimensionador1 = redimensionadores[0];
         var redimensionador2 = redimensionadores[1];
@@ -268,7 +268,7 @@ describe('Linha - ', function(){
             };
 		};
         
-        var objeto = new editimage.fabricaLinha.criar(observer, shape, redimensionadores);
+        var objeto = editimage.fabricaLinha.criar(observer, shape, redimensionadores);
         
         var redimensionador1 = redimensionadores[0];
         var redimensionador2 = redimensionadores[1];
@@ -292,7 +292,7 @@ describe('Linha - ', function(){
         
         var shape = new createjs.Shape();
         
-        var objeto = new editimage.fabricaLinha.criar(observer, shape, redimensionadores);
+        var objeto = editimage.fabricaLinha.criar(observer, shape, redimensionadores);
         
         expect('move').toEqual(redimensionadores[0].cursor);
         expect('move').toEqual(redimensionadores[1].cursor);
