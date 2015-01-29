@@ -287,6 +287,17 @@ describe('Linha - ', function(){
         
         expect(true).toEqual(observer.notificado);
         
-    })
+    });
+    
+    it('A linha deve setar cursor move para os redimensionadores', function(){
+        
+        var shape = new createjs.Shape();
+        
+        var objeto = new editimage.fabricaLinha.criar(observer, shape, redimensionadores);
+        
+        expect('move').toEqual(redimensionadores[0].cursor);
+        expect('move').toEqual(redimensionadores[1].cursor);
+        
+    });
     
 });

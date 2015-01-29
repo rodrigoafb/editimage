@@ -17,6 +17,7 @@ editimage.Linha = function(observer, shape, redimensionadores){
         self.desenhar();
         posicionarRedimensionadores();
         atribuirCallbacksNosRedimensionadores();
+        definirCursorRedimensionadores();
         
     };
     
@@ -35,6 +36,14 @@ editimage.Linha = function(observer, shape, redimensionadores){
         redimensionadores[0].movimentacaoCallback = movimentacaoMoveTo;
         
         redimensionadores[1].movimentacaoCallback = movimentacaoLineTo;
+        
+    };
+    
+    var definirCursorRedimensionadores = function(){
+        
+        redimensionadores[0].cursor = 'move';
+        
+        redimensionadores[1].cursor = 'move';
         
     };
     
