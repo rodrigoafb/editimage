@@ -9,24 +9,28 @@ editimage.PainelControle = function (contexto) {
 
 	var self = this;
 
-	var imgOnloadend = function(dataUrl){
-
-		imagemCriada = editimage.fabricaImagem.criar(dataUrl);
-
-		_contexto.Imagem = imagemCriada;
-
-	};
-
 	self.selecionarImagem = function(arquivoImagem){
 		var reader = new FileReader();
 
 		reader.onloadend = function () {
-			imgOnloadend(reader.result);
+			carregamentoTerminado(reader.result);
 		}
 
 		if (arquivoImagem) {
 			reader.readAsDataURL(arquivoImagem);
 		} 
+	};
+    
+    var carregamentoTerminado = function(dataUrl){
+        
+        var shape = new createjs.Shape();
+        var observer = _contexto.retornarObserver();
+        
+		imagemCriada = editimage.fabricaImagem.criar(observer, shape, dataUrl);
+        
+		_contexto.adicionarObjeto(imagemCriada);
+        
+        
 
 	};
 

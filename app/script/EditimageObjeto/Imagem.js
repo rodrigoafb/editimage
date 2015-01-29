@@ -1,15 +1,31 @@
 'use strict';
 
-editimage.Imagem = function(observer, shape){
+editimage.Imagem = function(observer, shape, dataUrl){
 
-	var self = this;
+	var self = this, bitmap;
+    
+    if(!dataUrl) throw new Error('Informe o dataUrl da imagem.');
+    
 	editimage.EditimageObjeto.call(self, observer, shape);
+
+    
+    var init = function(){
+        self.desenhar();    
+    };
     
     self.desenhar = function(){
         
-        self.shape.graphics.drawEllipse(50,50,100,100);
-    
+        bitmap = new createjs.Bitmap(dataUrl);
+        
     };
+    
+    self.retornarShape = function(){
+        return bitmap;
+    };
+    
+    
+    init();
+    
     
 };
 

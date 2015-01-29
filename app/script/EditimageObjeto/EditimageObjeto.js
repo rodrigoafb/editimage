@@ -120,8 +120,15 @@ editimage.EditimageObjeto = function(observer, shape){
 
 	var criarMemento = function(){
 
-        _memento = JSON.stringify(self);
-
+        var objeto = {
+            bordaCor: self.bordaCor,
+            bordaLargura: self.bordaLargura,
+            coordenadaX: self.coordenadaX,
+            coordenadaY: self.coordenadaY
+            
+        };
+        
+        _memento = JSON.stringify(objeto);
 	};
 
 	var restaurarMemento = function(estado){

@@ -215,5 +215,8 @@ describe('Painel - ', function () {
         expect(false).toEqual(redimensionadores[0].retornarShape() === redimensionadores[1].retornarShape());
 
 	});
+    
+
+    
 
 })

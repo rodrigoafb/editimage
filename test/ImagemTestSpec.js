@@ -13,7 +13,7 @@ describe('Imagem - ', function(){
 
 	it('Deve criar um objeto Imagem',function(){
 
-		var imagem = editimage.fabricaImagem.criar(observer, new createjs.Shape());
+		var imagem = editimage.fabricaImagem.criar(observer, new createjs.Shape(), "imagem.jpg");
 
 		expect(imagem.retornarShape).toBeDefined();
 		expect(true).toEqual(editimage.Imagem.prototype instanceof editimage.EditimageObjeto);
@@ -22,25 +22,91 @@ describe('Imagem - ', function(){
     
     it('Deve desenhar uma imagem', function(){
     
+        var shape
+        ,imageUrl;
+        
+        shape = new createjs.Shape()
+        
+        createjs.Bitmap = function(parametro){
+            imageUrl = parametro;
+        };
+        
+		var imagem = editimage.fabricaImagem.criar(observer, shape, "imagem.jpg");
+        
+        imagem.desenhar();
+        
+        expect("imagem.jpg").toEqual(imageUrl);
+        
+    });
+    
+        
+    it('Ao criar uma imagem, deve-se passar obrigatoriamente o dataUrl no parametro', function(){
+        
         var shape = new createjs.Shape();
-		var elip = {};
-
-		shape.graphics.drawEllipse = function(x,y,w,h){
-			elipse.x = x;
-			elipse.y = y;
-			elipse.w = w;
-			elipse.h = h;
-		};
-
-		var elipse = editimage.fabricaImagem.criar(observer, shape);
-
-		elipse.desenhar();
-
-		expect(50).toEqual(elipse.x);
-		expect(50).toEqual(elipse.y);
-		expect(100).toEqual(elipse.w);
-		expect(100).toEqual(elipse.h);
+        
+        expect(function(){editimage.fabricaImagem.criar(observer, shape);}).toThrow(new Error('Informe o dataUrl da imagem.'));
+        
+    });
+    
+    it('Deve retornar o shape', function(){
+        var shape
+        ,imageUrl
+        , objeto = { };
+        
+        shape = new createjs.Shape();
+        createjs.Bitmap = function(parametro){
+            return objeto;
+        };
+        
+        var imagem = editimage.fabricaImagem.criar(observer, shape, "imagem.jpg");
+        
+        var shape = imagem.retornarShape();
+        
+        expect(true).toEqual(shape === objeto)
         
     });
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

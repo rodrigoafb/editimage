@@ -1,9 +1,9 @@
 'use strict';
 
 editimage.fabricaImagemBase = {
-	criar: function(observer, shape){
-
-		return new editimage.Imagem(observer, shape);
+	criar: function(observer, shape, dataUrl){
+        
+		return new editimage.Imagem(observer, shape, dataUrl);
 
 	}
 };
