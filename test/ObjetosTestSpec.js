@@ -121,7 +121,6 @@ describe('Objetos - ', function () {
 		objeto.selecionado = true;
 
 		expect('#729fe2').toEqual(strokeCommand.style);
-		expect(4).toEqual(strokeStyleCommand.width);
 
 	});
 
@@ -163,7 +162,7 @@ describe('Objetos - ', function () {
 		objeto.selecionado = false;
 
 		expect('red').toEqual(strokeCommand.style);
-		expect(0).toEqual(strokeStyleCommand.width);
+		expect(4).toEqual(strokeStyleCommand.width);
 
 	});
     
