@@ -21,7 +21,7 @@ editimage.PainelControle = function (contexto) {
 		var reader = new FileReader();
 
 		reader.onloadend = function () {
-			imgOnloaded(reader.result);
+			imgOnloadend(reader.result);
 		}
 
 		if (arquivoImagem) {

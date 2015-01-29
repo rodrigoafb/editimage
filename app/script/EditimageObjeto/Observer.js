@@ -9,11 +9,11 @@ editimage.Observer = function(){
 
     };
     
-    self.notificar = function(){
+    self.notificar = function(objeto){
         
         callbacks.forEach(function(callback) {
 
-            callback();
+            callback(objeto);
 
         });
     };

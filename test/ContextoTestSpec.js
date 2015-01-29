@@ -70,4 +70,35 @@ describe('Contexto - ', function () {
         
     });
     
+    it('Quando selecionar um objeto os outros devem ser deselecionados', function(){
+        
+        var contexto = editimage.fabricaContexto.criar(stage);
+        
+        var objeto = {retornarShape: function(){
+                            return "shape";
+                      },
+                      selecionado: true
+                    };
+        
+        var objeto2 = {retornarShape: function(){ 
+                            return "shape";
+                        },
+                       selecionado: false
+                     };
+        
+        contexto.adicionarObjeto(objeto);
+        contexto.adicionarObjeto(objeto2);
+        
+        var observer = contexto.retornarObserver();
+        
+        observer.notificar(objeto);
+       
+        var objetos = contexto.retornarObjetos();
+        expect(true).toEqual(objetos[0].selecionado);
+        expect(false).toEqual(objetos[1].selecionado)
+        
+       
+    });
+    
+    
 });

@@ -18,7 +18,6 @@ describe('Observer - ', function(){
         observer.notificar();
         
         expect('Foi notificado').toEqual(notificacao);
-        
-    })
+    });
     
 });

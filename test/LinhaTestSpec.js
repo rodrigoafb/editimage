@@ -126,7 +126,6 @@ describe('Linha - ', function(){
 	});
     
     it('Deve aplicar e remover a seleção da linha', function(){
-        
         var shape = new createjs.Shape();
 		var evento = {};
 
