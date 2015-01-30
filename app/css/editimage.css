@@ -31,7 +31,7 @@
   	float: left;
 }
 
-@media screen and (max-width: 577px) {
+@media screen and (max-width: 927px) {
     .painel-controle {
 	  	position: relative;
 	  	width: 160px;
@@ -43,8 +43,8 @@
 .container{
 	float: left;
   	position: relative;
-  	width: 500px;
-  	height: 500px;
+  	width: 850px;
+  	height: 658px;
   	border: 1px solid #000000;
 }
 

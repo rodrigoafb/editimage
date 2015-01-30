@@ -38,8 +38,8 @@ var editimage = editimage || function(){
 	var criarElementoHtmlCanvas = function(){		
 
 		var canvas = document.createElement('canvas');
-        canvas.setAttribute('width', '500');
-        canvas.setAttribute('height', '500');
+        canvas.setAttribute('width', '850');
+        canvas.setAttribute('height', '658');
         
 		return canvas;		
 

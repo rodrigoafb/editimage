@@ -35,7 +35,7 @@ editimage.Retangulo = function(observer, shape, redimensionadores){
                 if(value === self.shape.graphics.command.h) return;
                 
                 self.shape.graphics.command.h = value;
-                observer.notificar();
+                observer.notificar(self);
                 
             },
             enumerable: true
