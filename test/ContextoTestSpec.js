@@ -83,7 +83,7 @@ describe('Contexto - ', function () {
         var objeto2 = {retornarShape: function(){ 
                             return "shape";
                         },
-                       selecionado: false
+                       selecionado: true
                      };
         
         contexto.adicionarObjeto(objeto);
@@ -95,8 +95,12 @@ describe('Contexto - ', function () {
        
         var objetos = contexto.retornarObjetos();
         expect(true).toEqual(objetos[0].selecionado);
-        expect(false).toEqual(objetos[1].selecionado)
+        expect(false).toEqual(objetos[1].selecionado);
         
+        observer.notificar();
+        
+        expect(true).toEqual(objetos[0].selecionado);
+        expect(false).toEqual(objetos[1].selecionado);
        
     });
     

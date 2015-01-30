@@ -46,6 +46,8 @@ editimage.Retangulo = function(observer, shape, redimensionadores){
     var init = function(){
         
         self.desenhar();
+        self.coordenadaX = 50;
+        self.coordenadaY = 50;
         posicionarRedimensionadores();
         atribuirCallbacksNosRedimensionadores();
         definirCursosRedimensionadores();
@@ -193,7 +195,7 @@ editimage.Retangulo = function(observer, shape, redimensionadores){
     
 	self.desenhar = function(){
 
-		self.shape.graphics.drawRect(50, 50, 100, 100);
+		self.shape.graphics.drawRect(0, 0, 100, 100);
 
 	};
     
@@ -209,7 +211,7 @@ editimage.Retangulo = function(observer, shape, redimensionadores){
         
         for(var i = 0; i< countRedimensionadores; i++){
             
-            redimensionadores[i].visible = true;
+            redimensionadores[i].visivel = true;
             
         }
         
@@ -221,7 +223,7 @@ editimage.Retangulo = function(observer, shape, redimensionadores){
         
         for(var i = 0; i< countRedimensionadores; i++){
             
-            redimensionadores[i].visible = false;
+            redimensionadores[i].visivel = false;
             
         }
         

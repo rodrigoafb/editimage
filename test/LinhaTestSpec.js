@@ -41,6 +41,13 @@ describe('Linha - ', function(){
 
         var shape = new createjs.Shape();
         
+        shape.removeAllEventListeners = function(evento){
+            
+            shape.evenstosRemovidos = shape.evenstosRemovidos || [];
+            shape.evenstosRemovidos.push(evento);
+            
+        };
+        
 		shape.graphics.setStrokeStyle = function(){
             return { command: {} };
 		};
@@ -72,8 +79,11 @@ describe('Linha - ', function(){
 		var linha = editimage.fabricaLinha.criar(observer, shape, redimensionadores);
 
 		expect(linha.retornarShape).toBeDefined();
+        expect('pointer').toEqual(linha.cursor);
 		expect(true).toEqual(editimage.Linha.prototype instanceof editimage.EditimageObjeto);
-        
+        expect(2).toEqual(shape.evenstosRemovidos.length);
+        expect('mousedown').toEqual(shape.evenstosRemovidos[0]);
+        expect('pressmove').toEqual(shape.evenstosRemovidos[1]);
 
 	});
 
@@ -143,61 +153,17 @@ describe('Linha - ', function(){
 
 		shapeLinha.dispararEvento('click');
         
-        expect(true).toEqual(redimensionadores[0].visible);
-        expect(true).toEqual(redimensionadores[1].visible);
+        expect(true).toEqual(redimensionadores[0].visivel);
+        expect(true).toEqual(redimensionadores[1].visivel);        
         
         linha.selecionado = false;
         
-        expect(false).toEqual(redimensionadores[0].visible);
-        expect(false).toEqual(redimensionadores[1].visible);
+        expect(false).toEqual(redimensionadores[0].visivel);
+        expect(false).toEqual(redimensionadores[1].visivel);
         
         
     });
 
-    
-    it('Deve executar o método movimentacaoTemplateMethod quando o objeto for movido', function(){
-        
-        var shape = new createjs.Shape();
-        var evento = {};
-        var movimentou = false;
-        
-        shape.on = function(e, callback){            
-            evento[e] = callback;            
-        };
-        
-        shape.dispararEventoMouseDown = function(){
-            evento['mousedown']({stageX: 60, stageY: 60 });
-        };
-        
-        shape.dispararEventoPressMove = function(){
-            evento['pressmove']({stageX: 70, stageY: 70 });
-        };
-        
-        var objeto = editimage.fabricaLinha.criar(observer, shape, redimensionadores);
-        
-        objeto.movimen
-        
-        objeto.coordenadaX = 50;
-        objeto.coordenadaY = 50;
-        
-        var shapeObjeto = objeto.retornarShape();
-        
-        shapeObjeto.dispararEventoMouseDown();
-        shapeObjeto.dispararEventoPressMove();
-        
-        expect(60).toEqual(objeto.coordenadaX);
-        expect(60).toEqual(objeto.coordenadaY);
-        
-        var redimensionador1 = redimensionadores[0];
-        var redimensionador2 = redimensionadores[1];
-        
-        expect(47).toEqual(redimensionador1.coordenadaX);
-        expect(47).toEqual(redimensionador1.coordenadaY);
-        
-        expect(147).toEqual(redimensionador2.coordenadaX);
-        expect(147).toEqual(redimensionador2.coordenadaY);
-        
-    });
     
     it('Deve posicionar os redimensionadores', function(){
         
@@ -274,13 +240,14 @@ describe('Linha - ', function(){
         var redimensionador2 = redimensionadores[1];
         
         observer.notificado = false;
-        
         redimensionador1.movimentacaoCallback({coordenadaX: 50, coordenadaY: 50});
-        redimensionador2.movimentacaoCallback({coordenadaX: 100, coordenadaY: 100});
-        
         expect(50).toEqual(moveTo.x);
         expect(50).toEqual(moveTo.y);
         
+        expect(true).toEqual(observer.notificado);
+        
+        observer.notificado = false;
+        redimensionador2.movimentacaoCallback({coordenadaX: 100, coordenadaY: 100});
         expect(100).toEqual(lineTo.x);
         expect(100).toEqual(lineTo.y);
         

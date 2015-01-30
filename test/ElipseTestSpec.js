@@ -91,8 +91,8 @@ describe('Elipse - ', function(){
 
 		elipse.desenhar();
 
-		expect(50).toEqual(elip.x);
-		expect(50).toEqual(elip.y);
+		expect(50).toEqual(elipse.coordenadaX);
+		expect(50).toEqual(elipse.coordenadaY);
 		expect(150).toEqual(elip.w);
 		expect(100).toEqual(elip.h);
 	});
@@ -116,17 +116,17 @@ describe('Elipse - ', function(){
 
 		shapeElipse.dispararEvento('click');
         
-        expect(true).toEqual(redimensionadores[0].visible);
-        expect(true).toEqual(redimensionadores[1].visible);
-        expect(true).toEqual(redimensionadores[2].visible);
-        expect(true).toEqual(redimensionadores[3].visible);
+        expect(true).toEqual(redimensionadores[0].visivel);
+        expect(true).toEqual(redimensionadores[1].visivel);
+        expect(true).toEqual(redimensionadores[2].visivel);
+        expect(true).toEqual(redimensionadores[3].visivel);
         
         elipse.selecionado = false;
         
-        expect(false).toEqual(redimensionadores[0].visible);
-        expect(false).toEqual(redimensionadores[1].visible);
-        expect(false).toEqual(redimensionadores[2].visible);
-        expect(false).toEqual(redimensionadores[3].visible);
+        expect(false).toEqual(redimensionadores[0].visivel);
+        expect(false).toEqual(redimensionadores[1].visivel);
+        expect(false).toEqual(redimensionadores[2].visivel);
+        expect(false).toEqual(redimensionadores[3].visivel);
         
         
     });

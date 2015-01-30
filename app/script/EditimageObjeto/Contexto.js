@@ -4,7 +4,7 @@ editimage.Contexto = function(observer, stage){
     
     var _stage = stage, self = this, objetos = [];
     
-    _stage.enableMouseOver();
+    _stage.enableMouseOver(40);
     
     self.adicionarObjeto = function(objeto){
         
@@ -23,7 +23,8 @@ editimage.Contexto = function(observer, stage){
     };
     
     observer.adicionarCallback(function(objeto){
-        removerSelecaoObjetos(objeto)
+        
+        if(objeto) removerSelecaoObjetos(objeto)
         
         _stage.update();
     });   
