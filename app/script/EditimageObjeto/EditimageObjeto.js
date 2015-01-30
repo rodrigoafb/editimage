@@ -9,13 +9,14 @@ editimage.EditimageObjeto = function(observer, shape){
 	var self = this,
 	    _selecionado,
 	    _memento;
-
-    var coordenadasAuxiliares = {};
-    
-	var _strokeCommand = shape.graphics.beginStroke("red").command
-	   ,_strokeStyleCommand = shape.graphics.setStrokeStyle(4).command;
     
     self.shape = shape;
+    self.shape.offset = {};
+    self.shape.graphics.beginFill('#fff');
+	var _strokeCommand = self.shape.graphics.beginStroke("red").command
+	   ,_strokeStyleCommand = shape.graphics.setStrokeStyle(2).command;
+    
+    self.shape.cursor = 'move';
     self.observer = observer;
     
 	Object.defineProperties(self, {
@@ -84,6 +85,16 @@ editimage.EditimageObjeto = function(observer, shape){
                 self.observer.notificar(self);
             },
             enumerable: true
+        },
+        'cursor': {
+            get: function(){
+                return self.shape.cursor;
+            },
+            set: function(value){
+                
+                self.shape.cursor = value;
+                
+            }
         }
 
 	});
@@ -96,17 +107,20 @@ editimage.EditimageObjeto = function(observer, shape){
 
     shape.on('mousedown', function(evt){
         
-        coordenadasAuxiliares.x = self.coordenadaX - evt.stageX;
-        coordenadasAuxiliares.y = self.coordenadaY - evt.stageY;
+        self.shape.offset.x = self.coordenadaX - evt.stageX;
+        self.shape.offset.y = self.coordenadaY - evt.stageY;
+        
         
     });
     
     shape.on('pressmove', function(evt){
         
-        self.coordenadaX = evt.stageX + coordenadasAuxiliares.x;
-        self.coordenadaY = evt.stageY + coordenadasAuxiliares.y;
+        self.coordenadaX = evt.stageX + self.shape.offset.x;
+        self.coordenadaY = evt.stageY + self.shape.offset.y;
         
         self.movimentacaoTemplateMethod();
+        
+        self.selecionado = true;
         
     });
 

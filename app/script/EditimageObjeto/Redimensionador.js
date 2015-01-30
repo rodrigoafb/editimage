@@ -1,14 +1,18 @@
 'use strict';
 
-editimage.Redimensionador = function(shape){
+editimage.Redimensionador = function(observer, shape){
+    
+    if(!observer) throw new Error("Informe o Observer.");
     
     if(!shape) throw new Error("Informe o Shape.");
     
     var self = this;
     var _shape = shape;
+    var _observer = observer;
     
     var coordenadasAuxiliares = {};
     
+    _shape.graphics.beginFill('blue');
     _shape.graphics.drawRect(0,0,6,6);
     _shape.visible = false;
     
@@ -22,6 +26,7 @@ editimage.Redimensionador = function(shape){
             },
             set: function(value){
                 _shape.x = value;
+                _observer.notificar();
             },
             enumerable: true
         },
@@ -31,6 +36,7 @@ editimage.Redimensionador = function(shape){
             },
             set: function(value){
                 _shape.y = value;
+                _observer.notificar();
             },
             enumerable: true
         },

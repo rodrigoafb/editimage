@@ -1,8 +1,8 @@
 'use strict';
 
 editimage.fabricaRedimensionadorBase = {
-    criar: function(shape){
-        return new editimage.Redimensionador(shape);
+    criar: function(observer, shape){
+        return new editimage.Redimensionador(observer, shape);
     }
 };
 

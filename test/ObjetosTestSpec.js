@@ -21,11 +21,22 @@ describe('Objetos - ', function () {
 	});
 
 	it('Deve criar um editimage.EditimageObjeto', function(){
-
-		var objeto = new editimage.EditimageObjeto(observer, new createjs.Shape());
+        
+        var shape = new createjs.Shape();
+        
+        var corDeFundo;
+        
+        shape.graphics.beginFill = function(cor){
+            corDeFundo = cor;
+        }
+        
+		var objeto = new editimage.EditimageObjeto(observer, shape);
 
 		expect(objeto.desenhar).toBeDefined();
+		expect('move').toEqual(objeto.cursor);
+        expect('#fff').toEqual(corDeFundo);
 		expect('function').toEqual(typeof objeto.desenhar);
+        expect(shape.offset).toBeDefined();
 
 	});
 
@@ -63,8 +74,6 @@ describe('Objetos - ', function () {
 		shape.dispararEvento('click');
 
 		expect(true).toEqual(objeto.selecionado);
-
-		shape.dispararEvento('click');
 
 	});
 
@@ -162,7 +171,7 @@ describe('Objetos - ', function () {
 		objeto.selecionado = false;
 
 		expect('red').toEqual(strokeCommand.style);
-		expect(4).toEqual(strokeStyleCommand.width);
+		expect(2).toEqual(strokeStyleCommand.width);
 
 	});
     

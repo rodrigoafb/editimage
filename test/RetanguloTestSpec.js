@@ -89,8 +89,8 @@ describe('Retangulo - ', function() {
 
 		retangulo.desenhar();
 
-		expect(50).toEqual(rect.x);
-		expect(50).toEqual(rect.y);
+		expect(50).toEqual(retangulo.coordenadaX);
+		expect(50).toEqual(retangulo.coordenadaY);
 		expect(100).toEqual(rect.w);
 		expect(100).toEqual(rect.h);
 
@@ -115,25 +115,25 @@ describe('Retangulo - ', function() {
 
 		shapeRetangulo.dispararEvento('click');
         
-        expect(true).toEqual(redimensionadores[0].visible);
-        expect(true).toEqual(redimensionadores[1].visible);
-        expect(true).toEqual(redimensionadores[2].visible);
-        expect(true).toEqual(redimensionadores[3].visible);
-        expect(true).toEqual(redimensionadores[4].visible);
-        expect(true).toEqual(redimensionadores[5].visible);
-        expect(true).toEqual(redimensionadores[6].visible);
-        expect(true).toEqual(redimensionadores[7].visible);
+        expect(true).toEqual(redimensionadores[0].visivel);
+        expect(true).toEqual(redimensionadores[1].visivel);
+        expect(true).toEqual(redimensionadores[2].visivel);
+        expect(true).toEqual(redimensionadores[3].visivel);
+        expect(true).toEqual(redimensionadores[4].visivel);
+        expect(true).toEqual(redimensionadores[5].visivel);
+        expect(true).toEqual(redimensionadores[6].visivel);
+        expect(true).toEqual(redimensionadores[7].visivel);
         
         retangulo.selecionado = false;
         
-        expect(false).toEqual(redimensionadores[0].visible);
-        expect(false).toEqual(redimensionadores[1].visible);
-        expect(false).toEqual(redimensionadores[2].visible);
-        expect(false).toEqual(redimensionadores[3].visible);
-        expect(false).toEqual(redimensionadores[4].visible);
-        expect(false).toEqual(redimensionadores[5].visible);
-        expect(false).toEqual(redimensionadores[6].visible);
-        expect(false).toEqual(redimensionadores[7].visible);
+        expect(false).toEqual(redimensionadores[0].visivel);
+        expect(false).toEqual(redimensionadores[1].visivel);
+        expect(false).toEqual(redimensionadores[2].visivel);
+        expect(false).toEqual(redimensionadores[3].visivel);
+        expect(false).toEqual(redimensionadores[4].visivel);
+        expect(false).toEqual(redimensionadores[5].visivel);
+        expect(false).toEqual(redimensionadores[6].visivel);
+        expect(false).toEqual(redimensionadores[7].visivel);
         
         
     });

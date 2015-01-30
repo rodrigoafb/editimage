@@ -4,13 +4,21 @@ describe('Redimensionador - ', function(){
     
     beforeEach(function(){
         
+        observer = {
+			notificar: function(){
+
+				observer.notificado = true;
+
+			}
+		};
+        
         editimage.fabricaRedimensionador = editimage.fabricaRedimensionadorBase;
         
     });
     
     it('Deve criar um objeto Redimensionador', function(){
         
-        var redimensionador = editimage.fabricaRedimensionador.criar(new createjs.Shape());
+        var redimensionador = editimage.fabricaRedimensionador.criar(observer, new createjs.Shape());
         
         expect(redimensionador.coordenadaX).toBeDefined();
         expect(redimensionador.coordenadaY).toBeDefined();
@@ -23,7 +31,13 @@ describe('Redimensionador - ', function(){
     
     it('Deve lança uma exceção se não for passado a dependência Shape', function(){
         
-        expect(function(){ editimage.fabricaRedimensionador.criar(); }).toThrow(new Error('Informe o Shape.'));
+        expect(function(){ editimage.fabricaRedimensionador.criar(observer); }).toThrow(new Error('Informe o Shape.'));
+        
+    });
+    
+    it('Deve lançar uma exceção se o observer não foi informado', function(){
+        
+        expect(function(){ editimage.fabricaRedimensionador.criar(); }).toThrow(new Error('Informe o Observer.'));
         
     });
     
@@ -41,7 +55,7 @@ describe('Redimensionador - ', function(){
             
         };
         
-        var redimensionador = editimage.fabricaRedimensionador.criar(shape);
+        var redimensionador = editimage.fabricaRedimensionador.criar(observer, shape);
         
         expect(0).toEqual(quadrado.x);
         expect(0).toEqual(quadrado.y);
@@ -54,7 +68,7 @@ describe('Redimensionador - ', function(){
         
         var shape = new createjs.Shape();
         
-        var redimensionador = editimage.fabricaRedimensionador.criar(shape);
+        var redimensionador = editimage.fabricaRedimensionador.criar(observer, shape);
         
         redimensionador.coordenadaX = 50;
         redimensionador.coordenadaY = 25;
@@ -68,7 +82,7 @@ describe('Redimensionador - ', function(){
         
         var shape = new createjs.Shape();
         
-        var redimensionador = editimage.fabricaRedimensionador.criar(shape);
+        var redimensionador = editimage.fabricaRedimensionador.criar(observer, shape);
         
         redimensionador.cursor = 'move';
         redimensionador.visivel = false;
@@ -91,7 +105,7 @@ describe('Redimensionador - ', function(){
             
         };
         
-        var redimensionador = editimage.fabricaRedimensionador.criar(shape);
+        var redimensionador = editimage.fabricaRedimensionador.criar(observer, shape);
         
         redimensionador.movimentacaoCallback = function(evt){
             
@@ -124,11 +138,31 @@ describe('Redimensionador - ', function(){
     it('Deve retornar o shape', function(){
         
         var shape = new createjs.Shape();
-        var redimensionador = editimage.fabricaRedimensionador.criar(shape);
+        var redimensionador = editimage.fabricaRedimensionador.criar(observer, shape);
         
         var shapeRetornado = redimensionador.retornarShape();
         
         expect(true).toEqual(shape === shapeRetornado);
+        
+    });
+    
+    it('Deve notificar o observer ao alterar as propriedades coordenadaX e coordenadaY', function(){
+        
+        var shape = new createjs.Shape();
+        
+        var redimensionador = editimage.fabricaRedimensionador.criar(observer, shape);
+        
+        observer.notificado = false;
+        
+        redimensionador.coordenadaX = 50;
+        
+        expect(true).toEqual(observer.notificado);
+        
+        observer.notificado = false;
+        
+        redimensionador.coordenadaY = 50;
+        
+        expect(true).toEqual(observer.notificado);
         
     });
     

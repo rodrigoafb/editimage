@@ -10,6 +10,10 @@ editimage.Linha = function(observer, shape, redimensionadores){
 	var self = this;
 	editimage.EditimageObjeto.call(self, observer, shape);
 
+    self.shape.removeAllEventListeners('mousedown');
+    self.shape.removeAllEventListeners('pressmove');
+    self.cursor = 'pointer';
+    
     var moveTo,
         lineTo;
     
@@ -51,16 +55,22 @@ editimage.Linha = function(observer, shape, redimensionadores){
     var movimentacaoMoveTo = function(coordenada){
         
         moveTo.x = coordenada.coordenadaX;
-        moveTo.y = coordenada.coordenadaY;
+        moveTo.y = coordenada.coordenadaY;  
+        
+        posicionarRedimensionadores();
         
         self.observer.notificar(self);
         
     };
     
-    var movimentacaoLineTo = function(coordenadas){
+    var movimentacaoLineTo = function(coordenada){
         
-        lineTo.x = coordenadas.coordenadaX;
-        lineTo.y = coordenadas.coordenadaY;
+        lineTo.x = coordenada.coordenadaX;
+        lineTo.y = coordenada.coordenadaY;
+        
+        posicionarRedimensionadores();
+        
+        self.observer.notificar(self);
         
     };
     
@@ -85,7 +95,7 @@ editimage.Linha = function(observer, shape, redimensionadores){
         
         for(var i = 0; i< countRedimensionadores; i++){
             
-            redimensionadores[i].visible = true;
+            redimensionadores[i].visivel = true;
             
         }
         
@@ -97,7 +107,7 @@ editimage.Linha = function(observer, shape, redimensionadores){
         
         for(var i = 0; i< countRedimensionadores; i++){
             
-            redimensionadores[i].visible = false;
+            redimensionadores[i].visivel = false;
             
         }
         

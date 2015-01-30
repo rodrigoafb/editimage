@@ -47,6 +47,8 @@ editimage.Elipse = function(observer, shape, redimensionadores){
     var init  = function(){
         
         self.desenhar();
+        self.coordenadaX = 50;
+        self.coordenadaY = 50;
         posicionarRedimensionadores();
         atribuirCallbacksNosRedimensionadores();
         definirCursorRedimensionadores();
@@ -128,8 +130,8 @@ editimage.Elipse = function(observer, shape, redimensionadores){
     };
     
 	self.desenhar = function(){
-
-		self.shape.graphics.drawEllipse(50, 50, 150, 100);
+        
+		self.shape.graphics.drawEllipse(0, 0, 150, 100);
 
 	};
     
@@ -145,7 +147,7 @@ editimage.Elipse = function(observer, shape, redimensionadores){
         
         for(var i = 0; i< countRedimensionadores; i++){
             
-            redimensionadores[i].visible = true;
+            redimensionadores[i].visivel = true;
             
         }
         
@@ -157,7 +159,7 @@ editimage.Elipse = function(observer, shape, redimensionadores){
         
         for(var i = 0; i< countRedimensionadores; i++){
             
-            redimensionadores[i].visible = false;
+            redimensionadores[i].visivel = false;
             
         }
         
