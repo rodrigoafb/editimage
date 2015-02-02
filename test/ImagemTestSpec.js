@@ -65,6 +65,76 @@ describe('Imagem - ', function(){
         expect(true).toEqual(shape === objeto)
         
     });
+    
+    it('Deve escalar a imagem com base na largura e altura informados', function(){
+        
+        var objeto = {
+            image: {
+                width: 1000,
+                height: 500
+            }
+        };
+        
+        var shape = new createjs.Shape();
+        createjs.Bitmap = function(parametro){
+            return objeto;
+        };
+        
+        var imagem = editimage.fabricaImagem.criar(observer, shape, "imagem.jpg");
+        
+        imagem.escalar(850, 658);
+        
+        expect(0.85).toEqual(objeto.scaleX);
+        expect(0.85).toEqual(objeto.scaleY);
+        
+    });
+    
+    it('Se ambas as dimensões da imagem forem menor que as dimensões do canvas', function(){
+        
+        var objeto = {
+            image: {
+                width: 250,
+                height: 250
+            }
+        };
+        
+        var shape = new createjs.Shape();
+        createjs.Bitmap = function(parametro){
+            return objeto;
+        };
+        
+        var imagem = editimage.fabricaImagem.criar(observer, shape, "imagem.jpg");
+        
+        imagem.escalar(500, 500);
+        
+        expect(1).toEqual(objeto.scaleX);
+        expect(1).toEqual(objeto.scaleY);
+        
+    });
+    
+    it('Deve centralizar uma imagem no eixo x se a mesma tiver a largura menor que a largura do canvas', function(){
+        
+        var objeto = {
+            image: {
+                width: 500,
+                height: 1000
+            }
+        };
+        
+        var shape = new createjs.Shape();
+        createjs.Bitmap = function(parametro){
+            return objeto;
+        };
+        
+        var imagem = editimage.fabricaImagem.criar(observer, shape, "imagem.jpg");
+        
+        imagem.escalar(850, 658);
+        imagem.centralizar(850, 658);
+        
+        expect(260.5).toEqual(objeto.x);
+        expect(0).toEqual(objeto.y);
+        
+    });
 
 });
 
