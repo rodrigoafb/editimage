@@ -185,5 +185,67 @@ editimage.EditimageObjeto = function(observer, shape){
 		restaurarEstado(estado);
 
 	};
+    
+    self.retornarPainelConfiguracao = function(){
+        
+        return criarElementoDivPainelConfiguracao();        
+        
+    };
+    
+    var criarElementoDivPainelConfiguracao = function(){
+        
+        var divPainel = document.createElement('div');
+        divPainel.setAttribute('class', 'painel-configuracao');
+        
+        var botaoTexto = criarBotaoTexto();
+        
+        divPainel.appendChild(botaoTexto);
+        
+        var botaoRemover = criarBotaoRemover();
+        
+        divPainel.appendChild(botaoRemover);
+        
+        return divPainel;
+        
+    };
+    
+    var criarBotaoTexto = function(){
+		
+		var botaoTexto = document.createElement('button');
+
+		botaoTexto.setAttribute('type', 'button');
+		botaoTexto.setAttribute('class', 'botao botao-texto');
+
+		var icone = criarIconeBotao('texto');
+
+		botaoTexto.appendChild(icone);
+
+		return botaoTexto;
+
+	};
+    
+    var criarBotaoRemover = function(){
+		
+		var botaoRemover = document.createElement('button');
+
+		botaoRemover.setAttribute('type', 'button');
+		botaoRemover.setAttribute('class', 'botao botao-remover');
+
+		var icone = criarIconeBotao('remover');
+
+		botaoRemover.appendChild(icone);
+
+		return botaoRemover;
+
+	};
+    
+    var criarIconeBotao = function(nomeIcone){
+
+		var spanIcone = document.createElement('span');
+		spanIcone.setAttribute('class', 'icon icon-'+ nomeIcone);
+
+		return spanIcone;
+
+	}
 
 };
