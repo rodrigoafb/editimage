@@ -6,6 +6,28 @@ editimage.Contexto = function(observer, stage){
     
     _stage.enableMouseOver(40);
     
+    
+    Object.defineProperties(self, {
+        'largura': {
+            get: function(){
+                return _stage.canvas.width;
+            },
+            set: function(value){
+                _stage.canvas.height = value;
+            },
+            enumerable: true
+        },
+        'altura': {
+            get: function(){
+                return _stage.canvas.height;
+            },
+            set: function(value){
+                _stage.canvas.height = value;
+            },
+            enumerable: true
+        }
+    });
+    
     self.adicionarObjeto = function(objeto){
         
         _stage.addChild(objeto.retornarShape());
