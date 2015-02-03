@@ -3,8 +3,6 @@ editimage.PainelControle = function (contexto) {
 		
 	if (!contexto) throw new Error("Informe o contexto.");
 
-	var imagemCriada;
-
 	var _contexto = contexto;
 
 	var self = this;
@@ -26,9 +24,13 @@ editimage.PainelControle = function (contexto) {
         var shape = new createjs.Shape();
         var observer = _contexto.retornarObserver();
         
-		imagemCriada = editimage.fabricaImagem.criar(observer, shape, dataUrl);
+		var imagem = editimage.fabricaImagem.criar(observer, shape, dataUrl);
         
-		_contexto.adicionarObjeto(imagemCriada);
+        imagem.escalar(_contexto.largura, _contexto.altura);
+        
+        imagem.centralizar(_contexto.largura, _contexto.altura);
+        
+		_contexto.adicionarObjeto(imagem);
 
 	};
 

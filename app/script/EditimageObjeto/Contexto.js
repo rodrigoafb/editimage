@@ -14,6 +14,27 @@ editimage.Contexto = function(observer, stage){
         if(e.keyCode === 46) removerObjetos();
     }, false);
     
+    Object.defineProperties(self, {
+        'largura': {
+            get: function(){
+                return _stage.canvas.width;
+            },
+            set: function(value){
+                _stage.canvas.height = value;
+            },
+            enumerable: true
+        },
+        'altura': {
+            get: function(){
+                return _stage.canvas.height;
+            },
+            set: function(value){
+                _stage.canvas.height = value;
+            },
+            enumerable: true
+        }
+    });
+    
     self.adicionarObjeto = function(objeto){
         
         _stage.addChild(objeto.retornarShape());

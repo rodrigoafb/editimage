@@ -206,5 +206,31 @@ describe('Objetos - ', function () {
         expect(60).toEqual(objeto.coordenadaY);
     
     });
+    
+    it('Deve retornar o html das ferramentas', function(){
+        
+        var shape = new createjs.Shape();
+        
+        var objeto = new editimage.EditimageObjeto(observer, shape);
+        
+        var htmlFerramentas = objeto.retornarFerramentas();
+        
+        expect(htmlFerramentas).toBeDefined();
+        
+        var divPainel = document.createElement('div');
+		divPainel.classList.add('painel');               
+        
+        divPainel.appendChild(htmlFerramentas);        
+        
+        var expectativa = [];
+		expectativa.push('<div class="ferramentas">');
+		expectativa.push('<button type="button" class="botao botao-texto"><span class="icon icon-texto"></span></button>');
+		expectativa.push('<button type="button" class="botao botao-remover"><span class="icon icon-remover"></span></button>');
+		expectativa.push('</div>');
+        
+        
+        expect(expectativa.join('')).toEqual(divPainel.innerHTML);
+        
+    });
 
 });

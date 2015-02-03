@@ -119,6 +119,48 @@ editimage.Linha = function(observer, shape, redimensionadores){
         
     };
     
+    self.retornarFerramentas = function(){
+        
+        return criarElementoDivFerramentas();
+        
+    };
+    
+    var criarElementoDivFerramentas = function(){
+        
+        var divFerramentas = document.createElement('div');
+        divFerramentas.setAttribute('class', 'ferramentas');
+        
+        var botaoRemover = criarBotaoRemover();
+        
+        divFerramentas.appendChild(botaoRemover);
+        
+        return divFerramentas;
+        
+    };
+    
+    var criarBotaoRemover = function(){
+		
+		var botaoRemover = document.createElement('button');
+
+		botaoRemover.setAttribute('type', 'button');
+		botaoRemover.setAttribute('class', 'botao botao-remover');
+
+		var icone = criarIconeBotao('remover');
+
+		botaoRemover.appendChild(icone);
+
+		return botaoRemover;
+
+	};
+    
+    var criarIconeBotao = function(nomeIcone){
+
+		var spanIcone = document.createElement('span');
+		spanIcone.setAttribute('class', 'icon icon-'+ nomeIcone);
+
+		return spanIcone;
+
+	};
     
     init();
     

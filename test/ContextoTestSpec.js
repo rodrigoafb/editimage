@@ -11,14 +11,25 @@ describe('Contexto - ', function () {
     
     it('Deve retornar uma nova instancia do objeto de contexto', function(){
        
-        stage.canvas = {};
+        var eventos = { };
+        
+        stage.canvas = {
+            
+            width: 100,
+            height: 500
+            
+        };
+        
         stage.canvas.addEventListener = function(evento, callback, bool){
+            eventos[evento] = callback;
         };
         
         var contexto = editimage.fabricaContexto.criar(stage);
         
         expect(contexto).toBeDefined();
         expect(true).toEqual(mouseOver);
+        expect(100).toEqual(contexto.largura);
+        expect(500).toEqual(contexto.altura);
 
     });
     
@@ -165,6 +176,5 @@ describe('Contexto - ', function () {
         expect(false).toEqual(objetos[1].selecionado);
        
     });
-    
     
 });
