@@ -225,7 +225,6 @@ describe('Objetos - ', function () {
         var expectativa = [];
 		expectativa.push('<div class="ferramentas">');
 		expectativa.push('<button type="button" class="botao botao-texto"><span class="icon icon-texto"></span></button>');
-		expectativa.push('<button type="button" class="botao botao-remover"><span class="icon icon-remover"></span></button>');
 		expectativa.push('</div>');
         
         
