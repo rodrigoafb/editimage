@@ -109,7 +109,7 @@ editimage.EditimageObjeto = function(observer, shape){
         
         self.shape.offset.x = self.coordenadaX - evt.stageX;
         self.shape.offset.y = self.coordenadaY - evt.stageY;
-        
+        self.selecionado = true;
         
     });
     

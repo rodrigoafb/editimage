@@ -10,7 +10,7 @@ editimage.Linha = function(observer, shape, redimensionadores){
 	var self = this;
 	editimage.EditimageObjeto.call(self, observer, shape);
 
-    self.shape.removeAllEventListeners('mousedown');
+    //self.shape.removeAllEventListeners('mousedown');
     self.shape.removeAllEventListeners('pressmove');
     self.cursor = 'pointer';
     

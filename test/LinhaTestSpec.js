@@ -90,9 +90,8 @@ describe('Linha - ', function(){
 		expect(linha.retornarShape).toBeDefined();
         expect('pointer').toEqual(linha.cursor);
 		expect(true).toEqual(editimage.Linha.prototype instanceof editimage.EditimageObjeto);
-        expect(2).toEqual(shape.evenstosRemovidos.length);
-        expect('mousedown').toEqual(shape.evenstosRemovidos[0]);
-        expect('pressmove').toEqual(shape.evenstosRemovidos[1]);
+        expect(1).toEqual(shape.evenstosRemovidos.length);
+        expect('pressmove').toEqual(shape.evenstosRemovidos[0]);
 
 	});
 
