@@ -37,6 +37,15 @@ describe('Linha - ', function(){
         
     });
     
+    it('Deve retornar os redimensionadores', function(){
+        
+        var linha = editimage.fabricaLinha.criar(observer, new createjs.Shape(), redimensionadores);
+        
+        var redimensionadoresRetornados = linha.retornarRedimensionadores();
+        
+        expect(true).toEqual(redimensionadoresRetornados === redimensionadores);
+    });
+    
 	it('Deve criar um objeto Linha', function(){
 
         var shape = new createjs.Shape();

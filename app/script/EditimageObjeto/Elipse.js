@@ -165,6 +165,12 @@ editimage.Elipse = function(observer, shape, redimensionadores){
         
     };
     
+    self.retornarRedimensionadores = function(){
+        
+        return redimensionadores;
+        
+    };
+    
     init();
 };
 

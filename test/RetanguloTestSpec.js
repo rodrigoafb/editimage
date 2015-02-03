@@ -373,5 +373,14 @@ describe('Retangulo - ', function() {
         expect('se-resize').toEqual(redimensionadores[7].cursor);
         
     });
+    
+    it('Deve retornar os redimensionadores', function(){
+        
+        var retangulo = editimage.fabricaRetangulo.criar(observer, new createjs.Shape(), redimensionadores);
+        
+        var redimensionadoresRetornados = retangulo.retornarRedimensionadores();
+        
+        expect(true).toEqual(redimensionadoresRetornados === redimensionadores);
+    });
 
 });

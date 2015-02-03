@@ -113,6 +113,13 @@ editimage.Linha = function(observer, shape, redimensionadores){
         
     };
     
+    self.retornarRedimensionadores = function(){
+        
+        return redimensionadores;
+        
+    };
+    
+    
     init();
     
 };

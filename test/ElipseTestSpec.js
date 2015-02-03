@@ -38,6 +38,15 @@ describe('Elipse - ', function(){
         
     });
     
+    it('Deve retornar os redimensionadores', function(){
+        
+        var elipse = editimage.fabricaElipse.criar(observer, new createjs.Shape(), redimensionadores);
+        
+        var redimensionadoresRetornados = elipse.retornarRedimensionadores();
+        
+        expect(true).toEqual(redimensionadoresRetornados === redimensionadores);
+    });
+    
 	it('Deve criar um objeto Elipse', function(){
         
         var shape = new createjs.Shape();

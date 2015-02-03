@@ -40,6 +40,10 @@ var editimage = editimage || function(){
 		var canvas = document.createElement('canvas');
         canvas.setAttribute('width', '850');
         canvas.setAttribute('height', '658');
+        canvas.setAttribute('tabindex', 2);
+        canvas.addEventListener('click', function(e){
+            e.target.focus();
+        }, false);
         
 		return canvas;		
 
