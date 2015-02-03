@@ -1,8 +1,13 @@
-editimage.Contexto = function(observer, stage){
+editimage.Contexto = function(observer, stage, painelFerramentas){
     
     if (!stage) throw new Error("Informe o stage.");
     
-    var _stage = stage, self = this, objetos = [];
+    if (!painelFerramentas) throw new Error("Informe o painel de ferramentas.");
+    
+    var _stage = stage, 
+        self = this, 
+        objetos = []
+        _painelFerramentas = painelFerramentas;
     
     _stage.enableMouseOver(40);
     
@@ -46,10 +51,32 @@ editimage.Contexto = function(observer, stage){
     
     observer.adicionarCallback(function(objeto){
         
-        if(objeto) removerSelecaoObjetos(objeto)
+        if(objeto) {
+            
+            observerDisparadoPorObjetos(objeto);
+            
+            return;
+        }
+        
+        observerDisparadoPorRedimensionadores();
+        
+    });   
+    
+    var observerDisparadoPorObjetos = function(objeto){
+        
+        removerSelecaoObjetos(objeto);
+        
+        _painelFerramentas.adicionarOuSubstituirFerramentas(objeto.retornarFerramentas());
         
         _stage.update();
-    });   
+        
+    };
+    
+    var observerDisparadoPorRedimensionadores = function(){
+        
+        _stage.update();
+        
+    };
     
     var removerSelecaoObjetos = function(objeto){
         

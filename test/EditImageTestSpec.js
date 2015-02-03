@@ -12,17 +12,6 @@ describe('Inicialização - ', function(){
 
 	beforeEach(function(){
 
-		editimage.fabricaContexto = { 
-		
-			criar: function(){
-				stage = {};
-
-				return {};
-			}
-
-		};
-
-
 		editimage.fabricaPainelControle = { 
 			
 			criar: function(){
@@ -94,6 +83,7 @@ describe('Inicialização - ', function(){
 		expectativa.push('<button type="button" class="botao botao-elipse"><span class="icon icon-elipse"></span></button>');
 		expectativa.push('<button type="button" class="botao botao-linha"><span class="icon icon-linha"></span></button>');
 		expectativa.push('</div>');
+		expectativa.push('<div class="painel-ferramentas"></div>');
 		expectativa.push('<div class="container"><canvas width="850" height="658"></canvas></div>');
 		expectativa.push('</div>');
 
@@ -121,7 +111,6 @@ describe('Inicialização - ', function(){
 		var instanciaEditimage = editimage.retornarInstancia('div1');
 
 		expect(instanciaEditimage.contexto).toBeDefined();
-		expect(stage).toBeDefined();
 
 	});
 
