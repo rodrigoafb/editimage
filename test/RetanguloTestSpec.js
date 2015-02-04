@@ -2,10 +2,20 @@
 
 describe('Retangulo - ', function() {
 
-	var observer, redimensionadores;
+	var observer, 
+        redimensionadores,
+        textoObjeto = {};
 
 	beforeEach(function(){
-
+        
+        editimage.fabricaTextoObjeto = {
+            criar: function(){
+            
+            return textoObjeto;
+            
+        }
+    };
+        
 		observer = {
 			notificar: function(){
 
@@ -36,6 +46,16 @@ describe('Retangulo - ', function() {
             editimage.fabricaRetangulo.criar(observer, new createjs.Shape());
             
         }).toThrow(new Error('Informe os redimensionadores'));
+        
+    });
+    
+    it('Deve lançar uma exceção ao criar um retangulo o TextoObjeto', function(){
+        
+        expect(function(){
+            
+            var d = new editimage.Retangulo(observer, new createjs.Shape(),redimensionadores);
+            
+        }).toThrow(new Error('Informe o TextoObjeto'));
         
     });
     
@@ -381,6 +401,32 @@ describe('Retangulo - ', function() {
         var redimensionadoresRetornados = retangulo.retornarRedimensionadores();
         
         expect(true).toEqual(redimensionadoresRetornados === redimensionadores);
+    });
+    
+    it('Deve posicionar o TextoObjeto', function(){
+        
+        textoObjeto.definirAltura = function(altura){
+            
+            textoObjeto.altura = altura;
+                
+        };
+        
+        textoObjeto.definirLargura = function(largura){
+            
+            textoObjeto.largura = largura;
+                
+        };
+        
+        var retangulo = editimage.fabricaRetangulo.criar(observer, new createjs.Shape(), redimensionadores);
+        
+        retangulo.altura = 100;
+        retangulo.largura = 200;
+        
+        retangulo.posicionarTextoObjeto();
+        
+        expect(92).toEqual(textoObjeto.altura);
+        expect(187).toEqual(textoObjeto.largura);
+        
     });
 
 });

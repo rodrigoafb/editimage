@@ -1,12 +1,16 @@
 'use strict';
 
-editimage.Retangulo = function(observer, shape, redimensionadores){
+editimage.Retangulo = function(observer, shape, redimensionadores, textoObjeto){
 
     if(!redimensionadores) throw new Error('Informe os redimensionadores');
     
     if(redimensionadores.length !== 8) throw new Error('Informe 8 redimensionadores');
+    
+    if(!textoObjeto) throw new Error('Informe o TextoObjeto');
         
 	var self = this;
+    
+    var _textoObjeto = textoObjeto;
     
 	editimage.EditimageObjeto.call(self, observer, shape);
     
@@ -232,6 +236,13 @@ editimage.Retangulo = function(observer, shape, redimensionadores){
     self.retornarRedimensionadores = function(){
         
         return redimensionadores;
+        
+    };
+    
+    self.posicionarTextoObjeto = function(){
+        
+        _textoObjeto.definirAltura(self.altura - 8);
+        _textoObjeto.definirLargura(self.largura - 13);
         
     };
     
