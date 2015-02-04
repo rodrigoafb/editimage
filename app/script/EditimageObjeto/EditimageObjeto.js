@@ -201,10 +201,6 @@ editimage.EditimageObjeto = function(observer, shape){
         
         divFerramentas.appendChild(botaoTexto);
         
-        var botaoRemover = criarBotaoRemover();
-        
-        divFerramentas.appendChild(botaoRemover);
-        
         return divFerramentas;
         
     };
@@ -221,21 +217,6 @@ editimage.EditimageObjeto = function(observer, shape){
 		botaoTexto.appendChild(icone);
 
 		return botaoTexto;
-
-	};
-    
-    var criarBotaoRemover = function(){
-		
-		var botaoRemover = document.createElement('button');
-
-		botaoRemover.setAttribute('type', 'button');
-		botaoRemover.setAttribute('class', 'botao botao-remover');
-
-		var icone = criarIconeBotao('remover');
-
-		botaoRemover.appendChild(icone);
-
-		return botaoRemover;
 
 	};
     
