@@ -12,11 +12,17 @@ describe('Contexto - ', function () {
     
     it('Deve retornar uma nova instancia do objeto de contexto', function(){
        
+        var eventos = { };
+        
         stage.canvas = {
             
             width: 100,
             height: 500
             
+        };
+        
+        stage.canvas.addEventListener = function(evento, callback, bool){
+                    eventos[evento] = callback;
         };
         
         var contexto = editimage.fabricaContexto.criar(stage, painelFerramentas);
@@ -26,6 +32,64 @@ describe('Contexto - ', function () {
         expect(100).toEqual(contexto.largura);
         expect(500).toEqual(contexto.altura);
 
+    });
+    
+        
+    it('Deve aplicar o focus e o evento keydown no objeto do stage ao ser clicado, e excluí-lo do sistema ao apertar del', function(){
+        
+        var eventos = { }, focus = false, retornoRemove = false, update = false, redimensionadores = false, objetosRetorno;
+        
+        stage.canvas = {};
+        stage.canvas.addEventListener = function(evento, callback, bool){
+            eventos[evento] = callback;
+        };
+        
+        stage.addChild = function (a) {
+        };
+        
+        stage.update = function(){
+            update = true;
+        };
+        
+        stage.removeChild = function(objeto){
+            return retornoRemove = true;
+        };
+        
+        var contexto = editimage.fabricaContexto.criar(stage);
+        contexto.adicionarObjeto(
+            {retornarShape: function(){},
+             selecionado: false,
+             retornarRedimensionadores: function(){
+                 return [{retornarShape: function(){
+                        
+                 }}]
+             }
+        });
+        contexto.adicionarObjeto(
+            {retornarShape: function(){},
+             selecionado: true,
+             retornarRedimensionadores: function(){
+                 return [{retornarShape: function(){
+                        return redimensionadores = true;
+                 }}]
+             }
+        });
+        
+        eventos['click']({target:{ focus: function(){
+            return focus = true;
+        }}});
+        
+        eventos['keydown']({keyCode: 46});
+        
+        objetosRetorno = contexto.retornarObjetos();
+
+        expect(true).toEqual(focus);
+        expect(true).toEqual(update);
+        expect(true).toEqual(retornoRemove);
+        expect(true).toEqual(redimensionadores);
+        expect(1).toEqual(objetosRetorno.length);
+        
+        
     });
     
     it('Deve adicionar e retornar um novo objeto do contexto', function(){

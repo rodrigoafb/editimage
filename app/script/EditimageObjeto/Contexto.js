@@ -11,6 +11,13 @@ editimage.Contexto = function(observer, stage, painelFerramentas){
     
     _stage.enableMouseOver(40);
     
+    _stage.canvas.addEventListener("click", function(e){
+        e.target.focus(); 
+    }, false);
+    
+    _stage.canvas.addEventListener("keydown", function(e){
+        if(e.keyCode === 46) removerObjetos();
+    }, false);
     
     Object.defineProperties(self, {
         'largura': {
@@ -85,13 +92,29 @@ editimage.Contexto = function(observer, stage, painelFerramentas){
         });
         
         objetosNaoSelecionados.forEach(function(item){
-            
             item.selecionado = false;
-            
         });
         
     };
     
+    var removerObjetos = function(){
+        
+        var objetosSelecionados = objetos.filter(function (objetoFilter) {
+            return objetoFilter.selecionado === true;
+        }); 
+        
+        objetos.splice(objetos.indexOf(objetosSelecionados),1);
+        
+        _stage.removeChild(objetosSelecionados[0].retornarShape());
+        
+        redimensionadores = objetosSelecionados[0].retornarRedimensionadores();
+        
+        redimensionadores.forEach(function(redimensionador){
+           _stage.removeChild(redimensionador.retornarShape());
+        });
+        
+        _stage.update();
+    }
 };
 
 

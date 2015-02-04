@@ -83,13 +83,13 @@ describe('Inicialização - ', function(){
 		expectativa.push('<button type="button" class="botao botao-elipse"><span class="icon icon-elipse"></span></button>');
 		expectativa.push('<button type="button" class="botao botao-linha"><span class="icon icon-linha"></span></button>');
 		expectativa.push('</div>');
-		expectativa.push('<div class="painel-ferramentas"></div>');
-		expectativa.push('<div class="container"><canvas width="850" height="658"></canvas></div>');
+        expectativa.push('<div class="painel-ferramentas"></div>');
+		expectativa.push('<div class="container"><canvas width="850" height="658" tabindex="2"></canvas></div>');
 		expectativa.push('</div>');
 
 		expect(expectativa.join('')).toEqual($(body).find('.container').html());
-
 	});
+
 
 	it('Deve retornar o editimage especificado', function(){
 

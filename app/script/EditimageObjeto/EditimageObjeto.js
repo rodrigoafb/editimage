@@ -109,7 +109,7 @@ editimage.EditimageObjeto = function(observer, shape){
         
         self.shape.offset.x = self.coordenadaX - evt.stageX;
         self.shape.offset.y = self.coordenadaY - evt.stageY;
-        
+        self.selecionado = true;
         
     });
     
@@ -186,26 +186,26 @@ editimage.EditimageObjeto = function(observer, shape){
 
 	};
     
-    self.retornarPainelConfiguracao = function(){
+    self.retornarFerramentas = function(){
         
-        return criarElementoDivPainelConfiguracao();        
+        return criarElementoDivFerramentas();        
         
     };
     
-    var criarElementoDivPainelConfiguracao = function(){
+    var criarElementoDivFerramentas = function(){
         
-        var divPainel = document.createElement('div');
-        divPainel.setAttribute('class', 'painel-configuracao');
+        var divFerramentas = document.createElement('div');
+        divFerramentas.setAttribute('class', 'ferramentas');
         
         var botaoTexto = criarBotaoTexto();
         
-        divPainel.appendChild(botaoTexto);
+        divFerramentas.appendChild(botaoTexto);
         
         var botaoRemover = criarBotaoRemover();
         
-        divPainel.appendChild(botaoRemover);
+        divFerramentas.appendChild(botaoRemover);
         
-        return divPainel;
+        return divFerramentas;
         
     };
     
@@ -246,6 +246,6 @@ editimage.EditimageObjeto = function(observer, shape){
 
 		return spanIcone;
 
-	}
+	};
 
 };

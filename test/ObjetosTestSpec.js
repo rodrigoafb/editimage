@@ -207,32 +207,29 @@ describe('Objetos - ', function () {
     
     });
     
-    it('Deve criar o html do painel de configuração', function(){
+    it('Deve retornar o html das ferramentas', function(){
         
         var shape = new createjs.Shape();
         
         var objeto = new editimage.EditimageObjeto(observer, shape);
         
-        var htmlConfiguracao = objeto.retornarPainelConfiguracao();
+        var htmlFerramentas = objeto.retornarFerramentas();
         
-        expect(htmlConfiguracao).toBeDefined();
+        expect(htmlFerramentas).toBeDefined();
         
         var divPainel = document.createElement('div');
 		divPainel.classList.add('painel');               
         
-        divPainel.appendChild(htmlConfiguracao);
-        
-        var body = document.getElementsByTagName('body')[0];
-        body.appendChild(divPainel);                
+        divPainel.appendChild(htmlFerramentas);        
         
         var expectativa = [];
-		expectativa.push('<div class="painel-configuracao">');
+		expectativa.push('<div class="ferramentas">');
 		expectativa.push('<button type="button" class="botao botao-texto"><span class="icon icon-texto"></span></button>');
 		expectativa.push('<button type="button" class="botao botao-remover"><span class="icon icon-remover"></span></button>');
 		expectativa.push('</div>');
         
         
-        expect(expectativa.join('')).toEqual($(body).find('.painel').html());
+        expect(expectativa.join('')).toEqual(divPainel.innerHTML);
         
     });
 

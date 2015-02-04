@@ -37,6 +37,15 @@ describe('Linha - ', function(){
         
     });
     
+    it('Deve retornar os redimensionadores', function(){
+        
+        var linha = editimage.fabricaLinha.criar(observer, new createjs.Shape(), redimensionadores);
+        
+        var redimensionadoresRetornados = linha.retornarRedimensionadores();
+        
+        expect(true).toEqual(redimensionadoresRetornados === redimensionadores);
+    });
+    
 	it('Deve criar um objeto Linha', function(){
 
         var shape = new createjs.Shape();
@@ -81,9 +90,8 @@ describe('Linha - ', function(){
 		expect(linha.retornarShape).toBeDefined();
         expect('pointer').toEqual(linha.cursor);
 		expect(true).toEqual(editimage.Linha.prototype instanceof editimage.EditimageObjeto);
-        expect(2).toEqual(shape.evenstosRemovidos.length);
-        expect('mousedown').toEqual(shape.evenstosRemovidos[0]);
-        expect('pressmove').toEqual(shape.evenstosRemovidos[1]);
+        expect(1).toEqual(shape.evenstosRemovidos.length);
+        expect('pressmove').toEqual(shape.evenstosRemovidos[0]);
 
 	});
 
@@ -263,6 +271,32 @@ describe('Linha - ', function(){
         
         expect('move').toEqual(redimensionadores[0].cursor);
         expect('move').toEqual(redimensionadores[1].cursor);
+        
+    });
+    
+    it('Deve retornar o html das ferramentas', function(){
+        
+        var shape = new createjs.Shape();
+        
+        var objeto = new editimage.fabricaLinha.criar(observer, shape, redimensionadores);
+        
+        var htmlFerramentas = objeto.retornarFerramentas();
+        
+        expect(htmlFerramentas).toBeDefined();
+        
+        var divPainel = document.createElement('div');
+		divPainel.classList.add('painel');               
+        
+        divPainel.appendChild(htmlFerramentas);
+                  
+        
+        var expectativa = [];
+		expectativa.push('<div class="ferramentas">');
+		expectativa.push('<button type="button" class="botao botao-remover"><span class="icon icon-remover"></span></button>');
+		expectativa.push('</div>');
+        
+        
+        expect(expectativa.join('')).toEqual(divPainel.innerHTML);
         
     });
     
