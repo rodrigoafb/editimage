@@ -35,9 +35,16 @@ describe('Contexto - ', function () {
     });
     
         
-    it('Deve aplicar o focus e o evento keydown no objeto do stage ao ser clicado, e excluí-lo do sistema ao apertar del', function(){
+    it('Quando for pressionado a tecla delete, deve remover o objeto selecionado', function(){
         
-        var eventos = { }, focus = false, retornoRemove = false, update = false, redimensionadores = false, objetosRetorno;
+        var eventos = { }
+        , focus = false
+        , retornoRemove = false
+        , update = false
+        , redimensionadores = false
+        , objetosRetorno;
+        
+        painelFerramentas.visivel = true;
         
         stage.canvas = {};
         stage.canvas.addEventListener = function(evento, callback, bool){
@@ -55,7 +62,7 @@ describe('Contexto - ', function () {
             return retornoRemove = true;
         };
         
-        var contexto = editimage.fabricaContexto.criar(stage);
+        var contexto = editimage.fabricaContexto.criar(stage, painelFerramentas);
         contexto.adicionarObjeto(
             {retornarShape: function(){},
              selecionado: false,
@@ -82,7 +89,8 @@ describe('Contexto - ', function () {
         eventos['keydown']({keyCode: 46});
         
         objetosRetorno = contexto.retornarObjetos();
-
+        
+        expect(false).toEqual(painelFerramentas.visivel);
         expect(true).toEqual(focus);
         expect(true).toEqual(update);
         expect(true).toEqual(retornoRemove);
@@ -198,6 +206,8 @@ describe('Contexto - ', function () {
             
         };
         
+        painelFerramentas.visivel = false;
+        
         var contexto = editimage.fabricaContexto.criar(stage, painelFerramentas);
         
         var objeto = {
@@ -219,9 +229,13 @@ describe('Contexto - ', function () {
         
         var observer = contexto.retornarObserver();
         
+        expect(false).toEqual(painelFerramentas.visivel);
+        
         observer.notificar(objeto);
         
         expect('<span></span>').toEqual(ferramentasAdicionadas.innerHTML);
+        
+        expect(true).toEqual(painelFerramentas.visivel);
         
     });
     

@@ -17,6 +17,8 @@ var editimage = editimage || function(){
             
             var painelFerramentas = editimage.fabricaPainelFerramentas.criar();
         
+            painelFerramentas.visivel = false;
+        
             instancias[idDivContainer] = criarInstancia(canvas, painelFerramentas);
         
 			var painelControle = editimage.fabricaPainelControle.criar(instancias[idDivContainer].contexto);    
@@ -24,8 +26,8 @@ var editimage = editimage || function(){
 			var divPainelControle = criarElementoHtmlPainelControle(painelControle);
         
 			div.appendChild(divPainelControle);
-            div.appendChild(painelFerramentas.retornarPainelFerramentas());
 			div.appendChild(divCanvas);
+            div.appendChild(painelFerramentas.retornarPainelFerramentas());
 
 		};
 

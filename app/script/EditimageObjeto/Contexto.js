@@ -12,11 +12,15 @@ editimage.Contexto = function(observer, stage, painelFerramentas){
     _stage.enableMouseOver(40);
     
     _stage.canvas.addEventListener("click", function(e){
+        
         e.target.focus(); 
+        
     }, false);
     
     _stage.canvas.addEventListener("keydown", function(e){
+        
         if(e.keyCode === 46) removerObjetos();
+        
     }, false);
     
     Object.defineProperties(self, {
@@ -75,6 +79,8 @@ editimage.Contexto = function(observer, stage, painelFerramentas){
         
         _painelFerramentas.adicionarOuSubstituirFerramentas(objeto.retornarFerramentas());
         
+        _painelFerramentas.visivel = true;
+        
         _stage.update();
         
     };
@@ -112,6 +118,8 @@ editimage.Contexto = function(observer, stage, painelFerramentas){
         redimensionadores.forEach(function(redimensionador){
            _stage.removeChild(redimensionador.retornarShape());
         });
+        
+        _painelFerramentas.visivel = false;
         
         _stage.update();
     }

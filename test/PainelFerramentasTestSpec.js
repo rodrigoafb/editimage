@@ -2,12 +2,15 @@
 
 describe('PainelFerramentas - ', function(){
     
+    var observer = {};
+    
     it('Deve criar um PainelFerramentas', function(){
         
         var painel = editimage.fabricaPainelFerramentas.criar();
         
         expect(painel.adicionarOuSubstituirFerramentas).toBeDefined();
         expect(painel.retornarPainelFerramentas).toBeDefined();
+        expect(true).toEqual(painel.visivel);
         
         
     });
@@ -78,6 +81,34 @@ describe('PainelFerramentas - ', function(){
         htmlExpect = '<div class="painel-ferramentas"><div><span></span><i></i></div></div>';
         
         expect(htmlExpect).toEqual(divNovaFerramentas.innerHTML);
+        
+    });
+    
+    it('Deve mostrar ou esconder o painel de ferramentas', function(){
+        
+        
+        var painel = editimage.fabricaPainelFerramentas.criar();
+        
+        var htmlPainel = painel.retornarPainelFerramentas();
+        
+        var div = document.createElement('div');
+        div.appendChild(htmlPainel);
+        
+        var htmlExpect = '<div class="painel-ferramentas"></div>';
+        
+        expect(htmlExpect).toEqual(div.innerHTML);
+        
+        painel.visivel = false;
+        
+        htmlExpect = '<div class="painel-ferramentas editimage-hidden"></div>';
+        
+        expect(htmlExpect).toEqual(div.innerHTML);
+        
+        painel.visivel = true;
+        
+        htmlExpect = '<div class="painel-ferramentas"></div>';
+        
+        expect(htmlExpect).toEqual(div.innerHTML);
         
     });
     
