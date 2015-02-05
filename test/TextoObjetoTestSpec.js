@@ -1,6 +1,6 @@
 'use strict'
 
-describe('Texto - ', function(){
+describe('TextoObjeto - ', function(){
     
     var observer = {}
         ,notificado = false;
@@ -11,7 +11,7 @@ describe('Texto - ', function(){
             notificado = true;
         };
 
-		editimage.fabricaImagem = editimage.fabricaImagemBase;
+		editimage.fabricaTextoObjeto = editimage.fabricaTextoObjetoBase;
 		
 	});
     

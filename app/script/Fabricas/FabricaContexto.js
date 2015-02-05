@@ -1,7 +1,7 @@
 editimage.fabricaContexto = {
-    criar: function(stage){
+    criar: function(stage, painelFerramentas){
         var observer  = editimage.fabricaObserver.criar();
         
-        return new editimage.Contexto(observer, stage);
+        return new editimage.Contexto(observer, stage, painelFerramentas);
     }
 };

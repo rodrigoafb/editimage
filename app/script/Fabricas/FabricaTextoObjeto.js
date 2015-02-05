@@ -1,6 +1,6 @@
 'use strict';
 
-editimage.fabricaTextoObjeto = {
+editimage.fabricaTextoObjetoBase = {
 
 	criar: function(observer){
         
@@ -14,5 +14,7 @@ editimage.fabricaTextoObjeto = {
         
 		return new editimage.TextoObjeto(text, domElement, observer);
 
-	}
+    }
 };
+
+editimage.fabricaTextoObjeto = editimage.fabricaTextoObjetoBase;

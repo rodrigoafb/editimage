@@ -3,6 +3,10 @@
 	position: relative;
 }
 
+.editimage-hidden {
+    visibility: hidden;
+}
+
 .botao {
 	padding: 1px 6px 1px 6px;
   	background-color: transparent;
@@ -24,6 +28,7 @@
 
 .painel-controle {
   	position: relative;
+    display: inline-block;
   	min-width: 40px;
   	width: 2.09%;
   	border: 1px solid #000000;
@@ -31,9 +36,19 @@
   	float: left;
 }
 
+.painel-ferramentas {
+  	position: relative;
+    display: inline-block;
+  	min-width: 40px;
+  	width: 2.09%;
+  	border: 1px solid #000000;
+  	float: left;
+}
+
 @media screen and (max-width: 927px) {
     .painel-controle {
 	  	position: relative;
+        display: inline-block;
 	  	width: 160px;
 	  	border: 1px solid #000000;
 	  	padding-top: 1px;
@@ -43,6 +58,7 @@
 .container{
 	float: left;
   	position: relative;
+    display: inline-block;
   	width: 850px;
   	height: 658px;
   	border: 1px solid #000000;

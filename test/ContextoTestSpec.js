@@ -3,7 +3,8 @@
 describe('Contexto - ', function () {
     var stage = {}
     , mouseOver = false
-    , notificar = false;
+    , notificar = false
+    , painelFerramentas = {};
     
     stage.enableMouseOver = function(){
         mouseOver = true;
@@ -21,10 +22,10 @@ describe('Contexto - ', function () {
         };
         
         stage.canvas.addEventListener = function(evento, callback, bool){
-            eventos[evento] = callback;
+                    eventos[evento] = callback;
         };
         
-        var contexto = editimage.fabricaContexto.criar(stage);
+        var contexto = editimage.fabricaContexto.criar(stage, painelFerramentas);
         
         expect(contexto).toBeDefined();
         expect(true).toEqual(mouseOver);
@@ -34,9 +35,28 @@ describe('Contexto - ', function () {
     });
     
         
-    it('Deve aplicar o focus e o evento keydown no objeto do stage ao ser clicado, e excluí-lo do sistema ao apertar del', function(){
+    it('Quando for pressionado a tecla delete, deve remover o objeto selecionado', function(){
         
-        var eventos = { }, focus = false, retornoRemove = false, update = false, redimensionadores = false, objetosRetorno;
+        var eventos = { }
+        , focus = false
+        , retornoRemove = false
+        , update = false
+        , redimensionadorShape = false
+        , quantidadeObjetos
+        , redimensionadores
+        , objetoRetornado = {
+             retornarShape: function(){},
+             selecionado: false,
+             retornarRedimensionadores: function(){
+                 return redimensionadores;
+             }
+        };
+        
+        redimensionadores = [{retornarShape: function(){ return redimensionadorShape = true; }}
+                             ,{retornarShape: function(){ return redimensionadorShape = true;}}
+                             ,{retornarShape: function(){ return redimensionadorShape = true;}}
+                             ,{retornarShape: function(){ return redimensionadorShape = true;}}]
+        painelFerramentas.visivel = true;
         
         stage.canvas = {};
         stage.canvas.addEventListener = function(evento, callback, bool){
@@ -54,25 +74,19 @@ describe('Contexto - ', function () {
             return retornoRemove = true;
         };
         
-        var contexto = editimage.fabricaContexto.criar(stage);
-        contexto.adicionarObjeto(
-            {retornarShape: function(){},
-             selecionado: false,
-             retornarRedimensionadores: function(){
-                 return [{retornarShape: function(){
-                        
-                 }}]
-             }
-        });
+        var contexto = editimage.fabricaContexto.criar(stage, painelFerramentas);
+        contexto.adicionarObjeto(objetoRetornado);
         contexto.adicionarObjeto(
             {retornarShape: function(){},
              selecionado: true,
              retornarRedimensionadores: function(){
-                 return [{retornarShape: function(){
-                        return redimensionadores = true;
-                 }}]
+                return redimensionadores;
              }
         });
+        
+        for(var i = 0; i< redimensionadores.length; i++){
+            contexto.adicionarObjeto(redimensionadores[i]);
+        };
         
         eventos['click']({target:{ focus: function(){
             return focus = true;
@@ -80,20 +94,21 @@ describe('Contexto - ', function () {
         
         eventos['keydown']({keyCode: 46});
         
-        objetosRetorno = contexto.retornarObjetos();
-
+        quantidadeObjetos = contexto.retornarObjetos();
+        
+        expect(false).toEqual(painelFerramentas.visivel);
         expect(true).toEqual(focus);
         expect(true).toEqual(update);
         expect(true).toEqual(retornoRemove);
-        expect(true).toEqual(redimensionadores);
-        expect(1).toEqual(objetosRetorno.length);
-        
-        
+        expect(true).toEqual(redimensionadorShape);
+        expect(1).toEqual(quantidadeObjetos.length);
+        expect(true).toEqual(quantidadeObjetos[0] === objetoRetornado);
+
     });
     
     it('Deve adicionar e retornar um novo objeto do contexto', function(){
         
-        var contexto = editimage.fabricaContexto.criar(stage), retorno, update = false;
+        var contexto = editimage.fabricaContexto.criar(stage, painelFerramentas), retorno, update = false;
         
         stage.addChild = function (a) {
             retorno = a;
@@ -115,21 +130,27 @@ describe('Contexto - ', function () {
     
     it('Deve retornar o observer', function(){
        
-        var contexto = editimage.fabricaContexto.criar(stage);
+        var contexto = editimage.fabricaContexto.criar(stage, painelFerramentas);
         
         var observer = contexto.retornarObserver();
         
         expect(observer).toBeDefined();
     });
     
-    it('Deve retornar uma exceção caso o stage não seja passado', function(){
+    it('Deve lançar uma exceção caso o stage não seja passado', function(){
         expect(function(){ editimage.fabricaContexto.criar(); }).toThrow(new Error('Informe o stage.'));
+    });
+    
+    it('Deve lançar uma exceção caso o painelFerramentas não seja informado', function(){
+        
+        expect(function(){ editimage.fabricaContexto.criar(stage); }).toThrow(new Error('Informe o painel de ferramentas.'));
+        
     });
     
     it('Deve adicionar um callback no observer do contexto', function(){
         notificar = false;
         
-        var contexto = editimage.fabricaContexto.criar(stage);
+        var contexto = editimage.fabricaContexto.criar(stage, painelFerramentas);
         
         stage.update = function(){
             notificar = true;  
@@ -145,18 +166,22 @@ describe('Contexto - ', function () {
     
     it('Quando selecionar um objeto os outros devem ser deselecionados', function(){
         
-        var contexto = editimage.fabricaContexto.criar(stage);
+        painelFerramentas.adicionarOuSubstituirFerramentas = function(){};
+        
+        var contexto = editimage.fabricaContexto.criar(stage, painelFerramentas);
         
         var objeto = {retornarShape: function(){
                             return "shape";
                       },
-                      selecionado: true
+                      selecionado: true,
+                      retornarFerramentas: function(){}
                     };
         
         var objeto2 = {retornarShape: function(){ 
                             return "shape";
                         },
-                       selecionado: true
+                       selecionado: true,
+                       retornarFerramentas: function(){}
                      };
         
         contexto.adicionarObjeto(objeto);
@@ -175,6 +200,49 @@ describe('Contexto - ', function () {
         expect(true).toEqual(objetos[0].selecionado);
         expect(false).toEqual(objetos[1].selecionado);
        
+    });
+    
+    it('Quando um objeto for selecionado deve renderizar o as ferramentas do objeto selecionado', function(){
+        
+        var ferramentasAdicionadas;
+        
+        painelFerramentas.adicionarOuSubstituirFerramentas = function(ferramentas){
+            
+            ferramentasAdicionadas = ferramentas;
+            
+        };
+        
+        painelFerramentas.visivel = false;
+        
+        var contexto = editimage.fabricaContexto.criar(stage, painelFerramentas);
+        
+        var objeto = {
+            retornarShape: function(){
+                    return "shape";
+              },
+              selecionado: true,
+              retornarFerramentas: function(){
+
+                  var div = document.createElement('div');
+                  div.innerHTML = '<span></span>';
+
+                  return div;
+
+              }
+        };
+        
+        contexto.adicionarObjeto(objeto);
+        
+        var observer = contexto.retornarObserver();
+        
+        expect(false).toEqual(painelFerramentas.visivel);
+        
+        observer.notificar(objeto);
+        
+        expect('<span></span>').toEqual(ferramentasAdicionadas.innerHTML);
+        
+        expect(true).toEqual(painelFerramentas.visivel);
+        
     });
     
 });
