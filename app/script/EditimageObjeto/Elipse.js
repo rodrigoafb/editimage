@@ -23,6 +23,8 @@ editimage.Elipse = function(observer, shape, redimensionadores, textoObjeto){
                 
                 self.shape.graphics.command.w = value;
                 
+                self.redimensionarTextoObjeto();
+                
                 self.observer.notificar(self);
                 
             },
@@ -37,6 +39,8 @@ editimage.Elipse = function(observer, shape, redimensionadores, textoObjeto){
                 if(value === self.shape.graphics.command.h) return;
                 
                 self.shape.graphics.command.h = value;
+                
+                self.redimensionarTextoObjeto();
                 
                 self.observer.notificar(self);
                 
@@ -140,6 +144,13 @@ editimage.Elipse = function(observer, shape, redimensionadores, textoObjeto){
     self.movimentacaoTemplateMethod = function(){
         
         posicionarRedimensionadores();
+        self.posicionarTextoObjeto();
+    };
+    
+    self.posicionarTextoObjeto = function(){
+        
+        textoObjeto.coordenadaX = Math.floor(self.coordenadaX + ((self.largura - textoObjeto.largura) / 2));
+        textoObjeto.coordenadaY = Math.floor(self.coordenadaY + ((self.altura - textoObjeto.altura) / 2));
         
     };
     

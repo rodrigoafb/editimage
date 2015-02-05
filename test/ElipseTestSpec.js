@@ -5,10 +5,20 @@ describe('Elipse - ', function(){
 	var observer
     , redimensionadores
     , largura
-    , altura;
+    , altura
+    , textoObjeto = {};
 
 	beforeEach(function(){
-
+        
+        textoObjeto = {
+                    definirLargura: function(medida){
+                        textoObjeto.largura = medida;
+                    },
+                    definirAltura: function(medida){
+                        textoObjeto.altura = medida;
+                    }
+                };
+        
 		observer = {
 			notificar: function(){
 
@@ -22,14 +32,7 @@ describe('Elipse - ', function(){
 		editimage.fabricaTextoObjeto = { 
 		
 			criar: function(){
-				return {
-                    definirLargura: function(medida){
-                        largura = medida;
-                    },
-                    definirAltura: function(medida){
-                        altura = medida;
-                    }
-                };
+				return textoObjeto;
 			}
 
 		};
@@ -337,19 +340,57 @@ describe('Elipse - ', function(){
     
     it('Deve redimensionar o textoObjeto de acordo com o tamanho da elipse', function(){
        
-        var shape = new createjs.Shape(), teste = false;
+        var shape = new createjs.Shape();
         
         var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores);    
         
         elipse.desenhar();
         
+        elipse.largura = 400;
+        elipse.altura = 200;
+        
         elipse.redimensionarTextoObjeto();
         
-        var textoObjeto = elipse.retornarTextoObjeto();
-        
-        expect(120).toEqual(largura);
-        expect(58.5).toEqual(altura);
+        expect(320).toEqual(textoObjeto.largura);
+        expect(117).toEqual(textoObjeto.altura);
         
     });
+    
+    it('Quando redimensionar a elipse deve redimensionar o TextoObjeto', function(){
+        var shape = new createjs.Shape();
+        var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores);
+        
+        textoObjeto.largura = 0;
+        textoObjeto.altura = 0;
+        
+        elipse.largura = 400;
+        expect(320).toEqual(textoObjeto.largura);
+        
+        elipse.altura = 200;
+        expect(117).toEqual(textoObjeto.altura);
+    });
+    
+    it('Quando o elipse for movido, deve reposicionar o TextObjeto', function(){
+        var shape = new createjs.Shape();
+        var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores);
+        
+        textoObjeto.coordenadaX = 0;
+        textoObjeto.coordenadaY = 0;
+        
+        elipse.coordenadaX = 100;
+        elipse.coordenadaY = 100;
+        elipse.largura = 400;
+        elipse.altura = 200;
+        
+        elipse.movimentacaoTemplateMethod();
+        
+        elipse.redimensionarTextoObjeto();
+
+        expect(140).toEqual(textoObjeto.coordenadaX);
+        expect(141).toEqual(textoObjeto.coordenadaY);
+        
+        
+    });
+    
     
 });
