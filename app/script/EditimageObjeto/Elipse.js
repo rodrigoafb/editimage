@@ -1,8 +1,10 @@
 'use strict';
 
-editimage.Elipse = function(observer, shape, redimensionadores){
+editimage.Elipse = function(observer, shape, redimensionadores, textoObjeto){
 
     if(!redimensionadores) throw new Error('Informe os redimensionadores');
+    
+    if(!textoObjeto) throw new Error('Informe o textoObjeto');
     
     if(redimensionadores.length !== 4) throw new Error('Informe 4 redimensionadores');
 
@@ -170,6 +172,16 @@ editimage.Elipse = function(observer, shape, redimensionadores){
         return redimensionadores;
         
     };
+    
+    self.redimensionarTextoObjeto = function(){
+        
+        textoObjeto.definirLargura(self.largura * 0.8);
+        textoObjeto.definirAltura(self.altura * 0.585);
+    };
+    
+    self.retornarTextoObjeto = function(){
+        return textoObjeto;
+    }
     
     init();
 };

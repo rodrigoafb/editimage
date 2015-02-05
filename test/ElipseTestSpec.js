@@ -2,7 +2,10 @@
 
 describe('Elipse - ', function(){
 
-	var observer, redimensionadores;
+	var observer
+    , redimensionadores
+    , largura
+    , altura;
 
 	beforeEach(function(){
 
@@ -15,7 +18,21 @@ describe('Elipse - ', function(){
 		};
         
         redimensionadores = [{largura:6},{largura:6},{largura:6},{largura:6}];
+        
+		editimage.fabricaTextoObjeto = { 
+		
+			criar: function(){
+				return {
+                    definirLargura: function(medida){
+                        largura = medida;
+                    },
+                    definirAltura: function(medida){
+                        altura = medida;
+                    }
+                };
+			}
 
+		};
 	});
     
     it('A fábrica de elipses deve retornar a quantidade de redimensionadores necessários para criar uma elipse', function(){
@@ -238,6 +255,9 @@ describe('Elipse - ', function(){
         
     });
     
+        
+
+    
     it('Quando os redimensionadores forem movidos, deve modificar as dimensões da elipse', function(){
         
         var shape = new createjs.Shape();
@@ -308,5 +328,28 @@ describe('Elipse - ', function(){
         expect('w-resize').toEqual(redimensionadores[3].cursor);
         
     });
+    
+    
+    it('Deve lançar uma exceção caso o textoObjeto não seja passado', function(){
+        expect(function(){new editimage.Elipse(observer, new createjs.Shape(), redimensionadores)}).toThrow(new Error('Informe o textoObjeto'));
+    });
 
+    
+    it('Deve redimensionar o textoObjeto de acordo com o tamanho da elipse', function(){
+       
+        var shape = new createjs.Shape(), teste = false;
+        
+        var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores);    
+        
+        elipse.desenhar();
+        
+        elipse.redimensionarTextoObjeto();
+        
+        var textoObjeto = elipse.retornarTextoObjeto();
+        
+        expect(120).toEqual(largura);
+        expect(58.5).toEqual(altura);
+        
+    });
+    
 });

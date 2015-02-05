@@ -36,7 +36,25 @@ describe('Contexto - ', function () {
         
     it('Deve aplicar o focus e o evento keydown no objeto do stage ao ser clicado, e excluí-lo do sistema ao apertar del', function(){
         
-        var eventos = { }, focus = false, retornoRemove = false, update = false, redimensionadores = false, objetosRetorno;
+        var eventos = { }
+        , focus = false
+        , retornoRemove = false
+        , update = false
+        , redimensionadorShape = false
+        , quantidadeObjetos
+        , redimensionadores
+        , objetoRetornado = {
+             retornarShape: function(){},
+             selecionado: false,
+             retornarRedimensionadores: function(){
+                 return redimensionadores;
+             }
+        };
+        
+        redimensionadores = [{retornarShape: function(){ return redimensionadorShape = true; }}
+                             ,{retornarShape: function(){ return redimensionadorShape = true;}}
+                             ,{retornarShape: function(){ return redimensionadorShape = true;}}
+                             ,{retornarShape: function(){ return redimensionadorShape = true;}}]
         
         stage.canvas = {};
         stage.canvas.addEventListener = function(evento, callback, bool){
@@ -55,24 +73,18 @@ describe('Contexto - ', function () {
         };
         
         var contexto = editimage.fabricaContexto.criar(stage);
-        contexto.adicionarObjeto(
-            {retornarShape: function(){},
-             selecionado: false,
-             retornarRedimensionadores: function(){
-                 return [{retornarShape: function(){
-                        
-                 }}]
-             }
-        });
+        contexto.adicionarObjeto(objetoRetornado);
         contexto.adicionarObjeto(
             {retornarShape: function(){},
              selecionado: true,
              retornarRedimensionadores: function(){
-                 return [{retornarShape: function(){
-                        return redimensionadores = true;
-                 }}]
+                return redimensionadores;
              }
         });
+        
+        for(var i = 0; i< redimensionadores.length; i++){
+            contexto.adicionarObjeto(redimensionadores[i]);
+        };
         
         eventos['click']({target:{ focus: function(){
             return focus = true;
@@ -80,15 +92,15 @@ describe('Contexto - ', function () {
         
         eventos['keydown']({keyCode: 46});
         
-        objetosRetorno = contexto.retornarObjetos();
+        quantidadeObjetos = contexto.retornarObjetos();
 
         expect(true).toEqual(focus);
         expect(true).toEqual(update);
         expect(true).toEqual(retornoRemove);
-        expect(true).toEqual(redimensionadores);
-        expect(1).toEqual(objetosRetorno.length);
-        
-        
+        expect(true).toEqual(redimensionadorShape);
+        expect(1).toEqual(quantidadeObjetos.length);
+        expect(true).toEqual(quantidadeObjetos[0] === objetoRetornado);
+
     });
     
     it('Deve adicionar e retornar um novo objeto do contexto', function(){

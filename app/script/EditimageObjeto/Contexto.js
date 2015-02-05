@@ -76,14 +76,17 @@ editimage.Contexto = function(observer, stage){
             return objetoFilter.selecionado === true;
         }); 
         
-        objetos.splice(objetos.indexOf(objetosSelecionados),1);
-        
-        _stage.removeChild(objetosSelecionados[0].retornarShape());
-        
         redimensionadores = objetosSelecionados[0].retornarRedimensionadores();
+
+        for (var i = 0; i < redimensionadores.length; i++){
+            objetos.splice(objetos.indexOf(redimensionadores[i]), i);
+        };
         
+        objetos.splice(objetos.indexOf(objetosSelecionados[0]),1);
+        _stage.removeChild(objetosSelecionados[0].retornarShape());
+
         redimensionadores.forEach(function(redimensionador){
-           _stage.removeChild(redimensionador.retornarShape());
+            _stage.removeChild(redimensionador.retornarShape());
         });
         
         _stage.update();
