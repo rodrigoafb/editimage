@@ -20,7 +20,6 @@ editimage.EditimageObjeto = function(observer, shape){
     self.observer = observer;
     
 	Object.defineProperties(self, {
-
 		'selecionado': {
 			get: function(){ return _selecionado; },
 			set: function(value){
@@ -43,7 +42,6 @@ editimage.EditimageObjeto = function(observer, shape){
 			},
             enumerable: true
 		},
-
 		'bordaCor': {
 			get: function(){ return _strokeCommand.style; },
 			set: function(value){

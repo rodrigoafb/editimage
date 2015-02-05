@@ -25,6 +25,9 @@ editimage.Retangulo = function(observer, shape, redimensionadores, textoObjeto){
                 if(value === self.shape.graphics.command.w) return;
                 
                 self.shape.graphics.command.w = value;
+                
+                self.redimensionarTextoObjeto();
+                
                 observer.notificar();
                 
             },
@@ -39,6 +42,9 @@ editimage.Retangulo = function(observer, shape, redimensionadores, textoObjeto){
                 if(value === self.shape.graphics.command.h) return;
                 
                 self.shape.graphics.command.h = value;
+                
+                self.redimensionarTextoObjeto();
+                
                 observer.notificar(self);
                 
             },
@@ -206,7 +212,7 @@ editimage.Retangulo = function(observer, shape, redimensionadores, textoObjeto){
     self.movimentacaoTemplateMethod = function(){
         
         posicionarRedimensionadores();
-        
+        self.posicionarTextoObjeto();
     };
     
     self.aplicarSelecao = function(){
@@ -241,8 +247,15 @@ editimage.Retangulo = function(observer, shape, redimensionadores, textoObjeto){
     
     self.posicionarTextoObjeto = function(){
         
-        _textoObjeto.definirAltura(self.altura - 8);
-        _textoObjeto.definirLargura(self.largura - 13);
+        _textoObjeto.coordenadaX = self.coordenadaX + 4;
+        _textoObjeto.coordenadaY = self.coordenadaY + 4;
+        
+    };
+    
+    self.redimensionarTextoObjeto = function(){
+        
+        _textoObjeto.definirLargura(self.largura - 8);
+        _textoObjeto.definirAltura(self.altura - 13);
         
     };
     
