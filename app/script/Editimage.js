@@ -14,15 +14,20 @@ var editimage = editimage || function(){
 			var canvas = criarElementoHtmlCanvas();
 
             divCanvas.appendChild(canvas);
+            
+            var painelFerramentas = editimage.fabricaPainelFerramentas.criar();
         
-            instancias[idDivContainer] = criarInstancia(canvas);
+            painelFerramentas.visivel = false;
+        
+            instancias[idDivContainer] = criarInstancia(canvas, painelFerramentas);
         
 			var painelControle = editimage.fabricaPainelControle.criar(instancias[idDivContainer].contexto);    
         
 			var divPainelControle = criarElementoHtmlPainelControle(painelControle);
-
+        
 			div.appendChild(divPainelControle);
 			div.appendChild(divCanvas);
+            div.appendChild(painelFerramentas.retornarPainelFerramentas());
 
 		};
 
@@ -189,12 +194,12 @@ var editimage = editimage || function(){
 
 	}
 
-	var criarInstancia = function(canvas){
+	var criarInstancia = function(canvas, painelFerramentas){
 
         var stage = new createjs.Stage(canvas);
         
 		return {
-			contexto: editimage.fabricaContexto.criar(stage)
+			contexto: editimage.fabricaContexto.criar(stage, painelFerramentas)
 		};
 
 	};

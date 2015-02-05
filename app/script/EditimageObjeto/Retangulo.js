@@ -1,12 +1,16 @@
 'use strict';
 
-editimage.Retangulo = function(observer, shape, redimensionadores){
+editimage.Retangulo = function(observer, shape, redimensionadores, textoObjeto){
 
     if(!redimensionadores) throw new Error('Informe os redimensionadores');
     
     if(redimensionadores.length !== 8) throw new Error('Informe 8 redimensionadores');
+    
+    if(!textoObjeto) throw new Error('Informe o TextoObjeto');
         
 	var self = this;
+    
+    var _textoObjeto = textoObjeto;
     
 	editimage.EditimageObjeto.call(self, observer, shape);
     
@@ -21,6 +25,9 @@ editimage.Retangulo = function(observer, shape, redimensionadores){
                 if(value === self.shape.graphics.command.w) return;
                 
                 self.shape.graphics.command.w = value;
+                
+                self.redimensionarTextoObjeto();
+                
                 observer.notificar();
                 
             },
@@ -35,6 +42,9 @@ editimage.Retangulo = function(observer, shape, redimensionadores){
                 if(value === self.shape.graphics.command.h) return;
                 
                 self.shape.graphics.command.h = value;
+                
+                self.redimensionarTextoObjeto();
+                
                 observer.notificar(self);
                 
             },
@@ -202,7 +212,7 @@ editimage.Retangulo = function(observer, shape, redimensionadores){
     self.movimentacaoTemplateMethod = function(){
         
         posicionarRedimensionadores();
-        
+        self.posicionarTextoObjeto();
     };
     
     self.aplicarSelecao = function(){
@@ -232,6 +242,20 @@ editimage.Retangulo = function(observer, shape, redimensionadores){
     self.retornarRedimensionadores = function(){
         
         return redimensionadores;
+        
+    };
+    
+    self.posicionarTextoObjeto = function(){
+        
+        _textoObjeto.coordenadaX = self.coordenadaX + 4;
+        _textoObjeto.coordenadaY = self.coordenadaY + 4;
+        
+    };
+    
+    self.redimensionarTextoObjeto = function(){
+        
+        _textoObjeto.definirLargura(self.largura - 8);
+        _textoObjeto.definirAltura(self.altura - 13);
         
     };
     

@@ -2,10 +2,21 @@
 
 describe('Painel - ', function () {
 
-	var contexto = {}, observer, painel;
+	var contexto = {}
+    , observer
+    , textoObjeto = {}
+    , painel;
 
 
 	beforeEach(function () {
+        
+        editimage.fabricaTextoObjeto = {
+            criar: function(){
+            
+            return textoObjeto;
+            
+            }
+        };
         
 		contexto.retornarObserver = function () {
 			return {
