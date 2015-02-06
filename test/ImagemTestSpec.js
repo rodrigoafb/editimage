@@ -15,7 +15,7 @@ describe('Imagem - ', function(){
 
 		var imagem = editimage.fabricaImagem.criar(observer, new createjs.Shape(), "imagem.jpg");
 
-		expect(imagem.retornarShape).toBeDefined();
+		expect(imagem.retornarCreateObjeto).toBeDefined();
 		expect(true).toEqual(editimage.Imagem.prototype instanceof editimage.EditimageObjeto);
 
 	});
@@ -60,7 +60,7 @@ describe('Imagem - ', function(){
         
         var imagem = editimage.fabricaImagem.criar(observer, shape, "imagem.jpg");
         
-        var shape = imagem.retornarShape();
+        var shape = imagem.retornarCreateObjeto();
         
         expect(true).toEqual(shape === objeto)
         

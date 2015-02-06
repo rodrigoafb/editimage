@@ -22,7 +22,13 @@ describe('Retangulo - ', function() {
                 
         };
         
-        textoObjeto.definirLargura = function(largura){
+        textoObjeto.definirLarguraDOMElement = function(largura){
+            
+            textoObjeto.larguraDOMElement = largura;
+                
+        };
+        
+        textoObjeto.definirLarguraText = function(largura){
             
             textoObjeto.largura = largura;
                 
@@ -84,7 +90,8 @@ describe('Retangulo - ', function() {
 
         expect(retangulo.largura).toBeDefined();
         expect(retangulo.altura).toBeDefined();
-		expect(retangulo.retornarShape).toBeDefined();
+		expect(retangulo.retornarCreateObjeto).toBeDefined();
+		expect(false).toEqual(textoObjeto.visivel)
 		expect(true).toEqual(editimage.Retangulo.prototype instanceof editimage.EditimageObjeto);
 
 	});
@@ -143,7 +150,7 @@ describe('Retangulo - ', function() {
 
 		var retangulo = editimage.fabricaRetangulo.criar(observer, shape, redimensionadores);
 
-		var shapeRetangulo = retangulo.retornarShape();
+		var shapeRetangulo = retangulo.retornarCreateObjeto();
 
 		shapeRetangulo.dispararEvento('click');
         
@@ -156,6 +163,7 @@ describe('Retangulo - ', function() {
         expect(true).toEqual(redimensionadores[6].visivel);
         expect(true).toEqual(redimensionadores[7].visivel);
         
+        textoObjeto.edicao = true;
         retangulo.selecionado = false;
         
         expect(false).toEqual(redimensionadores[0].visivel);
@@ -166,6 +174,7 @@ describe('Retangulo - ', function() {
         expect(false).toEqual(redimensionadores[5].visivel);
         expect(false).toEqual(redimensionadores[6].visivel);
         expect(false).toEqual(redimensionadores[7].visivel);
+        expect(false).toEqual(textoObjeto.edicao);
         
         
     });
@@ -264,7 +273,7 @@ describe('Retangulo - ', function() {
         expect(147).toEqual(redimensionadores[7].coordenadaX);
         expect(147).toEqual(redimensionadores[7].coordenadaY);        
         
-        var shapeRetangulo = retangulo.retornarShape();
+        var shapeRetangulo = retangulo.retornarCreateObjeto();
         
         shapeRetangulo.dispararEventoMouseDown();
         shapeRetangulo.dispararEventoPressMove();        
@@ -424,8 +433,8 @@ describe('Retangulo - ', function() {
         
         retangulo.posicionarTextoObjeto();
         
-        expect(24).toEqual(textoObjeto.coordenadaX);
-        expect(44).toEqual(textoObjeto.coordenadaY);
+        expect(21).toEqual(textoObjeto.coordenadaX);
+        expect(41).toEqual(textoObjeto.coordenadaY);
         
     });
     
@@ -450,23 +459,32 @@ describe('Retangulo - ', function() {
         
         retangulo.redimensionarTextoObjeto();
         
-        expect(12).toEqual(textoObjeto.largura);
-        expect(27).toEqual(textoObjeto.altura);
+        expect(7).toEqual(textoObjeto.largura);
+        expect(32).toEqual(textoObjeto.altura);
         
     });
     
-    it('Quando redimensionar o retângulo deve redimensionar o TextoObjeto', function(){
+    it('Quando redimensionar o retângulo deve redimensionar e reposicionar o TextoObjeto', function(){
         
         var retangulo = editimage.fabricaRetangulo.criar(observer, new createjs.Shape(), redimensionadores);
         
+        textoObjeto.coordenadaX = 0;
         textoObjeto.altura = 0;
         textoObjeto.largura = 0;
         
+        retangulo.coordenadaX = 20;
+        retangulo.coordenadaY = 40;
+        retangulo.largura = 0;
+        retangulo.altura = 0;
+        
         retangulo.largura = 20;
-        expect(12).toEqual(textoObjeto.largura);
-
+        expect(7).toEqual(textoObjeto.largura);
+        expect(21).toEqual(textoObjeto.coordenadaX);
+        
+        textoObjeto.coordenadaY = 0;
         retangulo.altura = 40;
-        expect(27).toEqual(textoObjeto.altura);
+        expect(32).toEqual(textoObjeto.altura);
+        expect(41).toEqual(textoObjeto.coordenadaY);
         
     });
     
@@ -482,8 +500,77 @@ describe('Retangulo - ', function() {
         
         retangulo.movimentacaoTemplateMethod();
         
-        expect(24).toEqual(textoObjeto.coordenadaX);
-        expect(44).toEqual(textoObjeto.coordenadaY);
+        expect(21).toEqual(textoObjeto.coordenadaX);
+        expect(41).toEqual(textoObjeto.coordenadaY);
+        
+    });
+    
+    it('Deve retornar o TextoObjeto', function(){
+        
+        var retangulo = editimage.fabricaRetangulo.criar(observer, new createjs.Shape(), redimensionadores);
+        
+        expect(true).toEqual(retangulo.retornarTextoObjeto() === textoObjeto);
+        
+    });
+    
+    it('Quando criar no botão Texto no painel de ferramentas, deve mostrar a caixa o TextoObjeto', function(){
+        
+        var retangulo = editimage.fabricaRetangulo.criar(observer, new createjs.Shape(), redimensionadores);
+        
+        var ferramentas = retangulo.retornarFerramentas();
+        
+        var botao = ferramentas.querySelectorAll('button')[0];
+        
+        textoObjeto.coordenadaX = 0;
+        textoObjeto.coordenadaY = 0;
+        textoObjeto.altura = 0;
+        textoObjeto.largura = 0;
+        
+        retangulo.coordenadaX = 20;
+        retangulo.coordenadaY = 40;
+        retangulo.largura = 20;
+        retangulo.altura = 40;
+        
+        botao.onclick();
+        
+        expect(true).toEqual(textoObjeto.visivel);
+        expect(true).toEqual(textoObjeto.edicao);
+        
+        expect(21).toEqual(textoObjeto.coordenadaX);
+        expect(41).toEqual(textoObjeto.coordenadaY);
+        expect(7).toEqual(textoObjeto.largura);
+        expect(32).toEqual(textoObjeto.altura);
+        
+    });
+    
+    it('No doubleclick do retangulo, deve habilitar a edição do texto se o TextoObjeto estiver visivel', function(){
+        
+        var shape = new createjs.Shape();
+		var evento = {};
+        
+        textoObjeto.edicao = false;
+        
+		shape.addEventListener = function(pEvento, callback){
+
+					evento[pEvento] = callback;
+
+				};
+
+		shape.dispararEvento = function(pEvento){
+
+					evento[pEvento]();
+
+				};
+
+		var retangulo = editimage.fabricaRetangulo.criar(observer, shape, redimensionadores);
+
+		var shape = retangulo.retornarCreateObjeto();
+        
+        textoObjeto.visivel = true;
+        
+		shape.dispararEvento('dblclick');
+
+		expect(true).toEqual(textoObjeto.edicao);
         
     });
 

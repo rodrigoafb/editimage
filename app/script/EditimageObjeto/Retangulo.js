@@ -11,6 +11,7 @@ editimage.Retangulo = function(observer, shape, redimensionadores, textoObjeto){
 	var self = this;
     
     var _textoObjeto = textoObjeto;
+    _textoObjeto.visivel = false;
     
 	editimage.EditimageObjeto.call(self, observer, shape);
     
@@ -28,7 +29,9 @@ editimage.Retangulo = function(observer, shape, redimensionadores, textoObjeto){
                 
                 self.redimensionarTextoObjeto();
                 
-                observer.notificar();
+                self.posicionarTextoObjeto();
+                
+                observer.notificar(self);
                 
             },
             enumerable: true
@@ -44,6 +47,8 @@ editimage.Retangulo = function(observer, shape, redimensionadores, textoObjeto){
                 self.shape.graphics.command.h = value;
                 
                 self.redimensionarTextoObjeto();
+                
+                self.posicionarTextoObjeto();
                 
                 observer.notificar(self);
                 
@@ -203,6 +208,12 @@ editimage.Retangulo = function(observer, shape, redimensionadores, textoObjeto){
         redimensionadores[7].cursor = 'se-resize';
     };
     
+    self.shape.addEventListener('dblclick', function(){
+        
+        if(_textoObjeto.visivel) _textoObjeto.edicao = true;
+        
+    });
+    
 	self.desenhar = function(){
 
 		self.shape.graphics.drawRect(0, 0, 100, 100);
@@ -224,7 +235,6 @@ editimage.Retangulo = function(observer, shape, redimensionadores, textoObjeto){
             redimensionadores[i].visivel = true;
             
         }
-        
     };
     
     self.removerSelecao = function(){
@@ -237,6 +247,8 @@ editimage.Retangulo = function(observer, shape, redimensionadores, textoObjeto){
             
         }
         
+        _textoObjeto.edicao = false;
+        
     };
     
     self.retornarRedimensionadores = function(){
@@ -247,15 +259,32 @@ editimage.Retangulo = function(observer, shape, redimensionadores, textoObjeto){
     
     self.posicionarTextoObjeto = function(){
         
-        _textoObjeto.coordenadaX = self.coordenadaX + 4;
-        _textoObjeto.coordenadaY = self.coordenadaY + 4;
+        _textoObjeto.coordenadaX = self.coordenadaX + 1;
+        _textoObjeto.coordenadaY = self.coordenadaY + 1;
         
     };
     
     self.redimensionarTextoObjeto = function(){
         
-        _textoObjeto.definirLargura(self.largura - 8);
-        _textoObjeto.definirAltura(self.altura - 13);
+        _textoObjeto.definirLarguraText(self.largura - 13);
+        _textoObjeto.definirLarguraDOMElement(self.largura - 8);
+        _textoObjeto.definirAltura(self.altura - 8);
+        
+    };
+    
+    self.retornarTextoObjeto = function(){
+        
+        return _textoObjeto;
+        
+    };
+    
+    self.onclickBotaoTextoTemplateMethod = function(event){
+        
+        _textoObjeto.visivel = true;
+        _textoObjeto.edicao = true;
+        
+        self.posicionarTextoObjeto();
+        self.redimensionarTextoObjeto();
         
     };
     

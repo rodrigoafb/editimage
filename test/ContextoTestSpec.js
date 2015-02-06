@@ -33,7 +33,6 @@ describe('Contexto - ', function () {
         expect(500).toEqual(contexto.altura);
 
     });
-    
         
     it('Quando for pressionado a tecla delete, deve remover o objeto selecionado', function(){
         
@@ -45,17 +44,17 @@ describe('Contexto - ', function () {
         , quantidadeObjetos
         , redimensionadores
         , objetoRetornado = {
-             retornarShape: function(){},
+             retornarCreateObjeto: function(){},
              selecionado: false,
              retornarRedimensionadores: function(){
                  return redimensionadores;
              }
         };
         
-        redimensionadores = [{retornarShape: function(){ return redimensionadorShape = true; }}
-                             ,{retornarShape: function(){ return redimensionadorShape = true;}}
-                             ,{retornarShape: function(){ return redimensionadorShape = true;}}
-                             ,{retornarShape: function(){ return redimensionadorShape = true;}}]
+        redimensionadores = [{retornarCreateObjeto: function(){ return redimensionadorShape = true; }}
+                             ,{retornarCreateObjeto: function(){ return redimensionadorShape = true;}}
+                             ,{retornarCreateObjeto: function(){ return redimensionadorShape = true;}}
+                             ,{retornarCreateObjeto: function(){ return redimensionadorShape = true;}}]
         painelFerramentas.visivel = true;
         
         stage.canvas = {};
@@ -77,7 +76,7 @@ describe('Contexto - ', function () {
         var contexto = editimage.fabricaContexto.criar(stage, painelFerramentas);
         contexto.adicionarObjeto(objetoRetornado);
         contexto.adicionarObjeto(
-            {retornarShape: function(){},
+            {retornarCreateObjeto: function(){},
              selecionado: true,
              retornarRedimensionadores: function(){
                 return redimensionadores;
@@ -117,7 +116,7 @@ describe('Contexto - ', function () {
             update = true;
         };
         
-        contexto.adicionarObjeto({retornarShape: function(){
+        contexto.adicionarObjeto({retornarCreateObjeto: function(){
             return "shape";
         }});
         
@@ -170,14 +169,14 @@ describe('Contexto - ', function () {
         
         var contexto = editimage.fabricaContexto.criar(stage, painelFerramentas);
         
-        var objeto = {retornarShape: function(){
+        var objeto = {retornarCreateObjeto: function(){
                             return "shape";
                       },
                       selecionado: true,
                       retornarFerramentas: function(){}
                     };
         
-        var objeto2 = {retornarShape: function(){ 
+        var objeto2 = {retornarCreateObjeto: function(){ 
                             return "shape";
                         },
                        selecionado: true,
@@ -217,7 +216,7 @@ describe('Contexto - ', function () {
         var contexto = editimage.fabricaContexto.criar(stage, painelFerramentas);
         
         var objeto = {
-            retornarShape: function(){
+            retornarCreateObjeto: function(){
                     return "shape";
               },
               selecionado: true,
@@ -242,6 +241,31 @@ describe('Contexto - ', function () {
         expect('<span></span>').toEqual(ferramentasAdicionadas.innerHTML);
         
         expect(true).toEqual(painelFerramentas.visivel);
+        
+    });
+    
+    it('Deve adicionar mais de um objeto mais de um objeto ao mesmo tempo', function(){
+        
+        var contexto = editimage.fabricaContexto.criar(stage, painelFerramentas)
+        , retorno = []
+        , update = false;
+        
+        stage.addChild = function (a) {
+            retorno.push(a);
+        };
+        stage.update = function(){
+            update = true;
+        };
+        
+        contexto.adicionarObjeto({retornarCreateObjeto: function(){
+            return [{},{},{}];
+        }});
+        
+        var objetosRetorno = contexto.retornarObjetos();
+        
+        expect(objetosRetorno.length).toEqual(1);
+        expect(retorno.length).toEqual(3);
+        expect(true).toEqual(update);
         
     });
     

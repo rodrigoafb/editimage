@@ -8,7 +8,7 @@ editimage.fabricaTextoObjetoBase = {
                 
         var textArea = document.createElement('textarea');
                 
-        document.body.appendChild(textArea);
+        document.querySelectorAll('.editimage > .container')[0].appendChild(textArea);
         
         var domElement = new createjs.DOMElement(textArea);
         

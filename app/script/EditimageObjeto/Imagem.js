@@ -26,7 +26,7 @@ editimage.Imagem = function(observer, shape, dataUrl){
         
     };
     
-    self.retornarShape = function(){
+    self.retornarCreateObjeto = function(){
         return bitmap;
     };
     

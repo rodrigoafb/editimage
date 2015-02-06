@@ -11,8 +11,11 @@ describe('Elipse - ', function(){
 	beforeEach(function(){
         
         textoObjeto = {
-                    definirLargura: function(medida){
+                    definirLarguraText: function(medida){
                         textoObjeto.largura = medida;
+                    },
+                    definirLarguraDOMElement: function(largura){
+                        textoObjeto.larguraDOMElement = largura;
                     },
                     definirAltura: function(medida){
                         textoObjeto.altura = medida;
@@ -80,10 +83,11 @@ describe('Elipse - ', function(){
 
 		var elipse = editimage.fabricaElipse.criar(observer, new createjs.Shape(), redimensionadores);
 
-		expect(elipse.retornarShape).toBeDefined();
+		expect(elipse.retornarCreateObjeto).toBeDefined();
 		expect(elipse.largura).toBeDefined();
 		expect(elipse.altura).toBeDefined();
-		expect(elipse.retornarShape).toBeDefined();
+		expect(elipse.retornarCreateObjeto).toBeDefined();
+		expect(false).toEqual(textoObjeto.visivel);
 		expect(true).toEqual(editimage.Elipse.prototype instanceof editimage.EditimageObjeto);
 
 	});
@@ -141,7 +145,7 @@ describe('Elipse - ', function(){
 
 		var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores);
 
-		var shapeElipse = elipse.retornarShape();
+		var shapeElipse = elipse.retornarCreateObjeto();
 
 		shapeElipse.dispararEvento('click');
         
@@ -150,13 +154,14 @@ describe('Elipse - ', function(){
         expect(true).toEqual(redimensionadores[2].visivel);
         expect(true).toEqual(redimensionadores[3].visivel);
         
+        textoObjeto.edicao = true;
         elipse.selecionado = false;
         
         expect(false).toEqual(redimensionadores[0].visivel);
         expect(false).toEqual(redimensionadores[1].visivel);
         expect(false).toEqual(redimensionadores[2].visivel);
         expect(false).toEqual(redimensionadores[3].visivel);
-        
+        expect(false).toEqual(textoObjeto.edicao);
         
     });
     
@@ -239,7 +244,7 @@ describe('Elipse - ', function(){
         expect(47).toEqual(redimensionador4.coordenadaX);
         expect(97).toEqual(redimensionador4.coordenadaY);       
         
-        var shapeElipse = elipse.retornarShape();
+        var shapeElipse = elipse.retornarCreateObjeto();
         
         shapeElipse.dispararEventoMouseDown();
         shapeElipse.dispararEventoPressMove();        
@@ -257,9 +262,6 @@ describe('Elipse - ', function(){
         expect(107).toEqual(redimensionador4.coordenadaY); 
         
     });
-    
-        
-
     
     it('Quando os redimensionadores forem movidos, deve modificar as dimensões da elipse', function(){
         
@@ -332,12 +334,10 @@ describe('Elipse - ', function(){
         
     });
     
-    
     it('Deve lançar uma exceção caso o textoObjeto não seja passado', function(){
         expect(function(){new editimage.Elipse(observer, new createjs.Shape(), redimensionadores)}).toThrow(new Error('Informe o textoObjeto'));
     });
 
-    
     it('Deve redimensionar o textoObjeto de acordo com o tamanho da elipse', function(){
        
         var shape = new createjs.Shape();
@@ -352,7 +352,7 @@ describe('Elipse - ', function(){
         elipse.redimensionarTextoObjeto();
         
         expect(320).toEqual(textoObjeto.largura);
-        expect(117).toEqual(textoObjeto.altura);
+        expect(113).toEqual(textoObjeto.altura);
         
     });
     
@@ -363,11 +363,17 @@ describe('Elipse - ', function(){
         textoObjeto.largura = 0;
         textoObjeto.altura = 0;
         
+        elipse.coordenadaX = 100;
+        elipse.coordenadaY = 100;
+        
         elipse.largura = 400;
         expect(320).toEqual(textoObjeto.largura);
+        expect(140).toEqual(textoObjeto.coordenadaX);
         
         elipse.altura = 200;
-        expect(117).toEqual(textoObjeto.altura);
+        expect(113).toEqual(textoObjeto.altura);
+        expect(141).toEqual(textoObjeto.coordenadaY);
+        
     });
     
     it('Quando o elipse for movido, deve reposicionar o TextObjeto', function(){
@@ -384,13 +390,70 @@ describe('Elipse - ', function(){
         
         elipse.movimentacaoTemplateMethod();
         
-        elipse.redimensionarTextoObjeto();
-
         expect(140).toEqual(textoObjeto.coordenadaX);
         expect(141).toEqual(textoObjeto.coordenadaY);
         
+    });
+    
+    it('Quando criar no botão Texto no painel de ferramentas, deve mostrar a caixa o TextoObjeto', function(){
+        
+        var elipse = editimage.fabricaElipse.criar(observer, new createjs.Shape(), redimensionadores);
+        
+        var ferramentas = elipse.retornarFerramentas();
+        
+        var botao = ferramentas.querySelectorAll('button')[0];
+        
+        textoObjeto.coordenadaX = 0;
+        textoObjeto.coordenadaY = 0;
+        textoObjeto.largura = 0;
+        textoObjeto.altura = 0;
+        
+        elipse.coordenadaX = 100;
+        elipse.coordenadaY = 100;
+        elipse.largura = 400;
+        elipse.altura = 200;
+        
+        botao.onclick();
+        
+        expect(true).toEqual(textoObjeto.visivel);
+        expect(true).toEqual(textoObjeto.edicao);
+        
+        expect(140).toEqual(textoObjeto.coordenadaX);
+        expect(141).toEqual(textoObjeto.coordenadaY);
+        expect(320).toEqual(textoObjeto.largura);
+        expect(113).toEqual(textoObjeto.altura);
         
     });
     
+    it('No doubleclick da elipse, deve habilitar a edição do texto se o TextoObjeto estiver visivel', function(){
+        
+        var shape = new createjs.Shape();
+		var evento = {};
+        
+        textoObjeto.edicao = false;
+        
+		shape.addEventListener = function(pEvento, callback){
+
+					evento[pEvento] = callback;
+
+				};
+
+		shape.dispararEvento = function(pEvento){
+
+					evento[pEvento]();
+
+				};
+
+		var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores);
+
+		var shape = elipse.retornarCreateObjeto();
+        
+        textoObjeto.visivel = true;
+        
+		shape.dispararEvento('dblclick');
+
+		expect(true).toEqual(textoObjeto.edicao);
+        
+    });
     
 });

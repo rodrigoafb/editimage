@@ -46,10 +46,37 @@ editimage.Contexto = function(observer, stage, painelFerramentas){
     
     self.adicionarObjeto = function(objeto){
         
-        _stage.addChild(objeto.retornarShape());
+        var objetoCreate = objeto.retornarCreateObjeto();
+        
+        if(Array.isArray(objetoCreate)){
+            
+            adicionarChildrenStage(objetoCreate);
+            
+        }else{
+            
+            adicionarChildStage(objetoCreate);
+            
+        }
+        
         _stage.update();
         
         objetos.push(objeto);
+    };
+    
+    var adicionarChildStage = function(objeto){
+        
+        _stage.addChild(objeto);
+        
+    };
+    
+    var adicionarChildrenStage = function(arrayObjeto){
+        
+        arrayObjeto.forEach(function(objeto){
+            
+            _stage.addChild(objeto);
+            
+        });
+        
     };
     
     self.retornarObjetos = function(){
@@ -77,7 +104,12 @@ editimage.Contexto = function(observer, stage, painelFerramentas){
         
         removerSelecaoObjetos(objeto);
         
-        _painelFerramentas.adicionarOuSubstituirFerramentas(objeto.retornarFerramentas());
+        if(_painelFerramentas.adicionarOuSubstituirFerramentas && objeto.retornarFerramentas){ 
+            
+            var ferramentas = objeto.retornarFerramentas();
+            
+            _painelFerramentas.adicionarOuSubstituirFerramentas(ferramentas);
+        }
         
         _painelFerramentas.visivel = true;
         
@@ -116,10 +148,10 @@ editimage.Contexto = function(observer, stage, painelFerramentas){
         };
         
         objetos.splice(objetos.indexOf(objetosSelecionados[0]),1);
-        _stage.removeChild(objetosSelecionados[0].retornarShape());
+        _stage.removeChild(objetosSelecionados[0].retornarCreateObjeto());
 
         redimensionadores.forEach(function(redimensionador){
-            _stage.removeChild(redimensionador.retornarShape());
+            _stage.removeChild(redimensionador.retornarCreateObjeto());
         });
         
         _painelFerramentas.visivel = false;

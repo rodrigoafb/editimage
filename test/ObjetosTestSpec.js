@@ -4,7 +4,6 @@ var createjs,
 	observer;
 
 describe('Objetos - ', function () {
-	
 
 	beforeEach(function(){
 
@@ -44,7 +43,7 @@ describe('Objetos - ', function () {
 
 		var objeto = new editimage.EditimageObjeto(observer, new createjs.Shape());
 
-		var shape = objeto.retornarShape();
+		var shape = objeto.retornarCreateObjeto();
 
 		expect(shape.graphics).toBeDefined();
 
@@ -69,7 +68,7 @@ describe('Objetos - ', function () {
 
 		var objeto = new editimage.EditimageObjeto(observer, shape);
 
-		var shape = objeto.retornarShape();
+		var shape = objeto.retornarCreateObjeto();
 
 		shape.dispararEvento('click');
 
@@ -197,7 +196,7 @@ describe('Objetos - ', function () {
         objeto.coordenadaX = 50;
         objeto.coordenadaY = 50;
         
-        var shapeObjeto = objeto.retornarShape();
+        var shapeObjeto = objeto.retornarCreateObjeto();
         
         shapeObjeto.dispararEventoMouseDown();
         shapeObjeto.dispararEventoPressMove();

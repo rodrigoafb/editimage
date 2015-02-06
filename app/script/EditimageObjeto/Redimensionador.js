@@ -83,7 +83,7 @@ editimage.Redimensionador = function(observer, shape){
     
     self.movimentacaoCallback = function(){};
     
-    self.retornarShape = function(){
+    self.retornarCreateObjeto = function(){
         
         return _shape;
         

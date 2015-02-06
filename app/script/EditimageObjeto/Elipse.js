@@ -10,7 +10,9 @@ editimage.Elipse = function(observer, shape, redimensionadores, textoObjeto){
 
 	var self = this;
 	editimage.EditimageObjeto.call(self, observer, shape);
-
+    
+    textoObjeto.visivel = false;
+    
     Object.defineProperties(self, {
         
         'largura': {
@@ -24,6 +26,8 @@ editimage.Elipse = function(observer, shape, redimensionadores, textoObjeto){
                 self.shape.graphics.command.w = value;
                 
                 self.redimensionarTextoObjeto();
+                
+                self.posicionarTextoObjeto();
                 
                 self.observer.notificar(self);
                 
@@ -41,6 +45,8 @@ editimage.Elipse = function(observer, shape, redimensionadores, textoObjeto){
                 self.shape.graphics.command.h = value;
                 
                 self.redimensionarTextoObjeto();
+                
+                self.posicionarTextoObjeto();
                 
                 self.observer.notificar(self);
                 
@@ -135,6 +141,12 @@ editimage.Elipse = function(observer, shape, redimensionadores, textoObjeto){
         
     };
     
+    self.shape.addEventListener('dblclick', function(){
+        
+        if(textoObjeto.visivel) textoObjeto.edicao = true;
+        
+    });
+    
 	self.desenhar = function(){
         
 		self.shape.graphics.drawEllipse(0, 0, 150, 100);
@@ -150,7 +162,7 @@ editimage.Elipse = function(observer, shape, redimensionadores, textoObjeto){
     self.posicionarTextoObjeto = function(){
         
         textoObjeto.coordenadaX = Math.floor(self.coordenadaX + ((self.largura - textoObjeto.largura) / 2));
-        textoObjeto.coordenadaY = Math.floor(self.coordenadaY + ((self.altura - textoObjeto.altura) / 2));
+        textoObjeto.coordenadaY = Math.floor(self.coordenadaY + ((self.altura - (textoObjeto.altura + 4)) / 2));
         
     };
     
@@ -176,6 +188,8 @@ editimage.Elipse = function(observer, shape, redimensionadores, textoObjeto){
             
         }
         
+        textoObjeto.edicao = false;
+        
     };
     
     self.retornarRedimensionadores = function(){
@@ -186,13 +200,24 @@ editimage.Elipse = function(observer, shape, redimensionadores, textoObjeto){
     
     self.redimensionarTextoObjeto = function(){
         
-        textoObjeto.definirLargura(self.largura * 0.8);
-        textoObjeto.definirAltura(self.altura * 0.585);
+        textoObjeto.definirLarguraText(self.largura * 0.8);
+        textoObjeto.definirLarguraDOMElement((self.largura * 0.8) - 4);        
+        textoObjeto.definirAltura((self.altura * 0.585) - 4);
     };
     
     self.retornarTextoObjeto = function(){
         return textoObjeto;
     }
+    
+    self.onclickBotaoTextoTemplateMethod = function(event){
+        
+        textoObjeto.visivel = true;
+        textoObjeto.edicao = true;
+        
+        self.redimensionarTextoObjeto();
+        self.posicionarTextoObjeto();
+        
+    };
     
     init();
 };

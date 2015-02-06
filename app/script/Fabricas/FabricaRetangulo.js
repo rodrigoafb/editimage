@@ -4,7 +4,7 @@ editimage.fabricaRetanguloBase = {
 
 	criar: function(observer, shape, redimensionadores){
         
-        var textoObjeto = editimage.fabricaTextoObjeto.criar();
+        var textoObjeto = editimage.fabricaTextoObjeto.criar(observer);
         
 		return new editimage.Retangulo(observer, shape, redimensionadores, textoObjeto);
 

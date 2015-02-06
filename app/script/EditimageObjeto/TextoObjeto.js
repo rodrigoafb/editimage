@@ -10,7 +10,9 @@ editimage.TextoObjeto = function(text, domElement, observer){
     
     var self = this
         ,_text = text
-        ,_domElement = domElement;
+        ,_domElement = domElement
+        ,_altura
+        ,_largura;
     
     _text.font = '12px Arial';
     _text.color = '#000000';
@@ -37,9 +39,9 @@ editimage.TextoObjeto = function(text, domElement, observer){
             set: function(value){ 
                 
                 _text.x = value;
-                _domElement.x = value + 6;     
+                _domElement.x = value;     
                 
-                observer.notificar(self);
+                observer.notificar();
                 
             },
             enumerable: true
@@ -53,9 +55,9 @@ editimage.TextoObjeto = function(text, domElement, observer){
             set: function(value){
                 
                 _text.y = value;
-                _domElement.y = value + 6;
+                _domElement.y = value;
                 
-                observer.notificar(self);
+                observer.notificar();
                 
             },
             enumerable: true
@@ -68,9 +70,11 @@ editimage.TextoObjeto = function(text, domElement, observer){
             },
             set: function(value){
                 
+                if(!value) self.edicao = false;
+                
                 _text.visible = value;
                 
-                observer.notificar(self);
+                observer.notificar();
                 
             },
             enumerable: true
@@ -85,7 +89,7 @@ editimage.TextoObjeto = function(text, domElement, observer){
                 
                 _domElement.visible = value;
                 
-                observer.notificar(self);
+                observer.notificar();
                 
             },
             enumerable: true
@@ -100,7 +104,23 @@ editimage.TextoObjeto = function(text, domElement, observer){
                 
                 _text.text = value;
                             
-                observer.notificar(self);
+                observer.notificar();
+            },
+            enumerable: true
+        },
+        'altura': {
+            get: function(){
+                
+                return _altura;
+                
+            },
+            enumerable: true
+        },
+        'largura': {
+            get: function(){
+                
+                return _largura;
+                
             },
             enumerable: true
         }
@@ -110,27 +130,44 @@ editimage.TextoObjeto = function(text, domElement, observer){
         
         self.texto = this.value;
         
-        observer.notificar(self);
+        observer.notificar();
         
     };
     
-    self.definirLargura = function(largura){
+    self.definirLarguraText = function(largura){
         
         _text.lineWidth = largura;
         _text.maxWidth = largura;
+                
+        _largura = largura;
         
-        _domElement.htmlElement.style.width = largura + 5;
-        _domElement.htmlElement.style.maxWidth = largura + 5;
-        
-        observer.notificar(self);
+        observer.notificar();
+    };
+    
+    self.definirLarguraDOMElement = function(largura){
+                
+        _domElement.htmlElement.style.width = largura + 'px';
+        _domElement.htmlElement.style.maxWidth = largura + 'px';
+                
+        observer.notificar();
     };
     
     self.definirAltura = function(altura){
                 
-        _domElement.htmlElement.style.height = altura;
-        _domElement.htmlElement.style.maxHeight = altura;
+        _domElement.htmlElement.style.height = altura + 'px';
+        _domElement.htmlElement.style.maxHeight = altura + 'px';
         
-        observer.notificar(self);
+        _altura = altura;
+        
+        observer.notificar();
     };
+    
+    
+    
+    self.retornarCreateObjeto = function(){
+        
+        return [_text, _domElement];
+        
+    };     
     
 };

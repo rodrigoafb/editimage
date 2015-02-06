@@ -140,7 +140,7 @@ describe('Redimensionador - ', function(){
         var shape = new createjs.Shape();
         var redimensionador = editimage.fabricaRedimensionador.criar(observer, shape);
         
-        var shapeRetornado = redimensionador.retornarShape();
+        var shapeRetornado = redimensionador.retornarCreateObjeto();
         
         expect(true).toEqual(shape === shapeRetornado);
         

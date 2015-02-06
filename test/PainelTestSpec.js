@@ -7,7 +7,6 @@ describe('Painel - ', function () {
     , textoObjeto = {}
     , painel;
 
-
 	beforeEach(function () {
         
         editimage.fabricaTextoObjeto = {
@@ -54,7 +53,6 @@ describe('Painel - ', function () {
 
 	})
 
-
 	//Pesquisar como testar isso
 	it('Deve selecionar uma imagem', function(){
 
@@ -70,9 +68,10 @@ describe('Painel - ', function () {
 
 	});
 
-
 	it('Deve criar um retangulo e adicionar na lista de objetos', function(){
 		contexto.objetos = [];
+        
+        editimage.fabricaTextoObjeto = editimage.fabricaTextoObjetoBase;
         
         var notificado = false;
         
@@ -115,20 +114,21 @@ describe('Painel - ', function () {
             
         });
         
-        
         retangulo.selecionado = true;
         
-		expect(9).toEqual(objetos.length);
+		expect(10).toEqual(objetos.length);
         expect(true).toEqual(notificado);
-        expect(24).toEqual(retangulo.retornarShape().propriedadeTeste);
+        expect(24).toEqual(retangulo.retornarCreateObjeto().propriedadeTeste);
         
-        expect(false).toEqual(redimensionadores[0].retornarShape() === redimensionadores[1].retornarShape());
+        expect(false).toEqual(redimensionadores[0].retornarCreateObjeto() === redimensionadores[1].retornarCreateObjeto());
 
 	});
 
 	it('Deve criar uma elipse e adicionar na lista de objetos', function(){
 
         contexto.objetos = [];
+        
+        editimage.fabricaTextoObjeto = editimage.fabricaTextoObjetoBase;
         
         var notificado = false;
         
@@ -147,6 +147,7 @@ describe('Painel - ', function () {
         }
 
         var painel = editimage.fabricaPainelControle.criar(contexto);
+        
         painel.criarElipse();
         
         var retornoContext = painel.retornarContexto();
@@ -169,10 +170,10 @@ describe('Painel - ', function () {
         
         elipse.selecionado = true;
 
-        expect(5).toEqual(objetos.length);
+        expect(6).toEqual(objetos.length);
         expect(true).toEqual(notificado);
-        expect(24).toEqual(elipse.retornarShape().propriedadeTeste);
-        expect(false).toEqual(redimensionadores[0].retornarShape() === redimensionadores[1].retornarShape());
+        expect(24).toEqual(elipse.retornarCreateObjeto().propriedadeTeste);
+        expect(false).toEqual(redimensionadores[0].retornarCreateObjeto() === redimensionadores[1].retornarCreateObjeto());
 
 	});
 
@@ -222,12 +223,9 @@ describe('Painel - ', function () {
 
         expect(3).toEqual(objetos.length);
         expect(true).toEqual(notificado);
-        expect(24).toEqual(linha.retornarShape().propriedadeTeste);
-        expect(false).toEqual(redimensionadores[0].retornarShape() === redimensionadores[1].retornarShape());
+        expect(24).toEqual(linha.retornarCreateObjeto().propriedadeTeste);
+        expect(false).toEqual(redimensionadores[0].retornarCreateObjeto() === redimensionadores[1].retornarCreateObjeto());
 
 	});
-    
-
-    
 
 })

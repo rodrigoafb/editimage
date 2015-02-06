@@ -166,7 +166,7 @@ editimage.EditimageObjeto = function(observer, shape){
     
     self.removerSelecao = function(){};
     
-	self.retornarShape = function(){
+	self.retornarCreateObjeto = function(){
 
 		return shape;
 
@@ -209,7 +209,9 @@ editimage.EditimageObjeto = function(observer, shape){
 
 		botaoTexto.setAttribute('type', 'button');
 		botaoTexto.setAttribute('class', 'botao botao-texto');
-
+        
+        botaoTexto.onclick = self.onclickBotaoTextoTemplateMethod;
+        
 		var icone = criarIconeBotao('texto');
 
 		botaoTexto.appendChild(icone);
@@ -217,6 +219,12 @@ editimage.EditimageObjeto = function(observer, shape){
 		return botaoTexto;
 
 	};
+    
+    self.onchangeBotaoTextoTemplateMethod = function(){
+        
+        
+        
+    };
     
     var criarIconeBotao = function(nomeIcone){
 

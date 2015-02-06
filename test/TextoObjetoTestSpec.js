@@ -33,7 +33,6 @@ describe('TextoObjeto - ', function(){
         
     });
     
-    
     it('Para criar um TextoObjeto é necessario informar o observer', function(){
         
         expect(function(){
@@ -108,17 +107,24 @@ describe('TextoObjeto - ', function(){
             self.htmlElement = htmlElement;
         };
         
+        notificado = false;
         var texto = editimage.fabricaTextoObjeto.criar(observer);       
         
-        expect(texto.definirLargura).toBeDefined();        
+        expect(texto.definirLarguraText).toBeDefined();        
         expect(false).toEqual(notificado);
         
-        texto.definirLargura(195);        
+        texto.definirLarguraText(195);        
         
         expect(195).toEqual(text.lineWidth);
         expect(195).toEqual(text.maxWidth);
-        expect(200).toEqual(htmlElement.style.maxWidth);
-        expect(200).toEqual(htmlElement.style.width);
+        
+        notificado = false;
+        expect(texto.definirLarguraDOMElement).toBeDefined();  
+        
+        texto.definirLarguraDOMElement(200);   
+        
+        expect('200px').toEqual(htmlElement.style.maxWidth);
+        expect('200px').toEqual(htmlElement.style.width);
         expect(true).toEqual(notificado);
         
     });
@@ -151,8 +157,8 @@ describe('TextoObjeto - ', function(){
         
         texto.definirAltura(200);
         
-        expect(200).toEqual(htmlElement.style.height);
-        expect(200).toEqual(htmlElement.style.maxHeight);
+        expect('200px').toEqual(htmlElement.style.height);
+        expect('200px').toEqual(htmlElement.style.maxHeight);
         expect(true).toEqual(notificado);
         
     });
@@ -240,7 +246,7 @@ describe('TextoObjeto - ', function(){
         
         expect(true).toEqual(notificado);
         expect(54).toEqual(text.x);
-        expect(60).toEqual(domElement.x);
+        expect(54).toEqual(domElement.x);
         
         notificado = false;
         
@@ -248,11 +254,11 @@ describe('TextoObjeto - ', function(){
         
         expect(true).toEqual(notificado);
         expect(64).toEqual(text.y);
-        expect(70).toEqual(domElement.y);
+        expect(64).toEqual(domElement.y);
         
     });
     
-    it('Ao alterar o valor de visivel deve disparar o observer', function(){
+    it('Ao alterar o valor de visivel, caso seja para "false", deve alterar o valor de edicao e disparar o observer', function(){
         
         var texto = editimage.fabricaTextoObjeto.criar(observer);
         
@@ -262,6 +268,18 @@ describe('TextoObjeto - ', function(){
         
         expect(true).toEqual(notificado);
         expect(true).toEqual(texto.visivel);
+        
+        notificado = false;
+        
+        texto.edicao = true;
+        
+        expect(true).toEqual(texto.edicao);
+        
+        texto.visivel = false;
+        
+        expect(false).toEqual(texto.visivel);
+        expect(false).toEqual(texto.edicao);
+        
     });
     
     it('Ao alterar o valor de edicao deve disparar o observer', function(){
@@ -312,6 +330,19 @@ describe('TextoObjeto - ', function(){
 
 		expect(true).toEqual(notificado);
         expect('teste').toEqual(texto.texto);
+        
+    });
+    
+    it('Deve retornar create.Text', function(){
+        
+        var texto = editimage.fabricaTextoObjeto.criar(observer);
+        
+        var objetos = texto.retornarCreateObjeto();
+        
+        expect(2).toEqual(objetos.length);
+        
+        expect(true).toEqual(objetos[0] instanceof createjs.Text);
+        expect(true).toEqual(objetos[1] instanceof createjs.DOMElement);
         
     });
     

@@ -87,7 +87,7 @@ describe('Linha - ', function(){
         
 		var linha = editimage.fabricaLinha.criar(observer, shape, redimensionadores);
 
-		expect(linha.retornarShape).toBeDefined();
+		expect(linha.retornarCreateObjeto).toBeDefined();
         expect('pointer').toEqual(linha.cursor);
 		expect(true).toEqual(editimage.Linha.prototype instanceof editimage.EditimageObjeto);
         expect(1).toEqual(shape.evenstosRemovidos.length);
@@ -157,7 +157,7 @@ describe('Linha - ', function(){
 
 		var linha = editimage.fabricaLinha.criar(observer, shape, redimensionadores);
 
-		var shapeLinha = linha.retornarShape();
+		var shapeLinha = linha.retornarCreateObjeto();
 
 		shapeLinha.dispararEvento('click');
         
