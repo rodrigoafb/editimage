@@ -86,7 +86,7 @@ describe('Retangulo - ', function() {
 	it('Deve criar um objeto Retangulo', function(){
             
 
-		var retangulo = editimage.fabricaRetangulo.criar(observer, new createjs.Shape(), redimensionadores);
+		var retangulo = editimage.fabricaRetangulo.criar(observer, new createjs.Shape(), redimensionadores, textoObjeto);
 
         expect(retangulo.largura).toBeDefined();
         expect(retangulo.altura).toBeDefined();
@@ -98,7 +98,7 @@ describe('Retangulo - ', function() {
     
     it('Deve disparar o observer caso as propriedades altura e largura forem alteradas', function(){
         
-        var retangulo = editimage.fabricaRetangulo.criar(observer, new createjs.Shape(), redimensionadores);
+        var retangulo = editimage.fabricaRetangulo.criar(observer, new createjs.Shape(), redimensionadores, textoObjeto);
         
         retangulo.altura = 10;
         
@@ -124,7 +124,7 @@ describe('Retangulo - ', function() {
 			rect.h = h;
 		};
 
-		var retangulo = editimage.fabricaRetangulo.criar(observer, shape, redimensionadores);
+		var retangulo = editimage.fabricaRetangulo.criar(observer, shape, redimensionadores, textoObjeto);
 
 		retangulo.desenhar();
 
@@ -140,19 +140,19 @@ describe('Retangulo - ', function() {
         var shape = new createjs.Shape();
 		var evento = {};
 
-		shape.addEventListener = function(pEvento, callback){
+		shape.on = function(pEvento, callback){
             evento[pEvento] = callback;
         };
 
 		shape.dispararEvento = function(pEvento){
-            evento[pEvento]();
+            evento[pEvento]({stageX: 0, stageY: 0});
         };
 
-		var retangulo = editimage.fabricaRetangulo.criar(observer, shape, redimensionadores);
+		var retangulo = editimage.fabricaRetangulo.criar(observer, shape, redimensionadores, textoObjeto);
 
 		var shapeRetangulo = retangulo.retornarCreateObjeto();
 
-		shapeRetangulo.dispararEvento('click');
+		shapeRetangulo.dispararEvento('mousedown');
         
         expect(true).toEqual(redimensionadores[0].visivel);
         expect(true).toEqual(redimensionadores[1].visivel);
@@ -192,7 +192,7 @@ describe('Retangulo - ', function() {
             shape.graphics.command.h = h;
 		};
         
-        var retangulo = editimage.fabricaRetangulo.criar(observer, shape, redimensionadores);
+        var retangulo = editimage.fabricaRetangulo.criar(observer, shape, redimensionadores, textoObjeto);
         
         
         expect(47).toEqual(redimensionadores[0].coordenadaX);
@@ -247,7 +247,7 @@ describe('Retangulo - ', function() {
             evento['pressmove']({stageX: 70, stageY: 70 });
         };
         
-        var retangulo = editimage.fabricaRetangulo.criar(observer, shape, redimensionadores);
+        var retangulo = editimage.fabricaRetangulo.criar(observer, shape, redimensionadores, textoObjeto);
         
         expect(47).toEqual(redimensionadores[0].coordenadaX);
         expect(47).toEqual(redimensionadores[0].coordenadaY);
@@ -317,7 +317,7 @@ describe('Retangulo - ', function() {
             shape.graphics.command.h = h;
 		};
         
-        var retangulo = editimage.fabricaRetangulo.criar(observer, shape, redimensionadores);
+        var retangulo = editimage.fabricaRetangulo.criar(observer, shape, redimensionadores, textoObjeto);
                       
         expect(100).toEqual(retangulo.largura);
         expect(100).toEqual(retangulo.altura);
@@ -402,7 +402,7 @@ describe('Retangulo - ', function() {
         
         var shape = new createjs.Shape();
         
-        var retangulo = editimage.fabricaRetangulo.criar(observer, shape, redimensionadores);
+        var retangulo = editimage.fabricaRetangulo.criar(observer, shape, redimensionadores, textoObjeto);
         
         expect('nw-resize').toEqual(redimensionadores[0].cursor);
         expect('n-resize').toEqual(redimensionadores[1].cursor);
@@ -417,7 +417,7 @@ describe('Retangulo - ', function() {
     
     it('Deve retornar os redimensionadores', function(){
         
-        var retangulo = editimage.fabricaRetangulo.criar(observer, new createjs.Shape(), redimensionadores);
+        var retangulo = editimage.fabricaRetangulo.criar(observer, new createjs.Shape(), redimensionadores, textoObjeto);
         
         var redimensionadoresRetornados = retangulo.retornarRedimensionadores();
         
@@ -426,7 +426,7 @@ describe('Retangulo - ', function() {
     
     it('Deve posicionar o TextoObjeto', function(){
                 
-        var retangulo = editimage.fabricaRetangulo.criar(observer, new createjs.Shape(), redimensionadores);
+        var retangulo = editimage.fabricaRetangulo.criar(observer, new createjs.Shape(), redimensionadores, textoObjeto);
         
         retangulo.coordenadaX = 20;
         retangulo.coordenadaY = 40;
@@ -452,7 +452,7 @@ describe('Retangulo - ', function() {
                 
         };
         
-        var retangulo = editimage.fabricaRetangulo.criar(observer, new createjs.Shape(), redimensionadores);
+        var retangulo = editimage.fabricaRetangulo.criar(observer, new createjs.Shape(), redimensionadores, textoObjeto);
         
         retangulo.largura = 20;
         retangulo.altura = 40;
@@ -466,7 +466,7 @@ describe('Retangulo - ', function() {
     
     it('Quando redimensionar o retângulo deve redimensionar e reposicionar o TextoObjeto', function(){
         
-        var retangulo = editimage.fabricaRetangulo.criar(observer, new createjs.Shape(), redimensionadores);
+        var retangulo = editimage.fabricaRetangulo.criar(observer, new createjs.Shape(), redimensionadores, textoObjeto);
         
         textoObjeto.coordenadaX = 0;
         textoObjeto.altura = 0;
@@ -490,7 +490,7 @@ describe('Retangulo - ', function() {
     
     it('Quando o retângulo for movido, deve reposicionar o TextObjeto', function(){
         
-        var retangulo = editimage.fabricaRetangulo.criar(observer, new createjs.Shape(), redimensionadores);
+        var retangulo = editimage.fabricaRetangulo.criar(observer, new createjs.Shape(), redimensionadores, textoObjeto);
         
         textoObjeto.coordenadaX = 0;
         textoObjeto.coordenadaY = 0;
@@ -507,7 +507,7 @@ describe('Retangulo - ', function() {
     
     it('Deve retornar o TextoObjeto', function(){
         
-        var retangulo = editimage.fabricaRetangulo.criar(observer, new createjs.Shape(), redimensionadores);
+        var retangulo = editimage.fabricaRetangulo.criar(observer, new createjs.Shape(), redimensionadores, textoObjeto);
         
         expect(true).toEqual(retangulo.retornarTextoObjeto() === textoObjeto);
         
@@ -515,7 +515,7 @@ describe('Retangulo - ', function() {
     
     it('Quando criar no botão Texto no painel de ferramentas, deve mostrar a caixa o TextoObjeto', function(){
         
-        var retangulo = editimage.fabricaRetangulo.criar(observer, new createjs.Shape(), redimensionadores);
+        var retangulo = editimage.fabricaRetangulo.criar(observer, new createjs.Shape(), redimensionadores, textoObjeto);
         
         var ferramentas = retangulo.retornarFerramentas();
         
@@ -562,7 +562,7 @@ describe('Retangulo - ', function() {
 
 				};
 
-		var retangulo = editimage.fabricaRetangulo.criar(observer, shape, redimensionadores);
+		var retangulo = editimage.fabricaRetangulo.criar(observer, shape, redimensionadores, textoObjeto);
 
 		var shape = retangulo.retornarCreateObjeto();
         

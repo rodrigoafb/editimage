@@ -36,6 +36,12 @@ describe('Contexto - ', function () {
         
     it('Quando for pressionado a tecla delete, deve remover o objeto selecionado', function(){
         
+        var div = document.createElement('div');
+        div.setAttribute('id', 'divTeste')
+        var textArea = document.createElement('textarea');
+        div.appendChild(textArea);
+        document.body.appendChild(div);
+        
         var eventos = { }
         , focus = false
         , retornoRemove = false
@@ -43,18 +49,38 @@ describe('Contexto - ', function () {
         , redimensionadorShape = false
         , quantidadeObjetos
         , redimensionadores
+        , text = { }
+        , domElement = { 
+            htmlElement: textArea
+        }
+        , textoObjeto = {
+                    retornarCreateObjeto: function(){
+                        
+                        return [text, domElement];
+                    }
+                }
         , objetoRetornado = {
              retornarCreateObjeto: function(){},
-             selecionado: false,
+             selecionado: true,
              retornarRedimensionadores: function(){
                  return redimensionadores;
+             },
+            retornarTextoObjeto: function(){
+                return textoObjeto;
+            }
+        }
+        , objetoRetornado2 = {retornarCreateObjeto: function(){},
+             selecionado: false,
+             retornarRedimensionadores: function(){
+                return redimensionadores;
              }
         };
         
-        redimensionadores = [{retornarCreateObjeto: function(){ return redimensionadorShape = true; }}
-                             ,{retornarCreateObjeto: function(){ return redimensionadorShape = true;}}
-                             ,{retornarCreateObjeto: function(){ return redimensionadorShape = true;}}
-                             ,{retornarCreateObjeto: function(){ return redimensionadorShape = true;}}]
+        redimensionadores = [{retornarCreateObjeto: function(){ return redimensionadorShape = true;}}
+                            ,{retornarCreateObjeto: function(){ return redimensionadorShape = true;}}
+                            ,{retornarCreateObjeto: function(){ return redimensionadorShape = true;}}
+                            ,{retornarCreateObjeto: function(){ return redimensionadorShape = true;}}];
+        
         painelFerramentas.visivel = true;
         
         stage.canvas = {};
@@ -75,13 +101,8 @@ describe('Contexto - ', function () {
         
         var contexto = editimage.fabricaContexto.criar(stage, painelFerramentas);
         contexto.adicionarObjeto(objetoRetornado);
-        contexto.adicionarObjeto(
-            {retornarCreateObjeto: function(){},
-             selecionado: true,
-             retornarRedimensionadores: function(){
-                return redimensionadores;
-             }
-        });
+        contexto.adicionarObjeto(objetoRetornado2);
+        contexto.adicionarObjeto(textoObjeto);
         
         for(var i = 0; i< redimensionadores.length; i++){
             contexto.adicionarObjeto(redimensionadores[i]);
@@ -90,6 +111,10 @@ describe('Contexto - ', function () {
         eventos['click']({target:{ focus: function(){
             return focus = true;
         }}});
+        
+        objetoRetornado2.selecionado = true;
+        
+        expect('<textarea></textarea>').toEqual(document.getElementById('divTeste').innerHTML);
         
         eventos['keydown']({keyCode: 46});
         
@@ -101,7 +126,8 @@ describe('Contexto - ', function () {
         expect(true).toEqual(retornoRemove);
         expect(true).toEqual(redimensionadorShape);
         expect(1).toEqual(quantidadeObjetos.length);
-        expect(true).toEqual(quantidadeObjetos[0] === objetoRetornado);
+        expect(true).toEqual(quantidadeObjetos[0] === objetoRetornado2);
+        expect('').toEqual(document.getElementById('divTeste').innerHTML);
 
     });
     
@@ -268,5 +294,41 @@ describe('Contexto - ', function () {
         expect(true).toEqual(update);
         
     });
+    
+    it('Deve retornar o stage', function(){
+        
+        var contexto = editimage.fabricaContexto.criar(stage, painelFerramentas);
+        
+        expect(stage).toEqual(contexto.retornarStage());
+        
+    });
+    
+//    it('Quando houver um click no stage deve deselecionar os objetos selecionados', function(){
+//        
+//        var evento = {};
+//
+//		stage.canvas.addEventListener = function(pEvento, callback){
+//
+//            evento[pEvento] = callback;
+//
+//        };
+//
+//		stage.canvas.dispararEvento = function(pEvento){
+//
+//            evento[pEvento]({ target: { focus: function(){}}});
+//
+//        };
+//        
+//        var contexto = editimage.fabricaContexto.criar(stage, painelFerramentas)
+//        contexto.adicionarObjeto({ selecionado: true, retornarCreateObjeto: function(){}});
+//        contexto.adicionarObjeto({ selecionado: true, retornarCreateObjeto: function(){}});
+//        
+//        stage.canvas.dispararEvento('click');
+//        
+//        expect(false).toEqual(contexto.retornarObjetos()[0].selecionado);
+//        expect(false).toEqual(contexto.retornarObjetos()[1].selecionado);
+//        
+//        
+//    });
     
 });

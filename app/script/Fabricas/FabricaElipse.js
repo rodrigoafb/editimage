@@ -1,9 +1,8 @@
 'use strict';
 
 editimage.fabricaElipse = {
-	criar: function(observer, shape, redimensionadores){
+	criar: function(observer, shape, redimensionadores, textoObjeto){
         
-        var textoObjeto = editimage.fabricaTextoObjeto.criar(observer);
 		return new editimage.Elipse(observer, shape, redimensionadores, textoObjeto);
 
 	},

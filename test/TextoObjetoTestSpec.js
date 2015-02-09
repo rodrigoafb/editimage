@@ -3,10 +3,13 @@
 describe('TextoObjeto - ', function(){
     
     var observer = {}
-        ,notificado = false;
+        ,notificado = false
+        ,_domElement;
 
 	beforeEach(function(){
-
+        
+        _domElement = editimage.fabricaDOMElement.criar({ appendChild: function(){} });
+        
 		observer.notificar = function(){
             notificado = true;
         };
@@ -44,7 +47,9 @@ describe('TextoObjeto - ', function(){
     
     it('Deve criar um TextoObjeto', function(){
         
-        var texto = editimage.fabricaTextoObjeto.criar(observer); 
+        
+        
+        var texto = editimage.fabricaTextoObjeto.criar(observer, _domElement); 
         
         expect(texto).toBeDefined();
         expect(texto.coordenadaX).toBeDefined();
@@ -107,8 +112,10 @@ describe('TextoObjeto - ', function(){
             self.htmlElement = htmlElement;
         };
         
+        _domElement = editimage.fabricaDOMElement.criar({ appendChild: function(){} });
+        
         notificado = false;
-        var texto = editimage.fabricaTextoObjeto.criar(observer);       
+        var texto = editimage.fabricaTextoObjeto.criar(observer, _domElement);       
         
         expect(texto.definirLarguraText).toBeDefined();        
         expect(false).toEqual(notificado);
@@ -150,7 +157,9 @@ describe('TextoObjeto - ', function(){
             self.htmlElement = htmlElement;
         };
         
-        var texto = editimage.fabricaTextoObjeto.criar(observer);       
+        _domElement = editimage.fabricaDOMElement.criar({ appendChild: function(){} });
+        
+        var texto = editimage.fabricaTextoObjeto.criar(observer, _domElement);       
         
         expect(texto.definirAltura).toBeDefined();        
         expect(false).toEqual(notificado);
@@ -238,7 +247,9 @@ describe('TextoObjeto - ', function(){
             
         };
         
-        var texto = editimage.fabricaTextoObjeto.criar(observer);
+        _domElement = editimage.fabricaDOMElement.criar({ appendChild: function(){} });
+        
+        var texto = editimage.fabricaTextoObjeto.criar(observer, _domElement);
         
         notificado = false;
         
@@ -260,7 +271,7 @@ describe('TextoObjeto - ', function(){
     
     it('Ao alterar o valor de visivel, caso seja para "false", deve alterar o valor de edicao e disparar o observer', function(){
         
-        var texto = editimage.fabricaTextoObjeto.criar(observer);
+        var texto = editimage.fabricaTextoObjeto.criar(observer, _domElement);
         
         notificado = false;
         
@@ -284,7 +295,7 @@ describe('TextoObjeto - ', function(){
     
     it('Ao alterar o valor de edicao deve disparar o observer', function(){
         
-        var texto = editimage.fabricaTextoObjeto.criar(observer);
+        var texto = editimage.fabricaTextoObjeto.criar(observer, _domElement);
         
         notificado = false;
         
@@ -296,7 +307,7 @@ describe('TextoObjeto - ', function(){
     
     it('Ao alterar o valor do texto deve disparar o observer', function(){
         
-        var texto = editimage.fabricaTextoObjeto.criar(observer);
+        var texto = editimage.fabricaTextoObjeto.criar(observer, _domElement);
         
         notificado = false;
         
@@ -320,7 +331,9 @@ describe('TextoObjeto - ', function(){
             
         };
         
-        var texto = editimage.fabricaTextoObjeto.criar(observer);
+        _domElement = editimage.fabricaDOMElement.criar({ appendChild: function(){} });
+        
+        var texto = editimage.fabricaTextoObjeto.criar(observer, _domElement);
         
         expect('').toEqual(texto.texto);        
         
@@ -335,7 +348,7 @@ describe('TextoObjeto - ', function(){
     
     it('Deve retornar create.Text', function(){
         
-        var texto = editimage.fabricaTextoObjeto.criar(observer);
+        var texto = editimage.fabricaTextoObjeto.criar(observer, _domElement);
         
         var objetos = texto.retornarCreateObjeto();
         

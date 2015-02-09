@@ -147,19 +147,19 @@ describe('Linha - ', function(){
         var shape = new createjs.Shape();
 		var evento = {};
 
-		shape.addEventListener = function(pEvento, callback){
+		shape.on = function(pEvento, callback){
             evento[pEvento] = callback;
         };
 
 		shape.dispararEvento = function(pEvento){
-            evento[pEvento]();
+            evento[pEvento]({stageX: 0, stageY: 0});
         };
 
 		var linha = editimage.fabricaLinha.criar(observer, shape, redimensionadores);
 
 		var shapeLinha = linha.retornarCreateObjeto();
 
-		shapeLinha.dispararEvento('click');
+		shapeLinha.dispararEvento('mousedown');
         
         expect(true).toEqual(redimensionadores[0].visivel);
         expect(true).toEqual(redimensionadores[1].visivel);        

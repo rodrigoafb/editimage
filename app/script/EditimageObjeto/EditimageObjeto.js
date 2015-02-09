@@ -97,12 +97,6 @@ editimage.EditimageObjeto = function(observer, shape){
 
 	});
 
-	shape.addEventListener('click', function(e){
-
-		self.selecionado = true;
-
-	});
-
     shape.on('mousedown', function(evt){
         
         self.shape.offset.x = self.coordenadaX - evt.stageX;
@@ -144,7 +138,9 @@ editimage.EditimageObjeto = function(observer, shape){
 	};
 
 	var restaurarMemento = function(estado){
-
+        
+        if(!estado) return;
+        
 		var estado = JSON.parse(estado);
 
 		self.bordaCor = estado.bordaCor;

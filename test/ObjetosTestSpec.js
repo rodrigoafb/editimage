@@ -54,7 +54,7 @@ describe('Objetos - ', function () {
 		var shape = new createjs.Shape();
 		var evento = {};
 
-		shape.addEventListener = function(pEvento, callback){
+		shape.on = function(pEvento, callback){
 
 					evento[pEvento] = callback;
 
@@ -62,7 +62,7 @@ describe('Objetos - ', function () {
 
 		shape.dispararEvento = function(pEvento){
 
-					evento[pEvento]();
+					evento[pEvento]({stageX: 0, stageY: 0});
 
 				};
 
@@ -70,7 +70,7 @@ describe('Objetos - ', function () {
 
 		var shape = objeto.retornarCreateObjeto();
 
-		shape.dispararEvento('click');
+		shape.dispararEvento('mousedown');
 
 		expect(true).toEqual(objeto.selecionado);
 

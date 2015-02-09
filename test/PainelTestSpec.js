@@ -9,6 +9,16 @@ describe('Painel - ', function () {
 
 	beforeEach(function () {
         
+        contexto.retornarStage = function(){
+            return {
+                canvas: { 
+                    parentNode: { 
+                        appendChild: function(){}
+                    }
+                }
+            }
+        };
+        
         editimage.fabricaTextoObjeto = {
             criar: function(){
             

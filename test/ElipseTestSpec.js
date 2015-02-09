@@ -57,13 +57,13 @@ describe('Elipse - ', function(){
     
     it('Deve lançar uma exceção ao criar uma elipse caso não tenham 4 redimensionadores', function(){
         
-        expect(function(){editimage.fabricaElipse.criar(observer, new createjs.Shape(), [{}])}).toThrow(new Error('Informe 4 redimensionadores'));
+        expect(function(){editimage.fabricaElipse.criar(observer, new createjs.Shape(), [{}], textoObjeto)}).toThrow(new Error('Informe 4 redimensionadores'));
         
     });
     
     it('Deve retornar os redimensionadores', function(){
         
-        var elipse = editimage.fabricaElipse.criar(observer, new createjs.Shape(), redimensionadores);
+        var elipse = editimage.fabricaElipse.criar(observer, new createjs.Shape(), redimensionadores, textoObjeto);
         
         var redimensionadoresRetornados = elipse.retornarRedimensionadores();
         
@@ -81,7 +81,7 @@ describe('Elipse - ', function(){
             shape.graphics.command.h = h;
 		};
 
-		var elipse = editimage.fabricaElipse.criar(observer, new createjs.Shape(), redimensionadores);
+		var elipse = editimage.fabricaElipse.criar(observer, new createjs.Shape(), redimensionadores, textoObjeto);
 
 		expect(elipse.retornarCreateObjeto).toBeDefined();
 		expect(elipse.largura).toBeDefined();
@@ -94,7 +94,7 @@ describe('Elipse - ', function(){
     
     it('Quando os valores das propriedade largura e altura alterar, deve disparar o observer', function(){
         
-        var elipse = editimage.fabricaElipse.criar(observer, new createjs.Shape(), redimensionadores);
+        var elipse = editimage.fabricaElipse.criar(observer, new createjs.Shape(), redimensionadores, textoObjeto);
         
         observer.notificado = false;
         elipse.largura = 78;
@@ -119,7 +119,7 @@ describe('Elipse - ', function(){
 
 		};
 
-		var elipse  = editimage.fabricaElipse.criar(observer, shape, redimensionadores);
+		var elipse  = editimage.fabricaElipse.criar(observer, shape, redimensionadores, textoObjeto);
 
 
 		elipse.desenhar();
@@ -135,19 +135,19 @@ describe('Elipse - ', function(){
         var shape = new createjs.Shape();
 		var evento = {};
 
-		shape.addEventListener = function(pEvento, callback){
+		shape.on = function(pEvento, callback){
             evento[pEvento] = callback;
         };
 
 		shape.dispararEvento = function(pEvento){
-            evento[pEvento]();
+            evento[pEvento]({stageX: 0, stageY: 0});
         };
 
-		var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores);
+		var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores, textoObjeto);
 
 		var shapeElipse = elipse.retornarCreateObjeto();
 
-		shapeElipse.dispararEvento('click');
+		shapeElipse.dispararEvento('mousedown');
         
         expect(true).toEqual(redimensionadores[0].visivel);
         expect(true).toEqual(redimensionadores[1].visivel);
@@ -178,7 +178,7 @@ describe('Elipse - ', function(){
             shape.graphics.command.h = h;
 		};
         
-        var objeto = editimage.fabricaElipse.criar(observer, shape, redimensionadores);
+        var objeto = editimage.fabricaElipse.criar(observer, shape, redimensionadores, textoObjeto);
         
         var redimensionador1 = redimensionadores[0];
         var redimensionador2 = redimensionadores[1];
@@ -225,7 +225,7 @@ describe('Elipse - ', function(){
             evento['pressmove']({stageX: 70, stageY: 70 });
         };
         
-        var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores);
+        var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores, textoObjeto);
         
         var redimensionador1 = redimensionadores[0];
         var redimensionador2 = redimensionadores[1];
@@ -276,7 +276,7 @@ describe('Elipse - ', function(){
             shape.graphics.command.h = h;
 		};
         
-        var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores);
+        var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores, textoObjeto);
         
         var redimensionador1 = redimensionadores[0];
         var redimensionador2 = redimensionadores[1];
@@ -325,7 +325,7 @@ describe('Elipse - ', function(){
         
         var shape = new createjs.Shape();
         
-        var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores);
+        var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores, textoObjeto);
         
         expect('n-resize').toEqual(redimensionadores[0].cursor);
         expect('e-resize').toEqual(redimensionadores[1].cursor);
@@ -342,7 +342,7 @@ describe('Elipse - ', function(){
        
         var shape = new createjs.Shape();
         
-        var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores);    
+        var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores, textoObjeto);    
         
         elipse.desenhar();
         
@@ -358,7 +358,7 @@ describe('Elipse - ', function(){
     
     it('Quando redimensionar a elipse deve redimensionar o TextoObjeto', function(){
         var shape = new createjs.Shape();
-        var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores);
+        var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores, textoObjeto);
         
         textoObjeto.largura = 0;
         textoObjeto.altura = 0;
@@ -378,7 +378,7 @@ describe('Elipse - ', function(){
     
     it('Quando o elipse for movido, deve reposicionar o TextObjeto', function(){
         var shape = new createjs.Shape();
-        var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores);
+        var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores, textoObjeto);
         
         textoObjeto.coordenadaX = 0;
         textoObjeto.coordenadaY = 0;
@@ -397,7 +397,7 @@ describe('Elipse - ', function(){
     
     it('Quando criar no botão Texto no painel de ferramentas, deve mostrar a caixa o TextoObjeto', function(){
         
-        var elipse = editimage.fabricaElipse.criar(observer, new createjs.Shape(), redimensionadores);
+        var elipse = editimage.fabricaElipse.criar(observer, new createjs.Shape(), redimensionadores, textoObjeto);
         
         var ferramentas = elipse.retornarFerramentas();
         
@@ -444,7 +444,7 @@ describe('Elipse - ', function(){
 
 				};
 
-		var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores);
+		var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores, textoObjeto);
 
 		var shape = elipse.retornarCreateObjeto();
         

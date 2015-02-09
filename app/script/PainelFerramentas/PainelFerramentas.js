@@ -8,6 +8,9 @@ editimage.PainelFerramentas = function(){
        ,_ferramentas
        ,_visivel = true;
     
+    self.id = document.body.querySelectorAll('.painel-ferramentas').length + 1;
+    
+    
     Object.defineProperties(self, {
         'visivel': {
             get: function(){
@@ -68,7 +71,6 @@ editimage.PainelFerramentas = function(){
         
         var div = document.createElement('div');
         div.classList.add('painel-ferramentas');
-        
         return div;
         
     };

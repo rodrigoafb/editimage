@@ -4,7 +4,7 @@ editimage.PainelControle = function (contexto) {
 	if (!contexto) throw new Error("Informe o contexto.");
 
 	var _contexto = contexto;
-
+    
 	var self = this;
 
 	self.selecionarImagem = function(arquivoImagem){
@@ -44,7 +44,13 @@ editimage.PainelControle = function (contexto) {
 
         var shape = new createjs.Shape();  
         
-        var retangulo = editimage.fabricaRetangulo.criar(observer, shape, redimensionadores);
+        var domElement = editimage.fabricaDOMElement.criar(contexto.retornarStage().canvas.parentNode);
+        
+        var textoObjeto = editimage.fabricaTextoObjeto.criar(observer, domElement);
+        
+        var retangulo = editimage.fabricaRetangulo.criar(observer, shape, redimensionadores, textoObjeto);
+        
+        retangulo.id = _contexto.idPainel;
         
 		_contexto.adicionarObjeto(retangulo);
         
@@ -69,7 +75,11 @@ editimage.PainelControle = function (contexto) {
         
         var shape = new createjs.Shape();
         
-        var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores);
+        var domElement = editimage.fabricaDOMElement.criar(contexto.retornarStage().canvas.parentNode);
+        
+        var textoObjeto = editimage.fabricaTextoObjeto.criar(observer, domElement);
+        
+        var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores, textoObjeto);
         
 		_contexto.adicionarObjeto(elipse);
         

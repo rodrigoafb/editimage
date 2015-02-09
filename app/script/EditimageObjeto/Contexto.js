@@ -14,6 +14,7 @@ editimage.Contexto = function(observer, stage, painelFerramentas){
     _stage.canvas.addEventListener("click", function(e){
         
         e.target.focus(); 
+        //removerSelecaoTodosObjetos();
         
     }, false);
     
@@ -47,6 +48,7 @@ editimage.Contexto = function(observer, stage, painelFerramentas){
     self.adicionarObjeto = function(objeto){
         
         var objetoCreate = objeto.retornarCreateObjeto();
+        
         
         if(Array.isArray(objetoCreate)){
             
@@ -135,6 +137,20 @@ editimage.Contexto = function(observer, stage, painelFerramentas){
         
     };
     
+    var removerSelecaoTodosObjetos = function(){
+        
+        var objetosSelecionados = objetos.filter(function (objetoFilter) {
+            return objetoFilter.selecionado === true;
+        }); 
+        
+        if(objetosSelecionados) objetosSelecionados.forEach(function(objeto){
+            
+            objeto.selecionado = false;
+            
+        });
+        
+    };
+    
     var removerObjetos = function(){
         
         var objetosSelecionados = objetos.filter(function (objetoFilter) {
@@ -142,10 +158,22 @@ editimage.Contexto = function(observer, stage, painelFerramentas){
         }); 
         
         redimensionadores = objetosSelecionados[0].retornarRedimensionadores();
-
-        for (var i = 0; i < redimensionadores.length; i++){
+        
+        var countRedimensionadores = redimensionadores.length;
+        
+        for (var i = 0; i < countRedimensionadores; i++){
             objetos.splice(objetos.indexOf(redimensionadores[i]), i);
         };
+        
+        var textoObjeto = objetosSelecionados[0].retornarTextoObjeto();
+        var text = textoObjeto.retornarCreateObjeto()[0];
+        var domElement = textoObjeto.retornarCreateObjeto()[1];
+        
+        _stage.removeChild(text);
+        domElement.htmlElement.parentNode.removeChild(domElement.htmlElement);
+        _stage.removeChild(domElement);
+        
+        objetos.splice(objetos.indexOf(textoObjeto),1);
         
         objetos.splice(objetos.indexOf(objetosSelecionados[0]),1);
         _stage.removeChild(objetosSelecionados[0].retornarCreateObjeto());
@@ -158,6 +186,12 @@ editimage.Contexto = function(observer, stage, painelFerramentas){
         
         _stage.update();
     }
+    
+    self.retornarStage = function(){
+        
+        return _stage;
+        
+    };
 };
 
 
