@@ -168,6 +168,21 @@ editimage.TextoObjeto = function(text, domElement, observer){
         
         return [_text, _domElement];
         
-    };     
+    };
+    
+    self.retornarPropriedades = function(){
+    
+        return{
+            entidade: 'TextoObjeto',
+            estado: {                
+                coordenadaX: self.coordenadaX,
+                coordenadaY: self.coordenadaY,
+                visivel: self.visivel,
+                edicao: self.edicao,
+                texto: self.texto
+            }        
+        };    
+    };
+    
     
 };

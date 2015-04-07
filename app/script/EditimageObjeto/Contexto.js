@@ -192,6 +192,20 @@ editimage.Contexto = function(observer, stage, painelFerramentas){
         return _stage;
         
     };
+    
+    self.gerarProjetoJson = function(){
+    
+        var retornoJson = [];
+        var quantidadeObjetos = objetos.length;
+        
+        for(var i = 0; i < quantidadeObjetos; i++)
+        {
+            if(objetos[i].retornarPropriedades && typeof objetos[i].retornarPropriedades === 'function') retornoJson.push(objetos[i].retornarPropriedades());
+        }
+        
+        return JSON.stringify(retornoJson);   
+    
+    };
 };
 
 

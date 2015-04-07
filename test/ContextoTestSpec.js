@@ -4,7 +4,33 @@ describe('Contexto - ', function () {
     var stage = {}
     , mouseOver = false
     , notificar = false
-    , painelFerramentas = {};
+    , painelFerramentas = {}
+    , observer
+    , textoObjeto;
+    
+    beforeEach(function(){
+        
+        textoObjeto = {
+                    definirLarguraText: function(medida){
+                        textoObjeto.largura = medida;
+                    },
+                    definirLarguraDOMElement: function(largura){
+                        textoObjeto.larguraDOMElement = largura;
+                    },
+                    definirAltura: function(medida){
+                        textoObjeto.altura = medida;
+                    }
+                };
+        
+		observer = {
+			notificar: function(){
+
+				observer.notificado = true;
+
+			}
+		};
+               
+	});
     
     stage.enableMouseOver = function(){
         mouseOver = true;
@@ -303,32 +329,84 @@ describe('Contexto - ', function () {
         
     });
     
-//    it('Quando houver um click no stage deve deselecionar os objetos selecionados', function(){
-//        
-//        var evento = {};
-//
-//		stage.canvas.addEventListener = function(pEvento, callback){
-//
-//            evento[pEvento] = callback;
-//
-//        };
-//
-//		stage.canvas.dispararEvento = function(pEvento){
-//
-//            evento[pEvento]({ target: { focus: function(){}}});
-//
-//        };
-//        
-//        var contexto = editimage.fabricaContexto.criar(stage, painelFerramentas)
-//        contexto.adicionarObjeto({ selecionado: true, retornarCreateObjeto: function(){}});
-//        contexto.adicionarObjeto({ selecionado: true, retornarCreateObjeto: function(){}});
-//        
-//        stage.canvas.dispararEvento('click');
-//        
-//        expect(false).toEqual(contexto.retornarObjetos()[0].selecionado);
-//        expect(false).toEqual(contexto.retornarObjetos()[1].selecionado);
-//        
-//        
-//    });
+    //it('Quando houver um click no stage deve deselecionar os objetos selecionados', function(){
+    //    
+    //    var evento = {};
+    //
+	//	stage.canvas.addEventListener = function(pEvento, callback){
+    //
+    //        evento[pEvento] = callback;
+    //
+    //    };
+    //
+	//	stage.canvas.dispararEvento = function(pEvento){
+    //
+    //        evento[pEvento]({ target: { focus: function(){}}});
+    //
+    //    };
+    //    
+    //    var contexto = editimage.fabricaContexto.criar(stage, painelFerramentas)
+    //    contexto.adicionarObjeto({ selecionado: true, retornarCreateObjeto: function(){}});
+    //    contexto.adicionarObjeto({ selecionado: true, retornarCreateObjeto: function(){}});
+    //    
+    //    stage.canvas.dispararEvento('click');
+    //    
+    //    expect(false).toEqual(contexto.retornarObjetos()[0].selecionado);
+    //    expect(false).toEqual(contexto.retornarObjetos()[1].selecionado);
+    //    
+    //    
+    //});
+    
+    it('Deve Gerar Projeto Json', function(){
+        
+        var context = editimage.fabricaContexto.criar(stage, painelFerramentas);        
+        
+        var contextoJsonRetorno = context.gerarProjetoJson();
+        
+        expect(contextoJsonRetorno).toEqual('[]');
+        
+        context.adicionarObjeto({retornarCreateObjeto: function(){return [{}];}})
+        
+        contextoJsonRetorno = context.gerarProjetoJson();
+        
+        expect(contextoJsonRetorno).toEqual('[]');
+                
+        var redimensionadoresRetangulo = [{largura: 6},{largura: 6},{largura: 6},{largura: 6},{largura: 6},{largura: 6},{largura: 6},{largura: 6}];
+        
+        var retangulo = editimage.fabricaRetangulo.criar(observer, new createjs.Shape(), redimensionadoresRetangulo, textoObjeto);
+        
+        retangulo.selecionado = true;
+        retangulo.bordaCor = '#fff';
+        retangulo.bordaLargura = 100;
+        retangulo.coordenadaX = 10;
+        retangulo.coordenadaY = 55;
+        retangulo.altura = 10;
+        retangulo.largura = 10;
+        retangulo.retornarCreateObjeto = function(){return [{}];};
+        
+        context.adicionarObjeto(retangulo);
+                
+        var retanguloRetornoExpect = {
+            entidade: 'Retangulo',
+            estado: {
+                selecionado: true,
+                bordaCor: '#fff',
+                bordaLargura: 100,
+                coordenadaX: 10,
+                coordenadaY: 55,
+                altura: 10,
+                largura: 10   
+            }
+            
+        };
+                
+        contextoJsonRetorno = context.gerarProjetoJson();
+        
+        var expectJson = JSON.stringify([retanguloRetornoExpect]);
+        
+        expect(contextoJsonRetorno).toEqual(expectJson);        
+        
+        
+    });
     
 });

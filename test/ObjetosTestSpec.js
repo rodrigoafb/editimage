@@ -230,5 +230,7 @@ describe('Objetos - ', function () {
         expect(expectativa.join('')).toEqual(divPainel.innerHTML);
         
     });
-
+    
+        
+    
 });

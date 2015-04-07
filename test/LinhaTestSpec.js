@@ -299,4 +299,47 @@ describe('Linha - ', function(){
         
     });
     
+    it('Deve retornar um objeto com as propriedades publicas da Linha', function(){
+        
+        var shape = new createjs.Shape();
+        var linha = new editimage.fabricaLinha.criar(observer, shape, redimensionadores);
+        
+        linha.selecionado = true;
+        linha.bordaCor = '#fff';
+        linha.bordaLargura = 100;
+        linha.coordenadaX = 10;
+        linha.coordenadaY = 55;  
+        
+        linha.desenhar();
+        
+        var propriedadesLinha = linha.retornarPropriedades();
+        
+        var linhaRetornoExpect = {
+            entidade: 'Linha',
+            estado: {
+                selecionado: true,
+                bordaCor: '#fff',
+                bordaLargura: 100,
+                coordenadaX: 10,
+                coordenadaY: 55,
+                moveTo: {
+                    x: 50,
+                    y: 50
+                },
+                lineTo: {
+                    x:150,
+                    y:150                
+                }        
+            }        
+        };
+       
+        
+        var propriedadesLinhaJson = JSON.stringify(propriedadesLinha);
+        
+        var linhaRetornoExpectJson = JSON.stringify(linhaRetornoExpect);
+        
+        expect(propriedadesLinhaJson).toEqual(linhaRetornoExpectJson);
+               
+    });
+    
 });

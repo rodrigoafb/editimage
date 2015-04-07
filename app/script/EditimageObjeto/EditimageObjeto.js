@@ -230,5 +230,6 @@ editimage.EditimageObjeto = function(observer, shape){
 		return spanIcone;
 
 	};
+    
 
 };

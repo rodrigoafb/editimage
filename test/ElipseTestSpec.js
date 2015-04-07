@@ -456,4 +456,49 @@ describe('Elipse - ', function(){
         
     });
     
+    it('Deve retornar um objeto com as propriedades publicas do Elipse', function() {
+    
+        var shape = new createjs.Shape();
+
+		var elipse = editimage.fabricaElipse.criar(observer, shape, redimensionadores, textoObjeto);
+        
+        elipse.selecionado = true;
+        elipse.bordaCor = '#fff';
+        elipse.bordaLargura = 100;
+        elipse.coordenadaX = 10;
+        elipse.coordenadaY = 55;
+        
+        elipse.altura = 10;
+        elipse.largura = 10;
+        
+        var propriedadesElipse = elipse.retornarPropriedades();
+        
+        expect(propriedadesElipse).toBeDefined();
+        
+        
+        var elipseRetornoExpect = {
+            entidade: 'Elipse',
+            estado: {
+                selecionado: true,
+                bordaCor: '#fff',
+                bordaLargura: 100,
+                coordenadaX: 10,
+                coordenadaY: 55,
+                altura: 10,
+                largura: 10   
+            }
+            
+        };
+        
+        var elipseJson = JSON.stringify(elipse);
+        
+        var propriedadesElipseJson = JSON.stringify(propriedadesElipse);
+        
+        var elipseRetornoExpectJson = JSON.stringify(elipseRetornoExpect);
+        
+        expect(propriedadesElipseJson).not.toEqual(elipseJson);
+        expect(propriedadesElipseJson).toEqual(elipseRetornoExpectJson);
+    
+    });
+    
 });

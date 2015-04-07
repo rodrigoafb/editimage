@@ -287,6 +287,25 @@ editimage.Retangulo = function(observer, shape, redimensionadores, textoObjeto){
         self.redimensionarTextoObjeto();
         
     };
+
+    self.retornarPropriedades = function(){
+    
+        return{
+            entidade: 'Retangulo',
+            estado:{
+                selecionado: self.selecionado,
+                bordaCor: self.bordaCor,
+                bordaLargura: self.bordaLargura,
+                coordenadaX: self.coordenadaX,
+                coordenadaY: self.coordenadaY,
+                altura: self.altura,
+                largura: self.largura
+            }
+        
+        };    
+        
+    };
+    
     
     init();
 

@@ -573,5 +573,50 @@ describe('Retangulo - ', function() {
 		expect(true).toEqual(textoObjeto.edicao);
         
     });
+    
+    it('Deve retornar um objeto com as propriedades publicas do Retangulo', function(){
+        
+        var shape = new createjs.Shape();
+        var retangulo = editimage.fabricaRetangulo.criar(observer, shape, redimensionadores, textoObjeto);
+        
+        retangulo.selecionado = true;
+        retangulo.bordaCor = '#fff';
+        retangulo.bordaLargura = 100;
+        retangulo.coordenadaX = 10;
+        retangulo.coordenadaY = 55;
+        
+        retangulo.altura = 10;
+        retangulo.largura = 10;
+        
+        var propriedadesRetangulo = retangulo.retornarPropriedades();
+        
+        expect(propriedadesRetangulo).toBeDefined();
+        
+        
+        var retanguloRetornoExpect = {
+            entidade: 'Retangulo',
+            estado: {
+                selecionado: true,
+                bordaCor: '#fff',
+                bordaLargura: 100,
+                coordenadaX: 10,
+                coordenadaY: 55,
+                altura: 10,
+                largura: 10   
+            }
+            
+        };
+        
+        var retanguloJson = JSON.stringify(retangulo);
+        
+        var propriedadesRetanguloJson = JSON.stringify(propriedadesRetangulo);
+        
+        var retanguloRetornoExpectJson = JSON.stringify(retanguloRetornoExpect);
+        
+        expect(propriedadesRetanguloJson).not.toEqual(retanguloJson);
+        expect(propriedadesRetanguloJson).toEqual(retanguloRetornoExpectJson);
+        
+        
+    });
 
 });

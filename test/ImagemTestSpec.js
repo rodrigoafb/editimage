@@ -135,6 +135,40 @@ describe('Imagem - ', function(){
         expect(0).toEqual(objeto.y);
         
     });
+    
+    it('Deve retornar um objeto com as propriedades publicas da Imagem', function(){
+        
+        var shape = new createjs.Shape();
+        var imagem = editimage.fabricaImagem.criar(observer, shape, "imagem.jpg");
+        
+        imagem.selecionado = true;
+        imagem.bordaCor = '#fff';
+        imagem.bordaLargura = 100;
+        imagem.coordenadaX = 10;
+        imagem.coordenadaY = 55;
+        
+        var propriedadesImagem = imagem.retornarPropriedades();
+        
+        var imagemRetornoExpect = {
+            entidade: 'Imagem',
+            estado: {
+                selecionado: true,
+                bordaCor: '#fff',
+                bordaLargura: 100,
+                coordenadaX: 10,
+                coordenadaY: 55,
+                dataUrl: 'imagem.jpg'
+            }
+        };
+        
+        var propriedadesImagemJson = JSON.stringify(propriedadesImagem);
+        
+        var imagemRetornoExpectJson = JSON.stringify(imagemRetornoExpect);
+        
+        expect(propriedadesImagemJson).toEqual(imagemRetornoExpectJson);    
+    
+    });
+    
 
 });
 

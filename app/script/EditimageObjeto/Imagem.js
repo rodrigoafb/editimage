@@ -50,6 +50,23 @@ editimage.Imagem = function(observer, shape, dataUrl){
         
     };
     
+    self.retornarPropriedades = function(){
+    
+        return{
+            entidade: 'Imagem',
+            estado: {
+                selecionado: self.selecionado,
+                bordaCor: self.bordaCor,
+                bordaLargura: self.bordaLargura,
+                coordenadaX: self.coordenadaX,
+                coordenadaY: self.coordenadaY,
+                dataUrl: dataUrl
+            }
+        };
+    
+    };
+    
+    
     init();
     
     

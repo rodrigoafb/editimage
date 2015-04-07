@@ -134,6 +134,22 @@ editimage.Linha = function(observer, shape, redimensionadores){
         
     };
     
+    self.retornarPropriedades = function(){
+    
+        return{
+            entidade: 'Linha',
+            estado: {
+                selecionado: self.selecionado,
+                bordaCor: self.bordaCor,
+                bordaLargura: self.bordaLargura,
+                coordenadaX: self.coordenadaX,
+                coordenadaY: self.coordenadaY,
+                moveTo: moveTo,
+                lineTo: lineTo
+            }          
+        };
+    };
+    
     
     init();
     

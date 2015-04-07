@@ -219,7 +219,28 @@ editimage.Elipse = function(observer, shape, redimensionadores, textoObjeto){
         
     };
     
+    self.retornarPropriedades = function(){
+        
+        return{
+            entidade: 'Elipse',
+            estado:{
+                selecionado: self.selecionado,
+                bordaCor: self.bordaCor,
+                bordaLargura: self.bordaLargura,
+                coordenadaX: self.coordenadaX,
+                coordenadaY: self.coordenadaY,
+                altura: self.altura,
+                largura: self.largura
+            }
+        
+        };    
+    
+    };
+    
     init();
+    
+    
 };
 
 editimage.Elipse.prototype = Object.create(editimage.EditimageObjeto.prototype);
+

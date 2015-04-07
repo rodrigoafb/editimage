@@ -359,4 +359,42 @@ describe('TextoObjeto - ', function(){
         
     });
     
+    it('Deve retornar um objeto com as propriedades publicas do TextoObjeto', function(){
+        
+        var texto = new createjs.Shape();
+        var texto = editimage.fabricaTextoObjeto.criar(observer, _domElement);
+        
+        texto.coordenadaX = 10;
+        texto.coordenadaY = 55;
+        texto.visivel = true;
+        texto.edicao = true;
+        texto.texto = 'abc';
+            
+        var propriedadesTexto = texto.retornarPropriedades();
+        
+        expect(propriedadesTexto).toBeDefined();
+        
+        var textoRetornoExpect = {
+            entidade: 'TextoObjeto',
+            estado: {                
+                coordenadaX: 10,
+                coordenadaY: 55,
+                visivel: true,
+                edicao: true,
+                texto: 'abc'
+            }
+            
+        };
+        
+        var textoJson = JSON.stringify(texto);
+        
+        var propriedadesTextoJson = JSON.stringify(propriedadesTexto);
+        
+        var textoRetornoExpectJson = JSON.stringify(textoRetornoExpect);
+        
+        expect(propriedadesTextoJson).not.toEqual(textoJson);
+        expect(propriedadesTextoJson).toEqual(textoRetornoExpectJson);
+            
+    });
+    
 });
